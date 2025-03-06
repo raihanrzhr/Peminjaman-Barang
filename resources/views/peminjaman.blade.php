@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah">tambah peminjaman</button>
+            <button class="btn-tambah">Tambah Peminjaman</button>
         </div>
         <div class="div3">
             <div class="search">

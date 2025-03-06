@@ -3,27 +3,36 @@
 
     <div class="parent">
         <div class="div1">
-            <table class="min-w-full border-collapse border border-gray-300">
-                <thead>
-                    <tr>
-                        <th class="border border-gray-300 px-4 py-2">ID</th>
-                        <th class="border border-gray-300 px-4 py-2">Nama Barang</th>
-                        <th class="border border-gray-300 px-4 py-2">Spesifikasi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($items as $item)
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <table class="min-w-full border border-gray-300">
+                    <thead class="bg-gray-50">
                         <tr>
-                            <td class="border border-gray-300 px-4 py-2">{{ $item['id'] }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $item['namaBarang'] }}</td>
-                            <td class="border border-gray-300 px-4 py-2">{{ $item['spesifikasi'] }}</td>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">ID</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Barang</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Spesifikasi</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Actions</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach ($items as $index => $item)
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $item['id'] }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $item['namaBarang'] }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $item['spesifikasi'] }}</td>
+                                <td class="px-6 py-4 text-sm">
+                                    <a href="{{--{{ route('items.edit', $item['id']) }} --}}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                    <a href="{{--{{ route('items.delete', $item['id']) }} --}}" class="text-red-500">Delete</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="div2">
-
+            <button class="btn-tambah" onclick="window.location='{{ route('items.create') }}'">Add Item</button>
         </div>
         <div class="div3">
 

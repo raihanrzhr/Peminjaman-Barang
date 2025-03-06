@@ -7,33 +7,33 @@
                 <table class="min-w-full">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">No</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">ID Barang</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Nama Barang</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">ID Peminjam</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Nama Peminjam</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Tanggal Pinjam</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Tanggal Kembali</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Status</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-900">Aksi</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">ID Barang</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Barang</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">ID Peminjam</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Peminjam</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Pinjam</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Kembali</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Status</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         <tr>
-                            <td class="px-6 py-4 text-sm text-gray-900">1</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">BRG001</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">Laptop</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">PMJ001</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">John Doe</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">2024-03-20</td>
-                            <td class="px-6 py-4 text-sm text-gray-900">2024-03-27</td>
-                            <td class="px-6 py-4 text-sm">
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">1</td>
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">BRG001</td>
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Laptop</td>
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">PMJ001</td>
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">John Doe</td>
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">2024-03-20</td>
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">2024-03-27</td>
+                            <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
                                 <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                                     Dipinjam
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-sm">
-                                <button class="text-blue-600 hover:text-blue-900">Edit</button>
+                                <button class="text-blue-600 hover:text-blue-900 border-b border-r border-gray-300">Edit</button>
                             </td>
                         </tr>
                     </tbody>

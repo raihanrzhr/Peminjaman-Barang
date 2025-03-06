@@ -26,4 +26,6 @@ Route::get('/peminjam', function () {
     return view('peminjam', ['title' => 'Tabel Peminjam']);
 });
 
-Route::get('/items/create', [ItemController::class, 'create'])->name('items.create');
+Route::get('/items/add_items', function () {
+    return view('add_items', ['title' => 'Tambah Barang']);
+})->name('add_items');

@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah" onclick="window.location='{{ route('items.create') }}'">Add Item</button>
+            <button class="btn-tambah" onclick="window.location='{{ route('add_items') }}'">Add Item</button>
         </div>
         <div class="div3">
 

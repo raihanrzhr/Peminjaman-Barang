@@ -10,7 +10,7 @@
                     <div class="ml-10 flex items-baseline space-x-4">
                         <a href="/" class="{{ request()->is('/') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Tabel Peminjaman</a>
                         <a href="/items" class="{{ request()->is('items') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Tabel Barang</a>
-                        <a href="/peminjam" class="{{ request()->is('peminjam') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Tabel Peminjam</a>
+                        <a href="/borrowers" class="{{ request()->is('borrowers') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Tabel Peminjam</a>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
             <a href="/" class="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Tabel Peminjaman</a>
             <a href="/items" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tabel Barang</a>
-            <a href="/peminjam" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tabel Peminjam</a>
+            <a href="/borrowers" class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Tabel Peminjam</a>
         </div>
     </div>
 </nav>

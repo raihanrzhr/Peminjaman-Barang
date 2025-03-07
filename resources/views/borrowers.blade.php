@@ -32,10 +32,10 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah" onclick="window.location='{{ route('add_items') }}'">Add Item</button>
+            <button class="btn-tambah-borrowers" onclick="window.location='{{ route('add_borrowers') }}'">Add Borrower</button>
         </div>
         <div class="div3">
-            <h1>Peminjaman</h1>
+            
         </div>
     </div>
 </x-layout>

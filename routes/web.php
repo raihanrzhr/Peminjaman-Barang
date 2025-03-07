@@ -22,8 +22,8 @@ Route::get('/items', function () {
     ]]);
 });
 
-Route::get('/peminjam', function () {
-    return view('peminjam', ['title' => 'Tabel Peminjam', 'names' => [
+Route::get('/borrowers', function () {
+    return view('borrowers', ['title' => 'Tabel Peminjam', 'names' => [
         [
             'id' => 'DO001',
             'nama' => 'John Doe',
@@ -32,7 +32,7 @@ Route::get('/peminjam', function () {
         [
             'id' => 'MA002',
             'nama' => 'Tom Cook',
-            'keterangan' => 'MahasiswaInformatika'
+            'keterangan' => 'Mahasiswa Informatika'
         ]
     ]]);
 });
@@ -40,3 +40,7 @@ Route::get('/peminjam', function () {
 Route::get('/items/add_items', function () {
     return view('add_items', ['title' => 'Tambah Barang']);
 })->name('add_items');
+
+Route::get('/borrowers/add_borrowers', function () {
+    return view('add_borrowers', ['title' => 'Tambah Peminjam']);
+})->name('add_borrowers');

@@ -39,11 +39,34 @@
     /* transition: 0.15s ease; */
     cursor: pointer;
     margin-left: 20px;
+    /* width: 130px; */
 }
 
 .btn-tambah:hover {
     background-color: hsl(210deg 100% 54%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-tambah-borrowers {
+  font: inherit;
+  background-color: hsl(210deg 100% 44%);
+  border: 0;
+  color: #fafafa;
+  border-radius: 0.5em;
+  font-size: 0.95rem;
+  padding: 0.25em 0.75em;
+  font-weight: 600;
+  /* text-shadow: 0 0.0625em 0 #c9c7c7; */
+  /* box-shadow:hsl(210deg 87% 36%) 0px 7px 0px 0px; */
+  /* transition: 0.15s ease; */
+  cursor: pointer;
+  margin-left: 20px;
+  width: 120px;
+}
+
+.btn-tambah-borrowers:hover {
+  background-color: hsl(210deg 100% 54%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
   
 

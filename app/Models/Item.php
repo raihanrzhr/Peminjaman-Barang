@@ -22,14 +22,9 @@ class Item
         ];  
     }
 
-    public static function find($slug): array
-    {
-        $item = Arr::first(static::all(), fn ($item) => $item['slug'] == $slug);
-
-        if (!$item) {
-            abort(404);
-        }
-
-        return $item;
-    }  
+//     public static function find($id): array
+//    {
+//        $item = Arr::first(static::all(), fn ($item) => $item['id'] == $id);
+//        return $item ?: []; // Kembalikan array kosong jika tidak ditemukan
+//    }
 }

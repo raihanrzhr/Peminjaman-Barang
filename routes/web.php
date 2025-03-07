@@ -23,7 +23,18 @@ Route::get('/items', function () {
 });
 
 Route::get('/peminjam', function () {
-    return view('peminjam', ['title' => 'Tabel Peminjam']);
+    return view('peminjam', ['title' => 'Tabel Peminjam', 'names' => [
+        [
+            'id' => 'DO001',
+            'nama' => 'John Doe',
+            'keterangan' => 'Dosen Informatika'
+        ],
+        [
+            'id' => 'MA002',
+            'nama' => 'Tom Cook',
+            'keterangan' => 'MahasiswaInformatika'
+        ]
+    ]]);
 });
 
 Route::get('/items/add_items', function () {

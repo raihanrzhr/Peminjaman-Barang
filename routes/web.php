@@ -1,10 +1,11 @@
 <?php
 
 use App\Models\Item;
+use App\Models\Borrow;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
-use Illuminate\Http\Request;
 
 
 
@@ -29,18 +30,7 @@ Route::get('/items', function () {
 // });
 
 Route::get('/borrowers', function () {
-    return view('borrowers', ['title' => 'Tabel Peminjam', 'names' => [
-        [
-            'id' => 'DO001',
-            'nama' => 'John Doe',
-            'keterangan' => 'Dosen Informatika'
-        ],
-        [
-            'id' => 'MA002',
-            'nama' => 'Tom Cook',
-            'keterangan' => 'Mahasiswa Informatika'
-        ]
-    ]]);
+    return view('borrowers', ['title' => 'Tabel Peminjam', 'names' => Borrow::all()]);
 });
 
 Route::get('/items/add_items', function () {

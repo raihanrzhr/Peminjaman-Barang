@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('counter_barang', function (Blueprint $table) {
-            $table->id();
+            $table->string('kategori', 10)->primary(); // Menambahkan kolom kategori sebagai primary key
+            $table->integer('jumlah')->default(0); // Menambahkan kolom jumlah dengan default 0
             $table->timestamps();
         });
     }

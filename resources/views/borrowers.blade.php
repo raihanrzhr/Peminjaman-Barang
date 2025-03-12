@@ -28,8 +28,12 @@
                                 <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->nama }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->keterangan }}</td>
                                 <td class="px-6 py-4 text-sm text-center">
-                                    <a href="{{--{{ route('items.edit', $item['id']) }} --}}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    <a href="{{--{{ route('items.delete', $item['id']) }} --}}" class="text-red-500">Delete</a>
+                                    <a href="{{ route('borrowers.edit', $name->id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                    <form action="{{ route('borrowers.destroy', $name->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

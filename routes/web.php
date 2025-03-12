@@ -10,35 +10,20 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\BorrowerController;
 
-
-
 Route::get('/', function () {
     return view('borrowings', ['title' => 'Tabel Peminjaman', 'borrowings' => Borrowing::all()]);
 });
 
 Route::get('/items', [ItemController::class, 'index'])->name('items.index');
-
 Route::post('/items', [ItemController::class, 'store'])->name('items.store');
-
 Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('items.edit');
-
 Route::put('/items/{id}', [ItemController::class, 'update'])->name('items.update');
-
 Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
 
-// Route::get('/items/{id}', function ($id) {
-//     \Log::info("Mencari item dengan ID: {$id}");
-//     $items = Item::find($id);
-    
-//     if (empty($items)) {
-//         \Log::info("Item dengan ID {$id} tidak ditemukan.");
-//         return redirect('/items')->with('error', 'Item tidak ditemukan.');
-//     }
-    
-//     return view('item', ['title' => 'Detail Barang', 'item' => $items]);
-// });
-
 Route::get('/borrowers', [BorrowerController::class, 'index'])->name('borrowers');
+Route::get('/borrowers/{id}/edit', [BorrowerController::class, 'edit'])->name('borrowers.edit');
+Route::put('/borrowers/{id}', [BorrowerController::class, 'update'])->name('borrowers.update');
+Route::delete('/borrowers/{id}', [BorrowerController::class, 'destroy'])->name('borrowers.destroy');
 
 Route::get('/items/add_items', function () {
     return view('add_items', ['title' => 'Tambah Barang']);
@@ -49,7 +34,5 @@ Route::get('/borrowers/add_borrowers', function () {
 })->name('add_borrowers');
 
 Route::get('/borrowings', [BorrowingController::class, 'index'])->name('borrowings.index');
-
 Route::post('/borrowings/update/{id}', [BorrowingController::class, 'updateStatus']);
-
 Route::post('/borrowers/store', [BorrowerController::class, 'store'])->name('borrowers.store');

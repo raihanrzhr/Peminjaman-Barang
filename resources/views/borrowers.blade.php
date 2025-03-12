@@ -2,6 +2,12 @@
     <x-slot:title>{{ $title }}</x-slot:title>
 
     <div class="parent">
+        @if (session('success'))
+            <script>
+                alert('{{ session('success') }}');
+            </script>
+        @endif
+        
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <table class="min-w-full border border-gray-300">

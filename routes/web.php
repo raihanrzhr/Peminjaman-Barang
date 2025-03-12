@@ -1,13 +1,14 @@
 <?php
 
 use App\Models\Item;
-use App\Models\Borrow;
+use App\Models\Borrower;
 use App\Models\Borrowing;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\BorrowingController;
+use App\Http\Controllers\BorrowerController;
 
 
 
@@ -31,9 +32,7 @@ Route::post('/items/store', [ItemController::class, 'store'])->name('items.store
 //     return view('item', ['title' => 'Detail Barang', 'item' => $items]);
 // });
 
-Route::get('/borrowers', function () {
-    return view('borrowers', ['title' => 'Tabel Peminjam', 'names' => Borrow::all()]);
-});
+Route::get('/borrowers', [BorrowerController::class, 'index'])->name('borrowers');
 
 Route::get('/items/add_items', function () {
     return view('add_items', ['title' => 'Tambah Barang']);
@@ -46,3 +45,5 @@ Route::get('/borrowers/add_borrowers', function () {
 Route::get('/borrowings', [BorrowingController::class, 'index'])->name('borrowings.index');
 
 Route::post('/borrowings/update/{id}', [BorrowingController::class, 'updateStatus']);
+
+Route::post('/borrowers/store', [BorrowerController::class, 'store'])->name('borrowers.store');

@@ -16,16 +16,20 @@ function updateStatus(id, status) {
     })
     .then(data => {
         if (data.success) {
-            // Update the table row directly
             const row = document.querySelector(`#row-${id}`);
-            const dateCell = row.querySelector('.tanggal-kembali'); // Pastikan Anda memiliki class ini di sel tanggal kembali
+            const dateCell = row.querySelector('.tanggal-kembali');
             if (status === 'Dikembalikan') {
-                const currentDate = new Date().toLocaleString(); // Ambil waktu saat ini
-                dateCell.textContent = currentDate; // Atur tanggal kembali ke waktu sekarang
-                row.querySelector('.status-dropdown').value = 'Dikembalikan'; // Set dropdown ke 'Dikembalikan'
+                const now = new Date();
+                const formattedDate = now.toLocaleDateString('id-ID', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                });
+                dateCell.textContent = formattedDate;
+                row.querySelector('.status-dropdown').value = 'Dikembalikan';
             } else {
-                dateCell.textContent = ''; // Kosongkan tanggal kembali jika status 'Dipinjam'
-                row.querySelector('.status-dropdown').value = 'Dipinjam'; // Set dropdown ke 'Dipinjam'
+                dateCell.textContent = '';
+                row.querySelector('.status-dropdown').value = 'Dipinjam';
             }
         } else {
             alert('Gagal memperbarui status.');

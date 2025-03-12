@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('borrowings', ['title' => 'Tabel Peminjaman', 'borrowings' => Borrowing::all()]);
 });
 
-Route::get('/items', function () {
-    return view('items', ['title' => 'Tabel Barang', 'items' => Item::all()]);
-});
+Route::get('/items', [ItemController::class, 'index'])->name('items.index');
+
+Route::post('/items/store', [ItemController::class, 'store'])->name('items.store');
 
 // Route::get('/items/{id}', function ($id) {
 //     \Log::info("Mencari item dengan ID: {$id}");
@@ -42,8 +42,6 @@ Route::get('/items/add_items', function () {
 Route::get('/borrowers/add_borrowers', function () {
     return view('add_borrowers', ['title' => 'Tambah Peminjam']);
 })->name('add_borrowers');
-
-Route::post('/items', [ItemController::class, 'store'])->name('items.store');
 
 Route::get('/borrowings', [BorrowingController::class, 'index'])->name('borrowings.index');
 

@@ -10,6 +10,9 @@ class Item extends Model
     protected $table = 'barang';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
+    public $timestamps = false;
+    protected $fillable = ['nama_barang', 'spesifikasi'];
+
     // public static function all()
     // {
     //     return [

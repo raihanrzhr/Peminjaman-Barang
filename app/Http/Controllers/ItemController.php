@@ -37,12 +37,12 @@ class ItemController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'namaBarang' => 'required|string|max:255',
+            'nama_barang' => 'required|string|max:255',
             'spesifikasi' => 'required|string',
         ]);
 
         $item = Item::findOrFail($id);
-        $item->nama_barang = $request->namaBarang;
+        $item->nama_barang = $request->nama_barang;
         $item->spesifikasi = $request->spesifikasi;
         $item->save();
 

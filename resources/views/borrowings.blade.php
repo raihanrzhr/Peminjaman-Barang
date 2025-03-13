@@ -2,6 +2,12 @@
     <x-slot:title>{{ $title }}</x-slot:title>
     
     <div class="parent">
+        @if (session('success'))
+            <script>
+                alert('{{ session('success') }}');
+            </script>
+        @endif
+
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <table class="min-w-full">
@@ -20,11 +26,11 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($borrowings as $index => $borrowing)
-                            {{-- @dd($borrowing->tanggal_kembali); --}}
+                            {{-- @dd($borrowing) --}}
                             <tr id="row-{{ $borrowing->id }}">
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->id_barang }}</td>
-                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->nama_barang }}</td> 
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->nama_barang }}</td>
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->id_peminjam }}</td>
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->nama_peminjam }}</td>
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->tanggal_pinjam }}</td>
@@ -38,8 +44,12 @@
                                     </select>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-center">
-                                    <a href="{{--{{ route('items.edit', $item['id']) }} --}}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    <a href="{{--{{ route('items.delete', $item['id']) }} --}}" class="text-red-500">Delete</a>
+                                    <a href="{{ route('borrowings.edit', $borrowing->id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                    <form action="{{ route('borrowings.destroy', $borrowing->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach

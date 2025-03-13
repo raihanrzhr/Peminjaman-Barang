@@ -70,4 +70,45 @@ class BorrowingController extends Controller
 
         return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil ditambahkan!');
     }
+
+    public function destroy($id)
+    {
+        $borrowings = borrowing::findOrFail($id);
+        $borrowings->delete();
+
+        return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil dihapus!');
+    }
+
+    public function edit($id)
+    {
+        $borrowing = Borrowing::findOrFail($id);
+        $items = Item::where(function ($query) use ($borrowing) {
+            $query->whereDoesntHave('borrowings', function ($query) {
+                $query->whereNull('tanggal_kembali');
+            })->orWhere('id', $borrowing->id_barang);
+        })->get();
+        $borrowers = Borrower::all(); // Mendapatkan semua peminjam
+        $title = 'Edit Peminjaman';
+        return view('edit_borrowing', compact('borrowing', 'items', 'borrowers', 'title'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_barang' => 'required|exists:barang,id',
+            'id_peminjam' => 'required|exists:peminjam,id',
+            'tanggal_pinjam' => 'required|date',
+            'tanggal_kembali' => 'nullable|date|after_or_equal:tanggal_pinjam',
+        ]);
+
+        $borrowing = Borrowing::findOrFail($id);
+        $borrowing->update([
+            'id_barang' => $request->id_barang,
+            'id_peminjam' => $request->id_peminjam,
+            'tanggal_pinjam' => $request->tanggal_pinjam,
+            'tanggal_kembali' => $request->tanggal_kembali,
+        ]);
+
+        return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil diperbarui!');
+    }
 }

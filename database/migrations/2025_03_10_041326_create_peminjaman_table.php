@@ -19,6 +19,9 @@ return new class extends Migration
             $table->date('tanggal_pinjam')->default(DB::raw('curdate()'));
             $table->date('tanggal_kembali')->nullable();
             $table->timestamps();
+
+            $table->foreign('id_barang')->references('id')->on('barang')->onDelete('cascade');
+            $table->foreign('id_peminjam')->references('id')->on('peminjam')->onDelete('cascade');
         });
     }
 

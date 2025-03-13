@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Borrowing;
+use App\Models\Item;
+use App\Models\Borrower;
 use Illuminate\Http\Request;
 
 class BorrowingController extends Controller
@@ -10,7 +12,8 @@ class BorrowingController extends Controller
     public function index()
     {
         $borrowings = Borrowing::getBorrowings();
-        return view('borrowings', compact('borrowings'));
+        $title = 'Tabel Peminjaman';
+        return view('borrowings', compact('borrowings', 'title'));
     }
 
     public function updateStatus(Request $request, $id)
@@ -37,18 +40,34 @@ class BorrowingController extends Controller
         }
     }
 
+    public function create()
+    {
+        $items = Item::whereDoesntHave('borrowings', function ($query) {
+            $query->whereNull('tanggal_kembali');
+        })->get();
+
+        $borrowers = Borrower::all();
+        $title = 'Tambah Peminjaman';
+
+        return view('add_borrowings', compact('items', 'borrowers', 'title'));
+    }
+
     public function store(Request $request)
     {
-        // Cek apakah barang sudah dipinjam
-        $existingBorrowing = Borrowing::where('id_barang', $request->id_barang)
-            ->whereNull('tanggal_kembali')
-            ->first();
+        $request->validate([
+            'id_barang' => 'required|exists:barang,id',
+            'id_peminjam' => 'required|exists:peminjam,id',
+            'tanggal_pinjam' => 'required|date',
+            'tanggal_kembali' => 'nullable|date|after_or_equal:tanggal_pinjam',
+        ]);
 
-        if ($existingBorrowing) {
-            return response()->json(['success' => false, 'message' => 'Barang sudah dipinjam.'], 400);
-        }
+        Borrowing::create([
+            'id_barang' => $request->id_barang,
+            'id_peminjam' => $request->id_peminjam,
+            'tanggal_pinjam' => $request->tanggal_pinjam,
+            'tanggal_kembali' => $request->tanggal_kembali,
+        ]);
 
-        // Logika untuk menyimpan peminjaman baru
-        // ...
+        return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil ditambahkan!');
     }
 }

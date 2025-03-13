@@ -24,6 +24,12 @@ Route::get('/borrowers', [BorrowerController::class, 'index'])->name('borrowers'
 Route::get('/borrowers/{id}/edit', [BorrowerController::class, 'edit'])->name('borrowers.edit');
 Route::put('/borrowers/{id}', [BorrowerController::class, 'update'])->name('borrowers.update');
 Route::delete('/borrowers/{id}', [BorrowerController::class, 'destroy'])->name('borrowers.destroy');
+Route::post('/borrowers/store', [BorrowerController::class, 'store'])->name('borrowers.store');
+
+Route::get('/borrowings', [BorrowingController::class, 'index'])->name('borrowings.index');
+Route::post('/borrowings/update/{id}', [BorrowingController::class, 'updateStatus']);
+Route::post('/borrowings/store', [BorrowingController::class, 'store'])->name('borrowings.store');
+Route::get('/borrowings/create', [BorrowingController::class, 'create'])->name('borrowings.create');
 
 Route::get('/items/add_items', function () {
     return view('add_items', ['title' => 'Tambah Barang']);
@@ -33,6 +39,4 @@ Route::get('/borrowers/add_borrowers', function () {
     return view('add_borrowers', ['title' => 'Tambah Peminjam']);
 })->name('add_borrowers');
 
-Route::get('/borrowings', [BorrowingController::class, 'index'])->name('borrowings.index');
-Route::post('/borrowings/update/{id}', [BorrowingController::class, 'updateStatus']);
-Route::post('/borrowers/store', [BorrowerController::class, 'store'])->name('borrowers.store');
+Route::get('/borrowings/add_borrowings', [BorrowingController::class, 'create'])->name('add_borrowings');

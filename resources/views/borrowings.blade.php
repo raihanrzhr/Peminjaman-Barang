@@ -48,7 +48,7 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah">Tambah Peminjaman</button>
+            <button class="btn-tambah" onclick="window.location='{{ route('add_borrowings') }}'">Add Borrowing</button>
         </div>
         <div class="div3">
             <div class="search">

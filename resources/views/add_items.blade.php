@@ -18,6 +18,7 @@
         @if(session('success'))
             <script>
                 alert('{{ session('success') }}');
+                window.history.replaceState({}, document.title, window.location.pathname);
             </script>
         @endif
 

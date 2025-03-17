@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model
 {
-    protected $table = 'barang';
-    protected $primaryKey = 'id';
-    protected $keyType = 'string';
+    protected $table = 'items';
+    protected $primaryKey = 'item_id';
+    protected $keyType = 'int';
     public $timestamps = false;
-    protected $fillable = ['nama_barang', 'spesifikasi'];
+    protected $fillable = ['item_name', 'specifications', 'category', 'quantity', 'date_added'];
 
-    public function borrowings()
+    public function itemInstances()
     {
-        return $this->hasMany(Borrowing::class, 'id_barang', 'id');
+        return $this->hasMany(ItemInstance::class, 'item_id', 'item_id');
     }
 }

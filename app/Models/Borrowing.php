@@ -8,45 +8,59 @@ use Illuminate\Support\Facades\DB;
 
 class Borrowing extends Model
 {
-    protected $table = 'peminjaman';
-    protected $primaryKey = 'id';
-    protected $keyType = 'string';
-    public $timestamps = false; // Menonaktifkan timestamps
+    protected $table = 'borrowing';
+    protected $primaryKey = 'borrowing_id';
+    protected $keyType = 'int';
+    public $timestamps = false;
     protected $casts = [
-        'tanggal_kembali' => 'date:Y-m-d',
+        'return_date' => 'date:Y-m-d',
     ];
 
     protected $fillable = [
-        'id_barang',
-        'id_peminjam',
-        'tanggal_pinjam',
-        'tanggal_kembali',
+        'activity_id',
+        'borrower_id',
+        'admin_id',
+        'borrowing_date',
+        'return_date',
+        'return_status',
     ];
 
-    public function item()
+    public function itemInstances()
     {
-        return $this->belongsTo(Item::class, 'id_barang', 'id');
+        return $this->belongsToMany(ItemInstance::class, 'borrowing_details', 'borrowing_id', 'instance_id')
+                    ->withPivot('quantity', 'proof_file');
     }
 
     public function borrower()
     {
-        return $this->belongsTo(Borrower::class, 'id_peminjam', 'id');
+        return $this->belongsTo(Borrower::class, 'borrower_id', 'borrower_id');
+    }
+
+    public function admin()
+    {
+        return $this->belongsTo(Admin::class, 'admin_id', 'admin_id');
+    }
+
+    public function activity()
+    {
+        return $this->belongsTo(Activity::class, 'activity_id', 'activity_id');
     }
 
     public static function getBorrowings()
     {
-        $borrowings = DB::table('peminjaman as p')
-            ->join('barang as b', 'p.id_barang', '=', 'b.id')
-            ->join('peminjam as pj', 'p.id_peminjam', '=', 'pj.id')
-            ->select('p.id', 'p.id_barang', 'p.id_peminjam', 'p.tanggal_pinjam', 'p.tanggal_kembali',
+        $borrowings = DB::table('borrowing as b')
+            ->join('borrowers as br', 'b.borrower_id', '=', 'br.borrower_id')
+            ->join('admin as a', 'b.admin_id', '=', 'a.admin_id')
+            ->join('activities as act', 'b.activity_id', '=', 'act.activity_id')
+            ->select('b.borrowing_id', 'b.activity_id', 'b.borrower_id', 'b.admin_id', 'b.borrowing_date', 'b.return_date',
                 DB::raw("CASE 
-                            WHEN p.tanggal_kembali IS NULL THEN 'Dipinjam'
-                            ELSE 'Dikembalikan'
-                        END as status_peminjaman"),
-                'b.nama_barang', 'pj.nama as nama_peminjam')
-            ->orderBy('p.id', 'desc')
+                            WHEN b.return_date IS NULL THEN 'Not Returned'
+                            ELSE 'Returned'
+                        END as return_status"),
+                'br.name as borrower_name', 'a.admin_name', 'act.activity_name')
+            ->orderBy('b.borrowing_id', 'desc')
             ->get();
 
-        return $borrowings; // Mengembalikan data peminjaman yang sudah di-join
+        return $borrowings;
     }
 }

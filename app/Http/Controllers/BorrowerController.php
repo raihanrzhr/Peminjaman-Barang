@@ -16,16 +16,18 @@ class BorrowerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'keterangan' => 'required|string',
+            'name' => 'required|string|max:255',
+            'nip_nopeg_nim' => 'required|string|max:50|unique:borrowers',
+            'description' => 'required|string',
         ]);
 
         $borrower = new Borrower();
-        $borrower->nama = $request->nama;
-        $borrower->keterangan = $request->keterangan;
+        $borrower->name = $request->name;
+        $borrower->nip_nopeg_nim = $request->nip_nopeg_nim;
+        $borrower->description = $request->description;
         $borrower->save();
 
-        return redirect()->route('borrowers')->with('success', 'Peminjam berhasil ditambahkan!');
+        return redirect()->route('borrowers.index')->with('success', 'Peminjam berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -37,16 +39,18 @@ class BorrowerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
-            'keterangan' => 'required|string',
+            'name' => 'required|string|max:255',
+            'nip_nopeg_nim' => 'required|string|max:50|unique:borrowers,nip_nopeg_nim,' . $id . ',borrower_id',
+            'description' => 'required|string',
         ]);
 
         $borrower = Borrower::findOrFail($id);
-        $borrower->nama = $request->nama;
-        $borrower->keterangan = $request->keterangan;
+        $borrower->name = $request->name;
+        $borrower->nip_nopeg_nim = $request->nip_nopeg_nim;
+        $borrower->description = $request->description;
         $borrower->save();
 
-        return redirect()->route('borrowers')->with('success', 'Peminjam berhasil diupdate!');
+        return redirect()->route('borrowers.index')->with('success', 'Peminjam berhasil diupdate!');
     }
 
     public function destroy($id)
@@ -54,6 +58,6 @@ class BorrowerController extends Controller
         $borrower = Borrower::findOrFail($id);
         $borrower->delete();
 
-        return redirect()->route('borrowers')->with('success', 'Peminjam berhasil dihapus!');
+        return redirect()->route('borrowers.index')->with('success', 'Peminjam berhasil dihapus!');
     }
 }

@@ -2,26 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Admin;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
     {
         $admins = Admin::all();
-        return view('admins', ['title' => 'Tabel Admin', 'admins' => $admins]);
+        $title = 'Daftar Admin';
+        return view('admins', compact('admins', 'title'));
     }
-    
+
+    public function create()
+    {
+        $title = 'Tambah Admin';
+        return view('add_admin', compact('title'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'admin_name' => 'required|string|max:255',
         ]);
 
-        $admin = new Admin();
-        $admin->admin_name = $request->admin_name;
-        $admin->save();
+        Admin::create($request->all());
 
         return redirect()->route('admins.index')->with('success', 'Admin berhasil ditambahkan!');
     }
@@ -29,7 +34,8 @@ class AdminController extends Controller
     public function edit($id)
     {
         $admin = Admin::findOrFail($id);
-        return view('edit_admin', ['admin' => $admin]);
+        $title = 'Edit Admin';
+        return view('edit_admin', compact('admin', 'title'));
     }
 
     public function update(Request $request, $id)
@@ -39,10 +45,9 @@ class AdminController extends Controller
         ]);
 
         $admin = Admin::findOrFail($id);
-        $admin->admin_name = $request->admin_name;
-        $admin->save();
+        $admin->update($request->all());
 
-        return redirect()->route('admins.index')->with('success', 'Admin berhasil diupdate!');
+        return redirect()->route('admins.index')->with('success', 'Admin berhasil diperbarui!');
     }
 
     public function destroy($id)

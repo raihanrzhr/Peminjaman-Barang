@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Borrowing;
-use App\Models\BorrowingDetails;
+use App\Models\Admin;
 use App\Models\Activity;
-use App\Models\ItemInstance;
 use App\Models\Borrower;
+use App\Models\Borrowing;
+use App\Models\ItemInstance;
 use Illuminate\Http\Request;
+use App\Models\BorrowingDetails;
 
 class BorrowingController extends Controller
 {
@@ -47,12 +48,11 @@ class BorrowingController extends Controller
 
     public function create()
     {
-        $itemInstances = ItemInstance::where('status', 'Available')->get();
-        $borrowers = Borrower::all();
         $activities = Activity::all();
-        $title = 'Tambah Peminjaman';
+        $borrowers = Borrower::all();
+        $admins = Admin::all();
 
-        return view('add_borrowings', compact('itemInstances', 'borrowers', 'activities', 'title'));
+        return view('add_borrowings', compact('activities', 'borrowers', 'admins'));
     }
 
     public function store(Request $request)
@@ -91,12 +91,12 @@ class BorrowingController extends Controller
 
     public function edit($id)
     {
-        $borrowing = Borrowing::with('itemInstances')->findOrFail($id);
+        $borrowing = Borrowing::findOrFail($id);
         $activities = Activity::all();
         $borrowers = Borrower::all();
-        $itemInstances = ItemInstance::all();
-        $title = 'Edit Peminjaman';
-        return view('edit_borrowing', compact('borrowing', 'activities', 'borrowers', 'itemInstances', 'title'));
+        $admins = Admin::all();
+
+        return view('edit_borrowing', compact('borrowing', 'activities', 'borrowers', 'admins'));
     }
 
     public function update(Request $request, $id)

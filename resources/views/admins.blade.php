@@ -15,19 +15,17 @@
                         <tr>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Keterangan</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($names as $index => $name)
+                        @foreach ($admins as $index => $admin)
                             <tr>
                                 <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $index + 1 }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->name }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->description }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $admin->admin_name }}</td>
                                 <td class="px-6 py-4 text-sm text-center">
-                                    <a href="{{ route('borrowers.edit', $name->borrower_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    <form action="{{ route('borrowers.destroy', $name->borrower_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
+                                    <a href="{{ route('admins.edit', $admin->admin_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                    <form action="{{ route('admins.destroy', $admin->admin_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
@@ -40,7 +38,7 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah-borrowers" onclick="window.location='{{ route('add_borrowers') }}'">Add Borrower</button>
+            <button class="btn-tambah" onclick="window.location='{{ route('admins.create') }}'">Add Admin</button>
         </div>
         <div class="div3">
             

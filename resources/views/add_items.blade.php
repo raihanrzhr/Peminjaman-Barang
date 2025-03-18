@@ -26,18 +26,32 @@
             <form class="space-y-6" action="{{ route('items.store') }}" method="POST">
                 @csrf
                 <div>
-                    <label for="namaBarang" class="block text-sm/6 font-medium text-gray-900">Nama Barang</label>
+                    <label for="item_name" class="block text-sm/6 font-medium text-gray-900">Nama Barang</label>
                     <div class="mt-2">
-                        <input type="text" name="namaBarang" id="namaBarang" autocomplete="namaBarang" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <input type="text" name="item_name" id="item_name" autocomplete="item_name" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
 
                 <div>
                     <div class="flex items-center justify-between">
-                        <label for="spesifikasi" class="block text-sm/6 font-medium text-gray-900">Spesifikasi</label>
+                        <label for="specifications" class="block text-sm/6 font-medium text-gray-900">Spesifikasi</label>
                     </div>
                     <div class="mt-2">
-                        <textarea name="spesifikasi" id="spesifikasi" autocomplete="spesifikasi" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" rows="4"></textarea>
+                        <textarea name="specifications" id="specifications" autocomplete="specifications" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" rows="4"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="category" class="block text-sm/6 font-medium text-gray-900">Kategori</label>
+                    <div class="mt-2">
+                        <input type="text" name="category" id="category" autocomplete="category" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="quantity" class="block text-sm/6 font-medium text-gray-900">Jumlah</label>
+                    <div class="mt-2">
+                        <input type="number" name="quantity" id="quantity" autocomplete="quantity" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
 

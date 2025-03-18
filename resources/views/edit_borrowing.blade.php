@@ -7,7 +7,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <title>Tambah Peminjaman</title>
+    <title>Edit Peminjaman</title>
 </head>
 <body>
     <div class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">
@@ -23,51 +23,61 @@
         @endif
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="{{ route('borrowings.update',$borrowing->id) }}" method="POST">
+            <form class="space-y-6" action="{{ route('borrowings.update', $borrowing->borrowing_id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div>
-                    <label for="id_barang" class="block text-sm/6 font-medium text-gray-900">Pilih Barang</label>
+                    <label for="activity_id" class="block text-sm/6 font-medium text-gray-900">Pilih Aktivitas</label>
                     <div class="mt-2">
-                        <select name="id_barang" id="id_barang" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            <option value="{{ $borrowing->id_barang }}" selected>{{ $borrowing->item->nama_barang }} - {{ $borrowing->item->spesifikasi }}</option>
-                            @foreach($items as $item)
-                                @if($item->id != $borrowing->id_barang)
-                                    <option value="{{ $item->id }}">{{ $item->nama_barang }} - {{ $item->spesifikasi }}</option>
-                                @endif
+                        <select name="activity_id" id="activity_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <option value="{{ $borrowing->activity_id }}" selected>{{ $borrowing->activity->activity_name }}</option>
+                            @foreach($activities as $activity)
+                                <option value="{{ $activity->activity_id }}">{{ $activity->activity_name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
         
                 <div>
-                    <label for="id_peminjam" class="block text-sm/6 font-medium text-gray-900">Pilih Peminjam</label>
+                    <label for="borrower_id" class="block text-sm/6 font-medium text-gray-900">Pilih Peminjam</label>
                     <div class="mt-2">
-                        <select name="id_peminjam" id="id_peminjam" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            <option value="{{ $borrowing->id_peminjam }}" selected>{{ $borrowing->borrower->nama }}</option>
+                        <select name="borrower_id" id="borrower_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <option value="{{ $borrowing->borrower_id }}" selected>{{ $borrowing->borrower->name }}</option>
                             @foreach($borrowers as $borrower)
-                                <option value="{{ $borrower->id }}">{{ $borrower->nama }}</option>
+                                <option value="{{ $borrower->borrower_id }}">{{ $borrower->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
         
                 <div>
-                    <label for="tanggal_pinjam" class="block text-sm/6 font-medium text-gray-900">Tanggal Pinjam</label>
+                    <label for="admin_id" class="block text-sm/6 font-medium text-gray-900">Pilih Admin</label>
                     <div class="mt-2">
-                        <input type="date" name="tanggal_pinjam" id="tanggal_pinjam" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $borrowing->tanggal_pinjam }}">
+                        <select name="admin_id" id="admin_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <option value="{{ $borrowing->admin_id }}" selected>{{ $borrowing->admin->admin_name }}</option>
+                            @foreach($admins as $admin)
+                                <option value="{{ $admin->admin_id }}">{{ $admin->admin_name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
         
                 <div>
-                    <label for="tanggal_kembali" class="block text-sm/6 font-medium text-gray-900">Tanggal Kembali</label>
+                    <label for="borrowing_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Pinjam</label>
                     <div class="mt-2">
-                        <input type="date" name="tanggal_kembali" id="tanggal_kembali" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $borrowing->tanggal_kembali }}">
+                        <input type="date" name="borrowing_date" id="borrowing_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $borrowing->borrowing_date }}">
+                    </div>
+                </div>
+        
+                <div>
+                    <label for="planned_return_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Kembali</label>
+                    <div class="mt-2">
+                        <input type="date" name="planned_return_date" id="planned_return_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $borrowing->planned_return_date }}">
                     </div>
                 </div>
         
                 <div class="flex justify-end">
-                    <a href="{{ url('borrowers') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
+                    <a href="{{ url('borrowings') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
                     <button type="submit" class="flex w-auto justify-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
                 </div>
             </form>

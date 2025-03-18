@@ -14,38 +14,47 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">ID Barang</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Barang</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">ID Peminjam</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Peminjam</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kegiatan</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Peminjam</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Penanggung jawab</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Pinjam</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Rencana Pengembalian</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Kembali</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Status</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Detail</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($borrowings as $index => $borrowing)
-                            {{-- @dd($borrowing) --}}
-                            <tr id="row-{{ $borrowing->id }}">
+                            <tr id="row-{{ $borrowing->borrowing_id }}">
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
-                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->id_barang }}</td>
-                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->nama_barang }}</td>
-                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->id_peminjam }}</td>
-                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->nama_peminjam }}</td>
-                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->tanggal_pinjam }}</td>
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->borrower->name }}</td>
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->admin->admin_name }}</td>
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
+                                    {{ $borrowing->borrowing_date ? \Carbon\Carbon::parse($borrowing->borrowing_date)->format('d-m-Y') : '' }}</td>
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
+                                    {{ $borrowing->planned_return_date ? \Carbon\Carbon::parse($borrowing->planned_return_date)->format('d-m-Y') : '' }}</td>
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300 tanggal-kembali">
-                                    {{ $borrowing->tanggal_kembali ? \Carbon\Carbon::parse($borrowing->tanggal_kembali)->format('d-m-Y') : '' }}
+                                    {{ $borrowing->return_date ? \Carbon\Carbon::parse($borrowing->return_date)->format('d-m-Y') : '' }}
                                 </td>                                                                                              
                                 <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
-                                    <select onchange="updateStatus('{{ $borrowing->id }}', this.value)" class="status-dropdown">
-                                        <option value="Dipinjam" {{ $borrowing->tanggal_kembali === null ? 'selected' : '' }}>Dipinjam</option>
-                                        <option value="Dikembalikan" {{ $borrowing->tanggal_kembali !== null ? 'selected' : '' }}>Dikembalikan</option>
+                                    <select onchange="updateStatus('{{ $borrowing->borrowing_id }}', this.value)" class="status-dropdown">
+                                        <option value="Dipinjam" {{ $borrowing->return_date === null ? 'selected' : '' }}>Dipinjam</option>
+                                        <option value="Dikembalikan" {{ $borrowing->return_date !== null ? 'selected' : '' }}>Dikembalikan</option>
                                     </select>
                                 </td>
+                                <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
+                                    <ul>
+                                        @foreach($borrowing->itemInstances as $instance)
+                                        <li>{{ $instance->item->item_name }} - {{ $instance->quantity }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
                                 <td class="px-6 py-4 text-sm text-center">
-                                    <a href="{{ route('borrowings.edit', $borrowing->id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    <form action="{{ route('borrowings.destroy', $borrowing->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
+                                    <a href="{{ route('borrowings.edit', $borrowing->borrowing_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                    <form action="{{ route('borrowings.destroy', $borrowing->borrowing_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>

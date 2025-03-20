@@ -19,15 +19,13 @@ class ItemController extends Controller
     {
         $request->validate([
             'item_name' => 'required|string|max:255',
-            'specifications' => 'required|string',
             'category' => 'required|string',
             'quantity' => 'required|integer',
+            'specifications' => 'required|array',
         ]);
 
         // Check if the item already exists
         $item = Item::where('item_name', $request->item_name)
-                    ->where('specifications', $request->specifications)
-                    ->where('category', $request->category)
                     ->first();
 
         if ($item) {
@@ -38,16 +36,17 @@ class ItemController extends Controller
             // If item does not exist, create a new item
             $item = Item::create([
                 'item_name' => $request->item_name,
-                'specifications' => $request->specifications,
                 'category' => $request->category,
                 'quantity' => $request->quantity,
             ]);
         }
 
         // Add item instances
-        for ($i = 0; $i < $request->quantity; $i++) {
+        foreach ($request->specifications as $specification) {
             ItemInstance::create([
                 'item_id' => $item->item_id,
+                'specifications' => $specification,
+                'date_added' => now(),
                 'status' => 'Available',
                 'condition_status' => 'Good',
             ]);
@@ -67,7 +66,7 @@ class ItemController extends Controller
     {
         $request->validate([
             'item_name' => 'required|string|max:255',
-            'specifications' => 'required|string',
+            'specifications' => 'required|array',
             'category' => 'required|string',
             'quantity' => 'required|integer',
         ]);
@@ -75,10 +74,21 @@ class ItemController extends Controller
         $item = Item::findOrFail($id);
         $item->update([
             'item_name' => $request->item_name,
-            'specifications' => $request->specifications,
             'category' => $request->category,
             'quantity' => $request->quantity,
         ]);
+
+        // Update item instances
+        $item->itemInstances()->delete();
+        foreach ($request->specifications as $specification) {
+            ItemInstance::create([
+                'item_id' => $item->item_id,
+                'specifications' => $specification,
+                'date_added' => now(),
+                'status' => 'Available',
+                'condition_status' => 'Good',
+            ]);
+        }
 
         return redirect()->route('items.index')->with('success', 'Barang berhasil diupdate!');
     }

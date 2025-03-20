@@ -63,6 +63,17 @@
                 </div>
         
                 <div>
+                    <label for="item_instances" class="block text-sm/6 font-medium text-gray-900">Pilih Item</label>
+                    <div class="mt-2">
+                        <select name="item_instances[]" id="item_instances" multiple required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            @foreach($itemInstances as $instance)
+                                <option value="{{ $instance->instance_id }}" {{ in_array($instance->instance_id, $borrowing->itemInstances->pluck('instance_id')->toArray()) ? 'selected' : '' }}>{{ $instance->item_name }} - {{ $instance->specifications }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+        
+                <div>
                     <label for="borrowing_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Pinjam</label>
                     <div class="mt-2">
                         <input type="date" name="borrowing_date" id="borrowing_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $borrowing->borrowing_date }}">

@@ -13,6 +13,8 @@ class ItemInstance extends Model
 
     protected $fillable = [
         'item_id',
+        'specifications',
+        'date_added',
         'status',
         'condition_status',
     ];

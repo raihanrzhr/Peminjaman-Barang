@@ -62,7 +62,7 @@ class BorrowingController extends Controller
             'borrower_id' => 'required|exists:borrowers,borrower_id',
             'admin_id' => 'required|exists:admin,admin_id',
             'borrowing_date' => 'required|date',
-            'return_date' => 'nullable|date|after_or_equal:borrowing_date',
+            'planned_return_date' => 'required|date|after_or_equal:borrowing_date',
             'item_instances' => 'required|array',
             'item_instances.*.instance_id' => 'required|exists:item_instances,instance_id',
             'item_instances.*.quantity' => 'required|integer|min:1',
@@ -73,7 +73,7 @@ class BorrowingController extends Controller
             'borrower_id' => $request->borrower_id,
             'admin_id' => $request->admin_id,
             'borrowing_date' => $request->borrowing_date,
-            'return_date' => $request->return_date,
+            'planned_return_date' => $request->planned_return_date,
             'return_status' => 'Not Returned',
         ]);
 
@@ -106,7 +106,7 @@ class BorrowingController extends Controller
             'borrower_id' => 'required|exists:borrowers,borrower_id',
             'admin_id' => 'required|exists:admin,admin_id',
             'borrowing_date' => 'required|date',
-            'return_date' => 'nullable|date|after_or_equal:borrowing_date',
+            'planned_return_date' => 'required|date|after_or_equal:borrowing_date',
             'item_instances' => 'required|array',
             'item_instances.*.instance_id' => 'required|exists:item_instances,instance_id',
             'item_instances.*.quantity' => 'required|integer|min:1',
@@ -118,8 +118,8 @@ class BorrowingController extends Controller
             'borrower_id' => $request->borrower_id,
             'admin_id' => $request->admin_id,
             'borrowing_date' => $request->borrowing_date,
-            'return_date' => $request->return_date,
-            'return_status' => $request->return_date ? 'Returned' : 'Not Returned',
+            'planned_return_date' => $request->planned_return_date,
+            'return_status' => $request->planned_return_date ? 'Returned' : 'Not Returned',
         ]);
 
         BorrowingDetails::where('borrowing_id', $id)->delete();
@@ -132,7 +132,7 @@ class BorrowingController extends Controller
             ]);
         }
 
-        return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil diperbarui!');
+        return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil diupdate!');
     }
 
     public function destroy($id)

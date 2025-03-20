@@ -30,8 +30,7 @@ class Borrowing extends Model
 
     public function itemInstances()
     {
-        return $this->belongsToMany(ItemInstance::class, 'borrowing_details', 'borrowing_id', 'instance_id')
-                    ->withPivot('quantity', 'proof_file');
+        return $this->belongsToMany(ItemInstance::class, 'borrowing_details', 'borrowing_id', 'instance_id');
     }
 
     public function borrower()

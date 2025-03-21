@@ -22,37 +22,14 @@ class BorrowingController extends Controller
         return view('borrowings', compact('borrowings', 'activities', 'borrowers', 'itemInstances', 'title'));
     }
 
-    public function updateStatus(Request $request, $id)
-    {
-        \Log::info('Update status called', ['id' => $id, 'status' => $request->status]);
-
-        $borrowing = Borrowing::find($id);
-        if (!$borrowing) {
-            return response()->json(['success' => false, 'message' => 'Peminjaman tidak ditemukan'], 404);
-        }
-
-        if ($request->status === 'Dikembalikan') {
-            $borrowing->return_date = now(); // Atur tanggal kembali ke waktu sekarang
-        } else {
-            $borrowing->return_date = null; // Set tanggal kembali menjadi NULL
-        }
-
-        try {
-            $borrowing->save();
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            \Log::error('Error updating borrowing status', ['error' => $e->getMessage()]);
-            return response()->json(['success' => false, 'message' => 'Error updating status'], 500);
-        }
-    }
-
     public function create()
     {
         $activities = Activity::all();
         $borrowers = Borrower::all();
         $admins = Admin::all();
+        $itemInstances = ItemInstance::all();
 
-        return view('add_borrowings', compact('activities', 'borrowers', 'admins'));
+        return view('add_borrowings', compact('activities', 'borrowers', 'admins', 'itemInstances'));
     }
 
     public function store(Request $request)
@@ -95,8 +72,33 @@ class BorrowingController extends Controller
         $activities = Activity::all();
         $borrowers = Borrower::all();
         $admins = Admin::all();
+        $itemInstances = ItemInstance::all();
 
-        return view('edit_borrowing', compact('borrowing', 'activities', 'borrowers', 'admins'));
+        return view('edit_borrowing', compact('borrowing', 'activities', 'borrowers', 'admins', 'itemInstances'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        \Log::info('Update status called', ['id' => $id, 'status' => $request->status]);
+
+        $borrowing = Borrowing::find($id);
+        if (!$borrowing) {
+            return response()->json(['success' => false, 'message' => 'Peminjaman tidak ditemukan'], 404);
+        }
+
+        if ($request->status === 'Dikembalikan') {
+            $borrowing->return_date = now(); // Atur tanggal kembali ke waktu sekarang
+        } else {
+            $borrowing->return_date = null; // Set tanggal kembali menjadi NULL
+        }
+
+        try {
+            $borrowing->save();
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            \Log::error('Error updating borrowing status', ['error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'message' => 'Error updating status'], 500);
+        }
     }
 
     public function update(Request $request, $id)

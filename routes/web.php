@@ -10,6 +10,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ItemInstanceController;
 
 Route::get('/', [BorrowingController::class, 'index'])->name('borrowings.index');
 
@@ -18,6 +19,7 @@ Route::post('/items', [ItemController::class, 'store'])->name('items.store');
 Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('items.edit');
 Route::put('/items/{id}', [ItemController::class, 'update'])->name('items.update');
 Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
+Route::get('/items/{id}/detail', [ItemController::class, 'show'])->name('items.detail');
 
 Route::get('/borrowers', [BorrowerController::class, 'index'])->name('borrowers.index');
 Route::get('/borrowers/{id}/edit', [BorrowerController::class, 'edit'])->name('borrowers.edit');
@@ -49,3 +51,8 @@ Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.c
 Route::get('/admins/{id}/edit', [AdminController::class, 'edit'])->name('admins.edit');
 Route::put('/admins/{id}', [AdminController::class, 'update'])->name('admins.update');
 Route::delete('/admins/{id}', [AdminController::class, 'destroy'])->name('admins.destroy');
+
+Route::get('/item_instances/{id}/edit', [ItemInstanceController::class, 'edit'])->name('item_instances.edit');
+Route::put('/item_instances/{id}', [ItemInstanceController::class, 'update'])->name('item_instances.update');
+
+Route::get('item_instances/{id}/edit', [ItemInstanceController::class, 'edit'])->name('item_instances.edit');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\ItemInstance;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
@@ -20,7 +21,7 @@ class ItemController extends Controller
         $request->validate([
             'item_name' => 'required|string|max:255',
             'category' => 'required|string',
-            'quantity' => 'required|integer',
+            'quantity' => 'required|integer|min:1',
             'specifications' => 'required|array',
         ]);
 
@@ -42,14 +43,16 @@ class ItemController extends Controller
         }
 
         // Add item instances
-        foreach ($request->specifications as $specification) {
-            ItemInstance::create([
-                'item_id' => $item->item_id,
-                'specifications' => $specification,
-                'date_added' => now(),
-                'status' => 'Available',
-                'condition_status' => 'Good',
-            ]);
+        for ($i = 0; $i < $request->quantity; $i++) {
+            foreach ($request->specifications as $specification) {
+                ItemInstance::create([
+                    'item_id' => $item->item_id,
+                    'specifications' => $specification,
+                    'date_added' => now(),
+                    'status' => 'Available',
+                    'condition_status' => 'Good',
+                ]);
+            }
         }
 
         return redirect()->route('items.index')->with('success', 'Barang berhasil ditambahkan!');
@@ -57,9 +60,9 @@ class ItemController extends Controller
 
     public function edit($id)
     {
-        $item = Item::with('itemInstances')->findOrFail($id);
+        $itemInstance = ItemInstance::findOrFail($id);
         $title = 'Edit Barang';
-        return view('edit_item', compact('item', 'title'));
+        return view('edit_item', compact('itemInstance', 'title'));
     }
 
     public function update(Request $request, $id)
@@ -99,5 +102,12 @@ class ItemController extends Controller
         $item->delete();
 
         return redirect()->route('items.index')->with('success', 'Barang berhasil dihapus!');
+    }
+
+    public function show($id)
+    {
+        $itemDetails = DB::table('item_details')->where('item_id', $id)->get();
+        $title = 'Detail Barang';
+        return view('item_detail', compact('itemDetails', 'title'));
     }
 }

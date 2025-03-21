@@ -54,7 +54,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-sm text-center">
                                     <a href="{{ route('borrowings.edit', $borrowing->borrowing_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    <form action="{{ route('borrowings.destroy', $borrowing->borrowing_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
+                                    <form action="{{ route('borrowings.destroy', $borrowing->borrowing_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus ini?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
@@ -67,7 +67,7 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah" onclick="window.location='{{ route('add_borrowings') }}'">Add Borrowing</button>
+            <button class="btn-tambah" onclick="window.location='{{ route('borrowings.create') }}'">Tambah Peminjaman</button>
         </div>
         <div class="div3">
             <div class="search">

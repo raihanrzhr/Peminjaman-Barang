@@ -15,11 +15,9 @@
                         <tr> 
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Barang</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Spesifikasi</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kategori</th>
                             <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Jumlah</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Instances</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Actions</th>
+                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
@@ -27,22 +25,14 @@
                             <tr>
                                 <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $index + 1 }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->item_name }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $item->specifications }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $item->category }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $item->quantity }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">
-                                    <ul>
-                                        @foreach($item->itemInstances as $instance)
-                                        <li>{{ $instance->status }} - {{ $instance->condition_status }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->category }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->quantity }}</td>
                                 <td class="px-6 py-4 text-sm text-center">
-                                    <a href="{{ route('items.edit', $item->item_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    <form action="{{ route('items.destroy', $item->item_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                    <a href="{{ route('items.detail', $item->item_id) }}" class="text-green-600 hover:text-green-900">Detail</a>
+                                    <form action="{{ route('items.destroy', $item->item_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus barang ini?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+                                        <button type="submit" class="text-red-500 hover:text-red-700">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
@@ -52,7 +42,7 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah" onclick="window.location='{{ route('add_items') }}'">Add Item</button>
+            <button class="btn-tambah" onclick="window.location='{{ route('add_items') }}'">Tambah Barang</button>
         </div>
         <div class="div3">
 

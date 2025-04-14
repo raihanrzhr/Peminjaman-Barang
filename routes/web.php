@@ -57,3 +57,4 @@ Route::put('/item_instances/{id}', [ItemInstanceController::class, 'update'])->n
 
 Route::get('item_instances/{id}/edit', [ItemInstanceController::class, 'edit'])->name('item_instances.edit');
 Route::delete('/item-instances/{id}', [ItemInstanceController::class, 'destroy'])->name('item_instances.destroy');
+Route::put('/item-instances/{id}', [ItemInstanceController::class, 'update'])->name('item_instances.update');

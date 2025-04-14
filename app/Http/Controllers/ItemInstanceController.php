@@ -14,6 +14,36 @@ class ItemInstanceController extends Controller
         return view('edit_item', compact('itemInstance', 'title'));
     }
 
+    public function update(Request $request, $id)
+    {
+        $itemInstance = ItemInstance::findOrFail($id);
+
+        // Validasi untuk dropdown (hanya condition_status)
+        if ($request->has('condition_status') && !$request->has('specifications')) {
+            $request->validate([
+                'condition_status' => 'required|string|in:Good,Damaged',
+            ]);
+
+            $itemInstance->condition_status = $request->condition_status;
+            $itemInstance->save();
+
+            return redirect()->back()->with('success', 'Status kondisi berhasil diperbarui.');
+        }
+
+        // Validasi untuk edit_item (condition_status dan specifications)
+        $request->validate([
+            'condition_status' => 'required|string|in:Good,Damaged',
+            'specifications' => 'required|string',
+        ]);
+
+        $itemInstance->condition_status = $request->condition_status;
+        $itemInstance->specifications = $request->specifications;
+        $itemInstance->save();
+
+        return redirect()->route('items.detail', $itemInstance->item_id)
+                         ->with('success', 'Item berhasil diperbarui.');
+    }
+
     public function destroy($id)
     {
         $itemInstance = ItemInstance::findOrFail($id);

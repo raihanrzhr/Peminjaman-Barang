@@ -25,6 +25,14 @@ class ItemInstanceController extends Controller
             ]);
 
             $itemInstance->condition_status = $request->condition_status;
+
+            // Perbarui status jika condition_status adalah Damaged
+            if ($request->condition_status === 'Damaged') {
+                $itemInstance->status = 'Unavailable';
+            } else {
+                $itemInstance->status = 'Available'; // Atur kembali ke Available jika Good
+            }
+
             $itemInstance->save();
 
             return redirect()->back()->with('success', 'Status kondisi berhasil diperbarui.');
@@ -38,6 +46,14 @@ class ItemInstanceController extends Controller
 
         $itemInstance->condition_status = $request->condition_status;
         $itemInstance->specifications = $request->specifications;
+
+        // Perbarui status jika condition_status adalah Damaged
+        if ($request->condition_status === 'Damaged') {
+            $itemInstance->status = 'Unavailable';
+        } else {
+            $itemInstance->status = 'Available'; // Atur kembali ke Available jika Good
+        }
+
         $itemInstance->save();
 
         return redirect()->route('items.detail', $itemInstance->item_id)

@@ -25,7 +25,7 @@
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" action="{{ route('borrowings.store') }}" method="POST">
                 @csrf
-                <div>
+                {{-- <div>
                     <label for="activity_id" class="block text-sm/6 font-medium text-gray-900">Pilih Aktivitas</label>
                     <div class="mt-2">
                         <select name="activity_id" id="activity_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -35,9 +35,23 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-        
+                </div> --}}
+
                 <div>
+                    <label for="activity_name" class="block text-sm/6 font-medium text-gray-900">Nama Kegiatan</label>
+                    <div class="mt-2">
+                        <input type="text" name="activity_name" id="activity_name" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan Nama Aktivitas">
+                    </div>
+                </div>
+                
+                <div>
+                    <label for="activity_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Kegiatan</label>
+                    <div class="mt-2">
+                        <input type="date" name="activity_date" id="activity_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    </div>
+                </div>
+
+                {{-- <div>
                     <label for="borrower_id" class="block text-sm/6 font-medium text-gray-900">Pilih Peminjam</label>
                     <div class="mt-2">
                         <select name="borrower_id" id="borrower_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
@@ -47,13 +61,27 @@
                             @endforeach
                         </select>
                     </div>
+                </div> --}}
+
+                <div>
+                    <label for="borrower_name" class="block text-sm/6 font-medium text-gray-900">Nama Peminjam</label>
+                    <div class="mt-2">
+                        <input type="text" name="borrower_name" id="borrower_name" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan Nama Peminjam">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="borrower_identifier" class="block text-sm/6 font-medium text-gray-900">NIP/NOPEG/NIM</label>
+                    <div class="mt-2">
+                        <input type="text" name="borrower_identifier" id="borrower_identifier" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan NIP/NOPEG/NIM">
+                    </div>
                 </div>
         
                 <div>
-                    <label for="admin_id" class="block text-sm/6 font-medium text-gray-900">Pilih Admin</label>
+                    <label for="admin_id" class="block text-sm/6 font-medium text-gray-900">Penanggung Jawab</label>
                     <div class="mt-2">
                         <select name="admin_id" id="admin_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            <option value="">-- Pilih Admin --</option>
+                            <option value="">-- Pilih Penanggung jawab --</option>
                             @foreach($admins as $admin)
                                 <option value="{{ $admin->admin_id }}">{{ $admin->admin_name }}</option>
                             @endforeach
@@ -63,12 +91,15 @@
         
                 <div>
                     <label for="item_instances" class="block text-sm/6 font-medium text-gray-900">Pilih Item</label>
-                    <div class="mt-2">
-                        <select name="item_instances[]" id="item_instances" multiple required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            @foreach($itemInstances as $instance)
-                                <option value="{{ $instance->instance_id }}">{{ $instance->item_name }} - {{ $instance->specifications }}</option>
-                            @endforeach
-                        </select>
+                    <div class="mt-2 max-h-64 overflow-y-scroll border border-gray-300 rounded-md p-2">
+                        @foreach($itemInstances as $instance)
+                            <div class="flex items-center">
+                                <input type="checkbox" name="item_instances[]" id="item_instance_{{ $instance->instance_id }}" value="{{ $instance->instance_id }}" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                <label for="item_instance_{{ $instance->instance_id }}" class="ml-2 text-sm text-gray-900">
+                                    {{ $instance->item->item_name }} {{ $instance->specifications }}
+                                </label>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
         
@@ -78,16 +109,16 @@
                         <input type="date" name="borrowing_date" id="borrowing_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ date('Y-m-d') }}">
                     </div>
                 </div>
-        
+                
                 <div>
-                    <label for="planned_return_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Kembali</label>
+                    <label for="planned_return_date" class="block text-sm/6 font-medium text-gray-900">Rencana Tanggal Kembali</label>
                     <div class="mt-2">
                         <input type="date" name="planned_return_date" id="planned_return_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
         
                 <div class="flex justify-end">
-                    <a href="{{ url('borrowings') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
+                    <a href="{{ url('') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
                     <button type="submit" class="flex w-auto justify-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
                 </div>
             </form>

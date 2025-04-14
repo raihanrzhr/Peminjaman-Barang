@@ -24,46 +24,51 @@ class BorrowingController extends Controller
 
     public function create()
     {
-        $activities = Activity::all();
-        $borrowers = Borrower::all();
-        $admins = Admin::all();
-        $itemInstances = ItemInstance::all();
-
-        return view('add_borrowings', compact('activities', 'borrowers', 'admins', 'itemInstances'));
+        $itemInstances = ItemInstance::with('item')->where('status', 'Available')->get();
+        $admins = Admin::all(); // Data admin
+        return view('add_borrowings', compact('itemInstances', 'admins'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'activity_id' => 'required|exists:activities,activity_id',
-            'borrower_id' => 'required|exists:borrowers,borrower_id',
-            'admin_id' => 'required|exists:admin,admin_id',
-            'borrowing_date' => 'required|date',
-            'planned_return_date' => 'required|date|after_or_equal:borrowing_date',
+            'activity_name' => 'required|string|max:255',
+            'activity_date' => 'required|date',
+            'borrower_name' => 'required|string|max:255',
+            'borrower_identifier' => 'required|string|max:50|unique:borrowers,identifier',
+            'admin_id' => 'required|exists:admins,admin_id',
             'item_instances' => 'required|array',
-            'item_instances.*.instance_id' => 'required|exists:item_instances,instance_id',
-            'item_instances.*.quantity' => 'required|integer|min:1',
+            'borrowing_date' => 'required|date',
+            'planned_return_date' => 'required|date|after:borrowing_date',
         ]);
 
+        // Simpan aktivitas ke tabel activities
+        $activity = Activity::create([
+            'activity_name' => $request->activity_name,
+            'activity_date' => $request->activity_date,
+        ]);
+
+        // Simpan peminjam ke tabel borrowers
+        $borrower = Borrower::create([
+            'name' => $request->borrower_name,
+            'identifier' => $request->borrower_identifier,
+        ]);
+
+        // Simpan data peminjaman ke tabel borrowings
         $borrowing = Borrowing::create([
-            'activity_id' => $request->activity_id,
-            'borrower_id' => $request->borrower_id,
+            'activity_id' => $activity->activity_id,
+            'borrower_id' => $borrower->borrower_id,
             'admin_id' => $request->admin_id,
             'borrowing_date' => $request->borrowing_date,
             'planned_return_date' => $request->planned_return_date,
-            'return_status' => 'Not Returned',
         ]);
 
-        foreach ($request->item_instances as $instance) {
-            BorrowingDetails::create([
-                'borrowing_id' => $borrowing->borrowing_id,
-                'instance_id' => $instance['instance_id'],
-                'quantity' => $instance['quantity'],
-                'proof_file' => $instance['proof_file'] ?? null,
-            ]);
+        // Simpan item yang dipinjam
+        foreach ($request->item_instances as $instance_id) {
+            $borrowing->itemInstances()->attach($instance_id);
         }
 
-        return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil ditambahkan!');
+        return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil ditambahkan.');
     }
 
     public function edit($id)

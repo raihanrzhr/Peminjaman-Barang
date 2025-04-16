@@ -27,7 +27,9 @@
                             @foreach($borrowingDetails as $detail)
                                 <tr>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $loop->iteration }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $detail->instance_id }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">
+                                        {{ $detail->instance->item->item_name }}  {{ $detail->instance->specifications }}
+                                    </td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ \Carbon\Carbon::parse($detail->borrowing_date)->format('d-m-Y') }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ \Carbon\Carbon::parse($detail->planned_return_date)->format('d-m-Y') }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">

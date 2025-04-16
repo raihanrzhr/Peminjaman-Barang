@@ -15,7 +15,7 @@ class ItemController extends Controller
         $title = 'Tabel Barang';
         return view('items', compact('items', 'title'));
     }
-    
+
     public function store(Request $request)
     {
         $request->validate([
@@ -25,26 +25,15 @@ class ItemController extends Controller
             'specifications' => 'required|array',
         ]);
 
-        // Check if the item already exists
-        $item = Item::where('item_name', $request->item_name)
-                    ->first();
+        $item = Item::firstOrCreate(
+            ['item_name' => $request->item_name],
+            ['category' => $request->category, 'quantity' => 0]
+        );
 
-        if ($item) {
-            // If item exists, update the quantity
-            $item->quantity += $request->quantity;
-            $item->save();
-        } else {
-            // If item does not exist, create a new item
-            $item = Item::create([
-                'item_name' => $request->item_name,
-                'category' => $request->category,
-                'quantity' => $request->quantity,
-            ]);
-        }
+        $item->increment('quantity', $request->quantity);
 
-        // Add item instances
-        for ($i = 0; $i < $request->quantity; $i++) {
-            foreach ($request->specifications as $specification) {
+        foreach ($request->specifications as $specification) {
+            for ($i = 0; $i < $request->quantity; $i++) {
                 ItemInstance::create([
                     'item_id' => $item->item_id,
                     'specifications' => $specification,
@@ -67,41 +56,46 @@ class ItemController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'item_name' => 'required|string|max:255',
-            'specifications' => 'required|array',
-            'category' => 'required|string',
-            'quantity' => 'required|integer',
-        ]);
+        $itemInstance = ItemInstance::findOrFail($id);
 
-        $item = Item::findOrFail($id);
-        $item->update([
-            'item_name' => $request->item_name,
-            'category' => $request->category,
-            'quantity' => $request->quantity,
-        ]);
-
-        // Update item instances
-        $item->itemInstances()->delete();
-        foreach ($request->specifications as $specification) {
-            ItemInstance::create([
-                'item_id' => $item->item_id,
-                'specifications' => $specification,
-                'date_added' => now(),
-                'status' => 'Available',
-                'condition_status' => 'Good',
+        if ($request->has('condition_status') && !$request->has('specifications')) {
+            $request->validate([
+                'condition_status' => 'required|string|in:Good,Damaged',
             ]);
+
+            $itemInstance->condition_status = $request->condition_status;
+            $itemInstance->status = $request->condition_status === 'Damaged' ? 'Unavailable' : 'Available';
+            $itemInstance->save();
+
+            return redirect()->back()->with('success', 'Status kondisi berhasil diperbarui.');
         }
 
-        return redirect()->route('items.index')->with('success', 'Barang berhasil diupdate!');
+        $request->validate([
+            'condition_status' => 'required|string|in:Good,Damaged',
+            'specifications' => 'required|string',
+        ]);
+
+        $itemInstance->update([
+            'condition_status' => $request->condition_status,
+            'specifications' => $request->specifications,
+            'status' => $request->condition_status === 'Damaged' ? 'Unavailable' : 'Available',
+        ]);
+
+        return redirect()->route('items.detail', $itemInstance->item_id)
+                         ->with('success', 'Item berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
-        $item = Item::findOrFail($id);
-        $item->delete();
+        $itemInstance = ItemInstance::findOrFail($id);
 
-        return redirect()->route('items.index')->with('success', 'Barang berhasil dihapus!');
+        if ($itemInstance->item) {
+            $itemInstance->item->decrement('quantity');
+        }
+
+        $itemInstance->delete();
+
+        return redirect()->route('items.index')->with('success', 'Item berhasil dihapus.');
     }
 
     public function show($id)

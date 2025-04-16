@@ -51,10 +51,3 @@ Route::get('/admins/create', [AdminController::class, 'create'])->name('admins.c
 Route::get('/admins/{id}/edit', [AdminController::class, 'edit'])->name('admins.edit');
 Route::put('/admins/{id}', [AdminController::class, 'update'])->name('admins.update');
 Route::delete('/admins/{id}', [AdminController::class, 'destroy'])->name('admins.destroy');
-
-Route::get('/item_instances/{id}/edit', [ItemInstanceController::class, 'edit'])->name('item_instances.edit');
-Route::put('/item_instances/{id}', [ItemInstanceController::class, 'update'])->name('item_instances.update');
-
-Route::get('item_instances/{id}/edit', [ItemInstanceController::class, 'edit'])->name('item_instances.edit');
-Route::delete('/item-instances/{id}', [ItemInstanceController::class, 'destroy'])->name('item_instances.destroy');
-Route::put('/item-instances/{id}', [ItemInstanceController::class, 'update'])->name('item_instances.update');

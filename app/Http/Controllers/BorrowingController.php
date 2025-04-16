@@ -91,14 +91,24 @@ class BorrowingController extends Controller
             return response()->json(['success' => false, 'message' => 'Peminjaman tidak ditemukan'], 404);
         }
 
-        if ($request->status === 'Dikembalikan') {
-            $borrowing->return_date = now(); // Atur tanggal kembali ke waktu sekarang
-        } else {
-            $borrowing->return_date = null; // Set tanggal kembali menjadi NULL
-        }
+        $borrowing->return_status = $request->status;
 
         try {
             $borrowing->save();
+
+            // Update the return_date in borrowing_details based on the status
+            if ($request->status === 'Returned') {
+                $currentDate = now();
+                \DB::table('borrowing_details')
+                    ->where('borrowing_id', $id)
+                    ->update(['return_date' => $currentDate]);
+            } elseif ($request->status === 'Not Returned') {
+                \DB::table('borrowing_details')
+                    ->where('borrowing_id', $id)
+                    ->update(['return_date' => null]);
+            }
+
+            session()->flash('success', 'Status berhasil diperbarui.');
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             \Log::error('Error updating borrowing status', ['error' => $e->getMessage()]);

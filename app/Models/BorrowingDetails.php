@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class BorrowingDetails extends Model
 {
+    use HasFactory;
+
     protected $table = 'borrowing_details';
     protected $primaryKey = 'detail_id';
     protected $keyType = 'int';
@@ -14,17 +17,19 @@ class BorrowingDetails extends Model
     protected $fillable = [
         'borrowing_id',
         'instance_id',
-        'quantity',
+        'borrowing_date',
+        'planned_return_date',
+        'return_date',
         'proof_file',
     ];
 
     public function borrowing()
     {
-        return $this->belongsTo(Borrowing::class, 'borrowing_id', 'borrowing_id');
+        return $this->belongsTo(Borrowing::class, 'borrowing_id');
     }
 
-    public function itemInstance()
+    public function instance()
     {
-        return $this->belongsTo(ItemInstance::class, 'instance_id', 'instance_id');
+        return $this->belongsTo(ItemInstance::class, 'instance_id');
     }
 }

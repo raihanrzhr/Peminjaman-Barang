@@ -149,4 +149,12 @@ class BorrowingController extends Controller
 
         return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil dihapus!');
     }
+
+    public function detail($id)
+    {
+        $borrowing = Borrowing::findOrFail($id);
+        $borrowingDetails = BorrowingDetails::where('borrowing_id', $id)->get();
+        $title = 'Detail Peminjaman';
+        return view('borrowing_detail', compact('borrowing', 'borrowingDetails', 'title'));
+    }
 }

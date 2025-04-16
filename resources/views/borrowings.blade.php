@@ -16,14 +16,14 @@
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
                                 <th class="px-3 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kegiatan</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Peminjam</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kegiatan</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Penanggung jawab</th>
-                                <th class="px-9 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Pinjam</th>
+                                {{-- <th class="px-9 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Pinjam</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Rencana Pengembalian</th>
-                                <th class="px-9 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Kembali</th>
+                                <th class="px-9 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Kembali</th> --}}
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Status</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Detail</th>
+                                {{-- <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Detail</th> --}}
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
                             </tr>
                         </thead>
@@ -31,23 +31,23 @@
                             @foreach ($borrowings as $index => $borrowing)
                                 <tr id="row-{{ $borrowing->borrowing_id }}">
                                     <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
                                     <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->borrower->name }}</td>
+                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
                                     <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->admin->admin_name }}</td>
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
+                                    {{-- <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
                                         {{ $borrowing->borrowing_date ? \Carbon\Carbon::parse($borrowing->borrowing_date)->format('d-m-Y') : '' }}</td>
                                     <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
                                         {{ $borrowing->planned_return_date ? \Carbon\Carbon::parse($borrowing->planned_return_date)->format('d-m-Y') : '' }}</td>
                                     <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300 tanggal-kembali">
                                         {{ $borrowing->return_date ? \Carbon\Carbon::parse($borrowing->return_date)->format('d-m-Y') : '' }}
-                                    </td>                                                                                              
+                                    </td>                                                                                               --}}
                                     <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
                                         <select onchange="updateStatus('{{ $borrowing->borrowing_id }}', this.value)" class="status-dropdown">
                                             <option value="Dipinjam" {{ $borrowing->return_date === null ? 'selected' : '' }}>Dipinjam</option>
                                             <option value="Dikembalikan" {{ $borrowing->return_date !== null ? 'selected' : '' }}>Dikembalikan</option>
                                         </select>
                                     </td>
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
+                                    {{-- <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
                                         <ul>
                                             @foreach($borrowing->itemInstances as $instance)
                                                 <li>
@@ -55,7 +55,7 @@
                                                 </li>
                                             @endforeach
                                         </ul>
-                                    </td>
+                                    </td> --}}
                                     <td class="px-6 py-4 text-sm text-center">
                                         <a href="{{ route('borrowings.edit', $borrowing->borrowing_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
                                         <form action="{{ route('borrowings.destroy', $borrowing->borrowing_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus ini?');">
@@ -63,6 +63,7 @@
                                             @method('DELETE')
                                             <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
                                         </form>
+                                        <a href="{{ route('borrowings.detail', $borrowing->borrowing_id) }}" class="text-green-600 hover:text-green-900">Detail</a>
                                     </td>
                                 </tr>
                             @endforeach

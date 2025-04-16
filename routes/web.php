@@ -33,6 +33,7 @@ Route::get('/borrowings/create', [BorrowingController::class, 'create'])->name('
 Route::get('/borrowings/{id}/edit', [BorrowingController::class, 'edit'])->name('borrowings.edit');
 Route::put('/borrowings/{id}', [BorrowingController::class, 'update'])->name('borrowings.update');
 Route::delete('/borrowings/{id}', [BorrowingController::class, 'destroy'])->name('borrowings.destroy');
+Route::get('/borrowings/{id}/detail', [BorrowingController::class, 'detail'])->name('borrowings.detail');
 
 Route::get('/items/add_items', function () {
     return view('add_items', ['title' => 'Tambah Barang']);

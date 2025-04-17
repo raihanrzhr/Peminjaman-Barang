@@ -13,10 +13,14 @@ class Borrower extends Model
     protected $primaryKey = 'borrower_id';
     protected $keyType = 'int';
     public $timestamps = false;
-    protected $fillable = ['name', 'identifier']; // Tambahkan kolom identifier
+    protected $fillable = [
+        'name',
+        'nip_nopeg_nim',
+        'description',
+    ];
 
     public function borrowings()
     {
-        return $this->hasMany(Borrowing::class, 'borrower_id', 'borrower_id');
+        return $this->hasMany(Borrowing::class, 'borrower_id');
     }
 }

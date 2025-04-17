@@ -31,12 +31,13 @@ class BorrowingController extends Controller
 
     public function store(Request $request)
     {
+
         $request->validate([
             'activity_name' => 'required|string|max:255',
             'activity_date' => 'required|date',
             'borrower_name' => 'required|string|max:255',
-            'borrower_identifier' => 'required|string|max:50|unique:borrowers,identifier',
-            'admin_id' => 'required|exists:admins,admin_id',
+            'borrower_identifier' => 'required|string|max:50|unique:borrowers,nip_nopeg_nim',
+            'admin_id' => 'required|exists:admin,admin_id',
             'item_instances' => 'required|array',
             'borrowing_date' => 'required|date',
             'planned_return_date' => 'required|date|after:borrowing_date',
@@ -51,21 +52,24 @@ class BorrowingController extends Controller
         // Simpan peminjam ke tabel borrowers
         $borrower = Borrower::create([
             'name' => $request->borrower_name,
-            'identifier' => $request->borrower_identifier,
+            'nip_nopeg_nim' => $request->borrower_identifier, // Pastikan kolom ini diisi
         ]);
 
-        // Simpan data peminjaman ke tabel borrowings
+        // Simpan data peminjaman ke tabel borrowing
         $borrowing = Borrowing::create([
             'activity_id' => $activity->activity_id,
             'borrower_id' => $borrower->borrower_id,
             'admin_id' => $request->admin_id,
-            'borrowing_date' => $request->borrowing_date,
-            'planned_return_date' => $request->planned_return_date,
         ]);
 
-        // Simpan item yang dipinjam
+        // Simpan detail peminjaman ke tabel borrowing_details
         foreach ($request->item_instances as $instance_id) {
-            $borrowing->itemInstances()->attach($instance_id);
+            BorrowingDetails::create([
+                'borrowing_id' => $borrowing->borrowing_id,
+                'instance_id' => $instance_id,
+                'borrowing_date' => $request->borrowing_date,
+                'planned_return_date' => $request->planned_return_date,
+            ]);
         }
 
         return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil ditambahkan.');

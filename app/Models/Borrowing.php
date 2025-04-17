@@ -35,17 +35,22 @@ class Borrowing extends Model
 
     public function borrower()
     {
-        return $this->belongsTo(Borrower::class, 'borrower_id', 'borrower_id');
+        return $this->belongsTo(Borrower::class, 'borrower_id');
     }
 
     public function admin()
     {
-        return $this->belongsTo(Admin::class, 'admin_id', 'admin_id');
+        return $this->belongsTo(Admin::class, 'admin_id');
     }
 
     public function activity()
     {
-        return $this->belongsTo(Activity::class, 'activity_id', 'activity_id');
+        return $this->belongsTo(Activity::class, 'activity_id');
+    }
+
+    public function borrowingDetails()
+    {
+        return $this->hasMany(BorrowingDetails::class, 'borrowing_id');
     }
 
     public static function getBorrowings()

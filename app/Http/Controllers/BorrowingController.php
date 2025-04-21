@@ -154,13 +154,14 @@ class BorrowingController extends Controller
             'item_instances' => 'required|array',
         ]);
 
+        // Cari data peminjaman
         $borrowing = Borrowing::findOrFail($id);
+
+        // Update data peminjaman di tabel borrowing
         $borrowing->update([
             'activity_id' => $request->activity_id,
             'borrower_id' => $request->borrower_id,
             'admin_id' => $request->admin_id,
-            'borrowing_date' => $request->borrowing_date,
-            'planned_return_date' => $request->planned_return_date,
         ]);
 
         // Hapus detail peminjaman lama

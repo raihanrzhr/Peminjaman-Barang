@@ -23,7 +23,7 @@
         @endif
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="{{ route('item_instances.update', $itemInstance->instance_id) }}" method="POST">
+            <form class="space-y-6" action="{{ route('items.update', $itemInstance->instance_id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div>
@@ -44,7 +44,7 @@
                 </div>
         
                 <div class="flex justify-end">
-                    <a href="{{ url('items') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
+                    <a href="{{ route('items.detail', $itemInstance->item_id) }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
                     <button type="submit" class="flex w-auto justify-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Update</button>
                 </div>
             </form>

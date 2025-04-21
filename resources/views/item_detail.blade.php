@@ -36,7 +36,7 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $detail->date_added }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $detail->status }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">
-                                        <form action="{{ route('item_instances.update', $detail->instance_id) }}" method="POST">
+                                        <form action="{{ route('items.update', $detail->instance_id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <select name="condition_status" onchange="this.form.submit()">
@@ -47,7 +47,7 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <a href="{{ route('items.edit', $detail->instance_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                        <form action="{{ route('item_instances.destroy', $detail->instance_id) }}" method="POST" class="inline-block">
+                                        <form action="{{ route('items.destroy', $detail->instance_id) }}" method="POST" class="inline-block">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?')">Hapus</button>

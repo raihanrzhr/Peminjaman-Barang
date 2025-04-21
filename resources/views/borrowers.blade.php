@@ -10,33 +10,35 @@
         
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
-                <table class="min-w-full border border-gray-300">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Keterangan</th>
-                            <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-200">
-                        @foreach ($names as $index => $name)
+                <div class="overflow-y-auto max-h-96 border rounded-md border-gray-300">
+                    <table class="min-w-full border border-gray-300">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $index + 1 }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->name }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->description }}</td>
-                                <td class="px-6 py-4 text-sm text-center">
-                                    <a href="{{ route('borrowers.edit', $name->borrower_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                    <form action="{{ route('borrowers.destroy', $name->borrower_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                                    </form>
-                                </td>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Keterangan</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Actions</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach ($names as $index => $name)
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $index + 1 }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->name }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->description }}</td>
+                                    <td class="px-6 py-4 text-sm text-center">
+                                        <a href="{{ route('borrowers.edit', $name->borrower_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
+                                        <form action="{{ route('borrowers.destroy', $name->borrower_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="div2">

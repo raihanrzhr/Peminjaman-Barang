@@ -37,29 +37,38 @@ class BorrowingController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'activity_name' => 'required|string|max:255',
             'activity_date' => 'required|date',
             'borrower_name' => 'required|string|max:255',
-            'borrower_identifier' => 'required|string|max:50|unique:borrowers,nip_nopeg_nim',
+            'borrower_identifier' => 'required|string|max:50',
             'admin_id' => 'required|exists:admin,admin_id',
             'item_instances' => 'required|array',
             'borrowing_date' => 'required|date',
             'planned_return_date' => 'required|date|after:borrowing_date',
         ]);
 
-        // Simpan aktivitas ke tabel activities
-        $activity = Activity::create([
-            'activity_name' => $request->activity_name,
-            'activity_date' => $request->activity_date,
-        ]);
+        // Cari atau buat aktivitas di tabel activities
+        $activity = Activity::firstOrCreate(
+            [
+                'activity_name' => $request->activity_name,
+                'activity_date' => $request->activity_date,
+            ],
+            [
+                'description' => $request->description ?? null, // Tambahkan deskripsi jika diperlukan
+            ]
+        );
 
-        // Simpan peminjam ke tabel borrowers
-        $borrower = Borrower::create([
-            'name' => $request->borrower_name,
-            'nip_nopeg_nim' => $request->borrower_identifier, // Pastikan kolom ini diisi
-        ]);
+        // Cari atau buat peminjam di tabel borrowers
+        $borrower = Borrower::firstOrCreate(
+            [
+                'name' => $request->borrower_name,
+                'nip_nopeg_nim' => $request->borrower_identifier,
+            ],
+            [
+                'description' => $request->description ?? null, // Tambahkan deskripsi jika diperlukan
+            ]
+        );
 
         // Simpan data peminjaman ke tabel borrowing
         $borrowing = Borrowing::create([

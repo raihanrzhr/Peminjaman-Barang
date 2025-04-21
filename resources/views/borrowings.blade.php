@@ -26,11 +26,11 @@
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($borrowings as $index => $borrowing)
                                 <tr id="row-{{ $borrowing->borrowing_id }}">
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->borrower->name }}</td>
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">{{ $borrowing->admin->admin_name }}</td>
-                                    <td class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->borrower->name }}</td>
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->admin->admin_name }}</td>
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">
                                         <select onchange="updateStatus('{{ $borrowing->borrowing_id }}', this.value)" class="status-dropdown">
                                             <option value="Not Returned" {{ $borrowing->return_status === 'Not Returned' ? 'selected' : '' }}>Dipinjam</option>
                                             <option value="Returned" {{ $borrowing->return_status === 'Returned' ? 'selected' : '' }}>Dikembalikan</option>

@@ -24,7 +24,13 @@ class BorrowingController extends Controller
 
     public function create()
     {
-        $itemInstances = ItemInstance::with('item')->where('status', 'Available')->get();
+        $itemInstances = ItemInstance::with('item')
+            ->where('status', 'Available') // Hanya barang yang tersedia
+            ->whereDoesntHave('borrowingDetails', function ($query) {
+                $query->whereNull('return_date'); // Barang yang belum dikembalikan
+            })
+            ->get();
+
         $admins = Admin::all(); // Data admin
         return view('add_borrowings', compact('itemInstances', 'admins'));
     }
@@ -77,11 +83,19 @@ class BorrowingController extends Controller
 
     public function edit($id)
     {
-        $borrowing = Borrowing::findOrFail($id);
+        $borrowing = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances.item'])->findOrFail($id);
         $activities = Activity::all();
         $borrowers = Borrower::all();
         $admins = Admin::all();
-        $itemInstances = ItemInstance::all();
+
+        // Ambil item yang tersedia dan belum dipinjam
+        $itemInstances = ItemInstance::with('item')
+            ->where('status', 'Available') // Hanya barang yang tersedia
+            ->whereDoesntHave('borrowingDetails', function ($query) use ($id) {
+                $query->where('borrowing_id', '!=', $id) // Barang yang sedang dipinjam oleh peminjaman lain
+                      ->whereNull('return_date'); // Barang yang belum dikembalikan
+            })
+            ->get();
 
         return view('edit_borrowing', compact('borrowing', 'activities', 'borrowers', 'admins', 'itemInstances'));
     }
@@ -129,8 +143,6 @@ class BorrowingController extends Controller
             'borrowing_date' => 'required|date',
             'planned_return_date' => 'required|date|after_or_equal:borrowing_date',
             'item_instances' => 'required|array',
-            'item_instances.*.instance_id' => 'required|exists:item_instances,instance_id',
-            'item_instances.*.quantity' => 'required|integer|min:1',
         ]);
 
         $borrowing = Borrowing::findOrFail($id);
@@ -140,16 +152,18 @@ class BorrowingController extends Controller
             'admin_id' => $request->admin_id,
             'borrowing_date' => $request->borrowing_date,
             'planned_return_date' => $request->planned_return_date,
-            'return_status' => $request->planned_return_date ? 'Returned' : 'Not Returned',
         ]);
 
+        // Hapus detail peminjaman lama
         BorrowingDetails::where('borrowing_id', $id)->delete();
-        foreach ($request->item_instances as $instance) {
+
+        // Tambahkan detail peminjaman baru
+        foreach ($request->item_instances as $instance_id) {
             BorrowingDetails::create([
                 'borrowing_id' => $borrowing->borrowing_id,
-                'instance_id' => $instance['instance_id'],
-                'quantity' => $instance['quantity'],
-                'proof_file' => $instance['proof_file'] ?? null,
+                'instance_id' => $instance_id,
+                'borrowing_date' => $request->borrowing_date,
+                'planned_return_date' => $request->planned_return_date,
             ]);
         }
 

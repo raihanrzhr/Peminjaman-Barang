@@ -92,12 +92,11 @@ class BorrowingController extends Controller
 
     public function edit($id)
     {
-        $borrowing = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances.item'])->findOrFail($id);
+        $borrowing = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances.item', 'borrowingDetails'])->findOrFail($id);
         $activities = Activity::all();
         $borrowers = Borrower::all();
         $admins = Admin::all();
 
-        // Ambil item yang tersedia dan belum dipinjam
         $itemInstances = ItemInstance::with('item')
             ->where('status', 'Available') // Hanya barang yang tersedia
             ->whereDoesntHave('borrowingDetails', function ($query) use ($id) {

@@ -84,16 +84,20 @@
                 </div>
         
                 <div>
-                    <label for="borrowing_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Pinjam</label>
+                    <label for="borrowing_date" class="block text-sm font-medium text-gray-900">Tanggal Pinjam</label>
                     <div class="mt-2">
-                        <input type="date" name="borrowing_date" id="borrowing_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $borrowing->borrowing_date }}">
+                        <input type="date" name="borrowing_date" id="borrowing_date" required
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                            value="{{ $borrowing->borrowingDetails->first()->borrowing_date ?? '' }}">
                     </div>
                 </div>
                 
                 <div>
-                    <label for="planned_return_date" class="block text-sm/6 font-medium text-gray-900">Rencana Tanggal Kembali</label>
+                    <label for="planned_return_date" class="block text-sm font-medium text-gray-900">Rencana Tanggal Kembali</label>
                     <div class="mt-2">
-                        <input type="date" name="planned_return_date" id="planned_return_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $borrowing->planned_return_date }}">
+                        <input type="date" name="planned_return_date" id="planned_return_date" required
+                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:outline-indigo-600 sm:text-sm"
+                            value="{{ $borrowing->borrowingDetails->first()->planned_return_date ?? '' }}">
                     </div>
                 </div>
         

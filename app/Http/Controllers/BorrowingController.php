@@ -145,21 +145,45 @@ class BorrowingController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'activity_id' => 'required|exists:activities,activity_id',
-            'borrower_id' => 'required|exists:borrowers,borrower_id',
+            'activity_name' => 'required|string|max:255',
+            'activity_date' => 'required|date',
+            'borrower_name' => 'required|string|max:255',
+            'borrower_identifier' => 'required|string|max:50',
             'admin_id' => 'required|exists:admin,admin_id',
+            'item_instances' => 'required|array',
             'borrowing_date' => 'required|date',
             'planned_return_date' => 'required|date|after_or_equal:borrowing_date',
-            'item_instances' => 'required|array',
         ]);
+
+        // Cari atau buat aktivitas di tabel activities
+        $activity = Activity::firstOrCreate(
+            [
+                'activity_name' => $request->activity_name,
+                'activity_date' => $request->activity_date,
+            ],
+            [
+                'description' => $request->description ?? null, // Tambahkan deskripsi jika diperlukan
+            ]
+        );
+
+        // Cari atau buat peminjam di tabel borrowers
+        $borrower = Borrower::firstOrCreate(
+            [
+                'name' => $request->borrower_name,
+                'nip_nopeg_nim' => $request->borrower_identifier,
+            ],
+            [
+                'description' => $request->description ?? null, // Tambahkan deskripsi jika diperlukan
+            ]
+        );
 
         // Cari data peminjaman
         $borrowing = Borrowing::findOrFail($id);
 
         // Update data peminjaman di tabel borrowing
         $borrowing->update([
-            'activity_id' => $request->activity_id,
-            'borrower_id' => $request->borrower_id,
+            'activity_id' => $activity->activity_id,
+            'borrower_id' => $borrower->borrower_id,
             'admin_id' => $request->admin_id,
         ]);
 

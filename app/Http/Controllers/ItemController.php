@@ -95,7 +95,7 @@ class ItemController extends Controller
 
         $itemInstance->delete();
 
-        return redirect()->route('items.index')->with('success', 'Item berhasil dihapus.');
+        return redirect()->route('items.detail', $itemInstance->item_id)->with('success', 'Item berhasil dihapus.');
     }
 
     public function show($id)

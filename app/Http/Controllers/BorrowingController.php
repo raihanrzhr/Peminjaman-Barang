@@ -85,6 +85,10 @@ class BorrowingController extends Controller
                 'borrowing_date' => $request->borrowing_date,
                 'planned_return_date' => $request->planned_return_date,
             ]);
+
+            // Update status barang menjadi Unavailable
+            $itemInstance = ItemInstance::findOrFail($instance_id);
+            $itemInstance->update(['status' => 'Unavailable']);
         }
 
         return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil ditambahkan.');
@@ -98,10 +102,12 @@ class BorrowingController extends Controller
         $admins = Admin::all();
 
         $itemInstances = ItemInstance::with('item')
-            ->where('status', 'Available') // Hanya barang yang tersedia
-            ->whereDoesntHave('borrowingDetails', function ($query) use ($id) {
-                $query->where('borrowing_id', '!=', $id) // Barang yang sedang dipinjam oleh peminjaman lain
-                      ->whereNull('return_date'); // Barang yang belum dikembalikan
+            ->where(function ($query) use ($id) {
+                $query->where('status', 'Available') // Barang yang tersedia
+                      ->orWhereHas('borrowingDetails', function ($subQuery) use ($id) {
+                          $subQuery->where('borrowing_id', $id) // Barang yang dipinjam oleh peminjaman saat ini
+                                   ->whereNull('return_date'); // Barang yang belum dikembalikan
+                      });
             })
             ->get();
 
@@ -110,6 +116,10 @@ class BorrowingController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
+        $request->validate([
+            'status' => 'required|in:Returned,Not Returned',
+        ]);
+
         \Log::info('Update status called', ['id' => $id, 'status' => $request->status]);
 
         $borrowing = Borrowing::find($id);
@@ -128,10 +138,24 @@ class BorrowingController extends Controller
                 \DB::table('borrowing_details')
                     ->where('borrowing_id', $id)
                     ->update(['return_date' => $currentDate]);
+
+                // Update status barang menjadi Available
+                $borrowedItems = BorrowingDetails::where('borrowing_id', $id)->get();
+                foreach ($borrowedItems as $detail) {
+                    $itemInstance = ItemInstance::findOrFail($detail->instance_id);
+                    $itemInstance->update(['status' => 'Available']);
+                }
             } elseif ($request->status === 'Not Returned') {
                 \DB::table('borrowing_details')
                     ->where('borrowing_id', $id)
                     ->update(['return_date' => null]);
+
+                // Pastikan status barang tetap Unavailable
+                $borrowedItems = BorrowingDetails::where('borrowing_id', $id)->get();
+                foreach ($borrowedItems as $detail) {
+                    $itemInstance = ItemInstance::findOrFail($detail->instance_id);
+                    $itemInstance->update(['status' => 'Unavailable']);
+                }
             }
 
             session()->flash('success', 'Status berhasil diperbarui.');
@@ -198,6 +222,10 @@ class BorrowingController extends Controller
                 'borrowing_date' => $request->borrowing_date,
                 'planned_return_date' => $request->planned_return_date,
             ]);
+
+            // Update status barang menjadi Unavailable
+            $itemInstance = ItemInstance::findOrFail($instance_id);
+            $itemInstance->update(['status' => 'Unavailable']);
         }
 
         return redirect()->route('borrowings.index')->with('success', 'Peminjaman berhasil diupdate!');

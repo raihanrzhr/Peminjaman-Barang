@@ -10,7 +10,7 @@ class AdminController extends Controller
     public function index()
     {
         $admins = Admin::all();
-        $title = 'Daftar Admin';
+        $title = 'Daftar Penanggung Jawab';
         return view('admins', compact('admins', 'title'));
     }
 

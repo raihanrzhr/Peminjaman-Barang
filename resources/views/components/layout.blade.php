@@ -12,7 +12,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="{{ asset('js/script.js') }}" defer></script>
 </head>
-<body>
+<body class=h-full>
     <div class="min-h-full">
         <x-navbar></x-navbar>
 

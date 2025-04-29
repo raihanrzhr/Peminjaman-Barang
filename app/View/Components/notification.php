@@ -8,12 +8,13 @@ use Illuminate\View\Component;
 
 class notification extends Component
 {
-    /**
-     * Create a new component instance.
-     */
-    public function __construct()
+    public $type;
+    public $message;
+
+    public function __construct($type = 'success', $message = '')
     {
-        //
+        $this->type = $type;
+        $this->message = $message;
     }
 
     /**

@@ -2,12 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot:title>
 
     <div class="parent">
-        @if(session('success'))
-            <script>
-                alert('{{ session('success') }}');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            </script>
-        @endif
+        <x-notification />
 
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">

@@ -15,12 +15,11 @@
             <h1 class="mt-10 text-center text-3xl/9 font-bold tracking-tight text-gray-900">Edit Peminjam</h1>
         </div>
         
-        @if(session('success'))
+        {{-- @if (session('success'))
             <script>
                 alert('{{ session('success') }}');
-                window.history.replaceState({}, document.title, window.location.pathname);
             </script>
-        @endif
+        @endif --}}
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <form class="space-y-6" action="{{ route('borrowers.update', $borrower->borrower_id) }}" method="POST">

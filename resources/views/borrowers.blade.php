@@ -24,11 +24,7 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $name->description }}</td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <a href="{{ route('borrowers.edit', $name->borrower_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                        <form action="{{ route('borrowers.destroy', $name->borrower_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                                        </form>
+                                        <button type="button" class="text-red-600 hover:text-red-900" onclick="confirmDelete('{{ route('borrowers.destroy', $name->borrower_id) }}')">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

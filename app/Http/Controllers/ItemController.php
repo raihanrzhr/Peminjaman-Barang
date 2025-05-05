@@ -95,7 +95,26 @@ class ItemController extends Controller
 
         $itemInstance->delete();
 
-        return redirect()->route('items.detail', $itemInstance->item_id)->with('success', 'Item berhasil dihapus.');
+        return true
+        // ->with('success', 'Item berhasil dihapus.')
+        ;
+    }
+
+    public function destroyAll($id)
+    {
+        $item = Item::findOrFail($id);
+        // Menghapus semua ItemInstance terkait
+        $itemInstances = $item->itemInstances;
+        foreach ($itemInstances as $itemInstance) {
+            $itemInstance->delete();
+        }
+
+        // Menghapus item
+        $item->delete();
+
+        return true
+        // redirect()->route('items.index')->with('success', 'Semua instance item dan item berhasil dihapus.')
+        ;
     }
 
     public function show($id)

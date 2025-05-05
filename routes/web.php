@@ -24,8 +24,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/items', [ItemController::class, 'store'])->name('items.store');
     Route::get('/items/{id}/edit', [ItemController::class, 'edit'])->name('items.edit');
     Route::put('/items/{id}', [ItemController::class, 'update'])->name('items.update');
-    Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
     Route::get('/items/{id}/detail', [ItemController::class, 'show'])->name('items.detail');
+    Route::delete('/items/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
+    Route::delete('/items/{id}/destroyAll', [ItemController::class, 'destroyAll'])->name('items.destroyAll');
 
     Route::get('/borrowers', [BorrowerController::class, 'index'])->name('borrowers.index');
     Route::get('/borrowers/{id}/edit', [BorrowerController::class, 'edit'])->name('borrowers.edit');

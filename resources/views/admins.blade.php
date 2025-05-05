@@ -22,11 +22,7 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $admin->admin_name }}</td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <a href="{{ route('admins.edit', $admin->admin_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                        <form action="{{ route('admins.destroy', $admin->admin_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                                        </form>
+                                        <button type="button" class="text-red-600 hover:text-red-900" onclick="confirmDelete('{{ route('admins.destroy', $admin->admin_id) }}')">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

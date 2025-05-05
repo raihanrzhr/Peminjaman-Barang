@@ -3,11 +3,11 @@
     <x-notification />
 
     <div class="parent">
-        @if (session('success'))
+        {{-- @if (session('success'))
             <script>
                 alert('{{ session('success') }}');
             </script>
-        @endif
+        @endif --}}
         
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -31,11 +31,7 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->quantity }}</td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <a href="{{ route('items.detail', $item->item_id) }}" class="text-green-600 hover:text-green-900">Detail</a>
-                                        <form action="{{ route('items.destroy', $item->item_id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus daftar barang ini?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-500 hover:text-red-700">Delete</button>
-                                        </form>
+                                        <button type="button" class="text-red-500 hover:text-red-700" onclick="confirmDelete('{{ route('items.destroyAll', $item->item_id) }}')">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

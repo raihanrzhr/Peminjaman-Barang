@@ -42,11 +42,7 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <a href="{{ route('items.edit', $detail->instance_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                        <form action="{{ route('items.destroy', $detail->instance_id) }}" method="POST" class="inline-block">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Apakah Anda yakin ingin menghapus item ini?')">Hapus</button>
-                                        </form>
+                                        <button type="button" class="text-red-600 hover:text-red-900" onclick="confirmDelete('{{ route('items.destroy', $detail->instance_id) }}')">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach

@@ -58,6 +58,8 @@ class BorrowerController extends Controller
         $borrower = Borrower::findOrFail($id);
         $borrower->delete();
 
-        return redirect()->route('borrowers.index')->with('success', 'Peminjam berhasil dihapus!');
+        return true
+        // redirect()->route('borrowers.index')->with('success', 'Peminjam berhasil dihapus!')
+        ;
     }
 }

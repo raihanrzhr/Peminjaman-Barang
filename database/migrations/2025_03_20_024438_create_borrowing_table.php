@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -14,13 +13,15 @@ return new class extends Migration
     {
         Schema::create('borrowing', function (Blueprint $table) {
             $table->id('borrowing_id');
-            $table->foreignId('activity_id')->constrained('activities')->onDelete('cascade');
-            $table->foreignId('borrower_id')->constrained('borrowers')->onDelete('cascade');
-            $table->foreignId('admin_id')->constrained('admin')->onDelete('cascade');
-            $table->date('borrowing_date')->default(DB::raw('CURRENT_DATE'));
-            $table->date('planned_return_date');
-            $table->date('return_date')->nullable();
-            $table->enum('return_status', ['Returned', 'Not Returned'])->default('Not Returned');
+            $table->unsignedBigInteger('activity_id');
+            $table->unsignedBigInteger('borrower_id');
+            $table->unsignedBigInteger('admin_id');
+
+            // Explicitly define foreign keys
+            $table->foreign('activity_id')->references('activity_id')->on('activities')->onDelete('cascade');
+            $table->foreign('borrower_id')->references('borrower_id')->on('borrowers')->onDelete('cascade');
+            $table->foreign('admin_id')->references('admin_id')->on('admin')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

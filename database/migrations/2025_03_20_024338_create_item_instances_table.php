@@ -14,10 +14,11 @@ return new class extends Migration
     {
         Schema::create('item_instances', function (Blueprint $table) {
             $table->id('instance_id');
-            $table->foreignId('item_id')->constrained('items')->onDelete('cascade');
+            $table->unsignedBigInteger('item_id');
+            $table->foreign('item_id')->references('item_id')->on('items')->onDelete('cascade');
             $table->text('specifications');
             $table->date('date_added')->default(DB::raw('CURRENT_DATE'));
-            $table->enum('status', ['Available', 'Borrowed'])->default('Available');
+            $table->enum('status', ['Available', 'Unavailable'])->default('Available'); // Fixed ENUM values
             $table->enum('condition_status', ['Good', 'Damaged'])->default('Good');
         });
     }

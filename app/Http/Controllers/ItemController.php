@@ -23,6 +23,7 @@ class ItemController extends Controller
             'category' => 'required|string',
             'quantity' => 'required|integer|min:1',
             'specifications' => 'required|array',
+            'id_barang' => 'nullable|integer', // Validasi untuk id_barang
         ]);
 
         $item = Item::firstOrCreate(
@@ -36,6 +37,7 @@ class ItemController extends Controller
             for ($i = 0; $i < $request->quantity; $i++) {
                 ItemInstance::create([
                     'item_id' => $item->item_id,
+                    'id_barang' => $request->id_barang, // Simpan id_barang jika ada
                     'specifications' => $specification,
                     'date_added' => now(),
                     'status' => 'Available',
@@ -73,11 +75,13 @@ class ItemController extends Controller
         $request->validate([
             'condition_status' => 'required|string|in:Good,Damaged',
             'specifications' => 'required|string',
+            'id_barang' => 'nullable|integer', // Validasi untuk id_barang
         ]);
 
         $itemInstance->update([
             'condition_status' => $request->condition_status,
             'specifications' => $request->specifications,
+            'id_barang' => $request->id_barang, // Perbarui id_barang jika ada
             'status' => $request->condition_status === 'Damaged' ? 'Unavailable' : 'Available',
         ]);
 

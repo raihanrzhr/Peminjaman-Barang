@@ -24,6 +24,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'admin_name' => 'required|string|max:255',
+            'role' => 'required|integer|in:0,1', // Validasi role
         ]);
 
         Admin::create($request->all());
@@ -42,6 +43,7 @@ class AdminController extends Controller
     {
         $request->validate([
             'admin_name' => 'required|string|max:255',
+            'role' => 'required|integer|in:0,1', // Validasi role
         ]);
 
         $admin = Admin::findOrFail($id);

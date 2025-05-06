@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id('detail_id');
             $table->foreignId('borrowing_id');
             $table->foreign('borrowing_id')->references('borrowing_id')->on('borrowing')->onDelete('cascade');
-            $table->foreignId('instance_id');
+            $table->unsignedBigInteger('instance_id'); // Foreign key
             $table->foreign('instance_id')->references('instance_id')->on('item_instances')->onDelete('cascade');
             $table->date('borrowing_date')->default(DB::raw('CURRENT_DATE'));
             $table->date('planned_return_date');

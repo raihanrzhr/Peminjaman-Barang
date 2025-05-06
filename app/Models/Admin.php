@@ -13,6 +13,7 @@ class Admin extends Model
 
     protected $fillable = [
         'admin_name',
+        'role', // Tambahkan role
     ];
 
     public function borrowings()

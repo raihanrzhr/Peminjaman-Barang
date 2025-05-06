@@ -46,37 +46,39 @@
                     </div>
                 </div>
                 
-                {{-- <div>
+                <div>
                     <label for="borrower_status" class="block text-sm/6 font-medium text-gray-900">Status Peminjam</label>
                     <div class="mt-2">
-                        <select name="borrower_status" id="borrower_status" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                        <select name="borrower_status" id="borrower_status" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" onchange="toggleBorrowerFields()">
                             <option value="">-- Pilih Status Peminjam --</option>
                             <option value="Mahasiswa">Mahasiswa</option>
                             <option value="Pegawai Ditmawa">Pegawai Ditmawa</option>
                         </select>
                     </div>
-                </div> --}}
-                
-                <div>
-                    <label for="borrower_name" class="block text-sm/6 font-medium text-gray-900">Nama Peminjam</label>
-                    <div class="mt-2">
-                        <input type="text" name="borrower_name" id="borrower_name" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan Nama Peminjam">
+                </div>
+
+                <div id="borrower_fields">
+                    <div>
+                        <label for="borrower_name" class="block text-sm/6 font-medium text-gray-900">Nama Peminjam</label>
+                        <div class="mt-2">
+                            <input type="text" name="borrower_name" id="borrower_name" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan Nama Peminjam">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="borrower_identifier" class="block text-sm/6 font-medium text-gray-900">NIP/NOPEG/NIM</label>
+                        <div class="mt-2">
+                            <input type="text" name="borrower_identifier" id="borrower_identifier" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan NIP/NOPEG/NIM">
+                        </div>
                     </div>
                 </div>
                 
                 <div>
-                    <label for="borrower_identifier" class="block text-sm/6 font-medium text-gray-900">NIP/NOPEG/NIM</label>
+                    <label for="admin_id_all" class="block text-sm/6 font-medium text-gray-900">Penanggung Jawab DITMAWA</label>
                     <div class="mt-2">
-                        <input type="text" name="borrower_identifier" id="borrower_identifier" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan NIP/NOPEG/NIM">
-                    </div>
-                </div>
-                
-                <div>
-                    <label for="admin_id" class="block text-sm/6 font-medium text-gray-900">Penanggung Jawab DITMAWA</label>
-                    <div class="mt-2">
-                        <select name="admin_id" id="admin_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
-                            <option value="">-- Pilih Penanggung jawab --</option>
-                            @foreach($admins as $admin)
+                        <select name="admin_id_all" id="admin_id_all" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <option value="">-- Pilih Penanggung Jawab --</option>
+                            @foreach($allAdmins as $admin)
                                 <option value="{{ $admin->admin_id }}">{{ $admin->admin_name }}</option>
                             @endforeach
                         </select>
@@ -94,7 +96,7 @@
                         </select>
                     </div>
                 </div>
-        
+
                 <div>
                     <label for="item_instances" class="block text-sm/6 font-medium text-gray-900">Pilih Item</label>
                     <div class="mt-2 max-h-64 overflow-y-scroll border border-gray-300 rounded-md p-2">
@@ -130,5 +132,24 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function toggleBorrowerFields() {
+            const borrowerStatus = document.getElementById('borrower_status').value;
+            const borrowerFields = document.getElementById('borrower_fields');
+            const borrowerName = document.getElementById('borrower_name');
+            const borrowerIdentifier = document.getElementById('borrower_identifier');
+
+            if (borrowerStatus === 'Pegawai Ditmawa') {
+                borrowerFields.style.display = 'none'; // Sembunyikan input
+                borrowerName.disabled = true; // Nonaktifkan validasi
+                borrowerIdentifier.disabled = true; // Nonaktifkan validasi
+            } else {
+                borrowerFields.style.display = 'block'; // Tampilkan input
+                borrowerName.disabled = false; // Aktifkan validasi
+                borrowerIdentifier.disabled = false; // Aktifkan validasi
+            }
+        }
+    </script>
 </body>
 </html>

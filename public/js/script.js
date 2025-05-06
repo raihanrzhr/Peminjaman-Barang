@@ -1,5 +1,5 @@
-function updateStatus(borrowingId, status) {
-    fetch(`/borrowings/update/${borrowingId}`, {
+function updateStatus(detailId, status) {
+    fetch(`/borrowings/update/${detailId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

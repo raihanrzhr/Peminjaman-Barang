@@ -20,7 +20,9 @@ class BorrowingDetails extends Model
         'borrowing_date',
         'planned_return_date',
         'return_date',
-        'proof_file',
+        'return_status',
+        'borrowing_proof',
+        'return_proof',
     ];
 
     public function borrowing()

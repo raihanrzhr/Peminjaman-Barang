@@ -15,7 +15,6 @@
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Peminjam</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kegiatan</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Penanggung jawab</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Status</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
                             </tr>
                         </thead>
@@ -26,12 +25,6 @@
                                     <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->borrower->name }}</td>
                                     <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
                                     <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->admin->admin_name }}</td>
-                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">
-                                        <select onchange="updateStatus('{{ $borrowing->borrowing_id }}', this.value)" class="status-dropdown">
-                                            <option value="Not Returned" {{ $borrowing->return_status === 'Not Returned' ? 'selected' : '' }}>Dipinjam</option>
-                                            <option value="Returned" {{ $borrowing->return_status === 'Returned' ? 'selected' : '' }}>Dikembalikan</option>
-                                        </select>
-                                    </td>
                                     <td class="px-6 py-4 text-sm text-center">
                                         <a href="{{ route('borrowings.edit', $borrowing->borrowing_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
                                         <button type="button" class="text-red-600 hover:text-red-900" onclick="confirmDelete('{{ route('borrowings.destroy', $borrowing->borrowing_id) }}')">Delete</button>

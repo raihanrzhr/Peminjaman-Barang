@@ -120,50 +120,29 @@ class BorrowingController extends Controller
             'status' => 'required|in:Returned,Not Returned',
         ]);
 
-        \Log::info('Update status called', ['id' => $id, 'status' => $request->status]);
+        $borrowingDetails = BorrowingDetails::findOrFail($id);
 
-        $borrowing = Borrowing::find($id);
-        if (!$borrowing) {
-            return response()->json(['success' => false, 'message' => 'Peminjaman tidak ditemukan'], 404);
+        if ($request->status === 'Returned') {
+            $borrowingDetails->update([
+                'return_status' => 'Returned',
+                'return_date' => now(),
+            ]);
+
+            // Update status barang menjadi Available
+            $itemInstance = ItemInstance::findOrFail($borrowingDetails->instance_id);
+            $itemInstance->update(['status' => 'Available']);
+        } else {
+            $borrowingDetails->update([
+                'return_status' => 'Not Returned',
+                'return_date' => null,
+            ]);
+
+            // Update status barang menjadi Unavailable
+            $itemInstance = ItemInstance::findOrFail($borrowingDetails->instance_id);
+            $itemInstance->update(['status' => 'Unavailable']);
         }
 
-        $borrowing->return_status = $request->status;
-
-        try {
-            $borrowing->save();
-
-            // Update the return_date in borrowing_details based on the status
-            if ($request->status === 'Returned') {
-                $currentDate = now();
-                \DB::table('borrowing_details')
-                    ->where('borrowing_id', $id)
-                    ->update(['return_date' => $currentDate]);
-
-                // Update status barang menjadi Available
-                $borrowedItems = BorrowingDetails::where('borrowing_id', $id)->get();
-                foreach ($borrowedItems as $detail) {
-                    $itemInstance = ItemInstance::findOrFail($detail->instance_id);
-                    $itemInstance->update(['status' => 'Available']);
-                }
-            } elseif ($request->status === 'Not Returned') {
-                \DB::table('borrowing_details')
-                    ->where('borrowing_id', $id)
-                    ->update(['return_date' => null]);
-
-                // Pastikan status barang tetap Unavailable
-                $borrowedItems = BorrowingDetails::where('borrowing_id', $id)->get();
-                foreach ($borrowedItems as $detail) {
-                    $itemInstance = ItemInstance::findOrFail($detail->instance_id);
-                    $itemInstance->update(['status' => 'Unavailable']);
-                }
-            }
-
-            session()->flash('success', 'Status berhasil diperbarui.');
-            return response()->json(['success' => true]);
-        } catch (\Exception $e) {
-            \Log::error('Error updating borrowing status', ['error' => $e->getMessage()]);
-            return response()->json(['success' => false, 'message' => 'Error updating status'], 500);
-        }
+        return response()->json(['success' => true, 'message' => 'Status berhasil diperbarui.']);
     }
 
     public function update(Request $request, $id)
@@ -243,7 +222,7 @@ class BorrowingController extends Controller
 
     public function detail($id)
     {
-        $borrowing = Borrowing::findOrFail($id);
+        $borrowing = Borrowing::with(['activity', 'borrower', 'admin'])->findOrFail($id);
         $borrowingDetails = BorrowingDetails::with(['instance.item'])->where('borrowing_id', $id)->get();
         $title = 'Detail Peminjaman';
         return view('borrowing_detail', compact('borrowing', 'borrowingDetails', 'title'));

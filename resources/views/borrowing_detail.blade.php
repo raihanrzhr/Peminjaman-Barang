@@ -11,6 +11,7 @@
                             <tr>
                                 <th class="px-1 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">List Barang</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Status</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Pinjam</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Rencana Pengembalian</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Kembali</th>
@@ -39,7 +40,14 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">
                                         {{ $detail->instance->item->item_name }} {{ $detail->instance->specifications }}
                                     </td>
-
+                                    
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">
+                                        <select onchange="updateStatus('{{ $detail->detail_id }}', this.value)" class="status-dropdown">
+                                            <option value="Not Returned" {{ $detail->return_status === 'Not Returned' ? 'selected' : '' }}>Dipinjam</option>
+                                            <option value="Returned" {{ $detail->return_status === 'Returned' ? 'selected' : '' }}>Dikembalikan</option>
+                                        </select>
+                                    </td>
+                                    
                                     @if($previousData !== $currentData)
                                         @php
                                             // Hitung jumlah baris yang sama untuk data ini

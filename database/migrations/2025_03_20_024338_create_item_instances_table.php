@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreign('item_id')->references('item_id')->on('items')->onDelete('cascade');
             $table->text('specifications');
             $table->date('date_added')->default(DB::raw('CURRENT_DATE'));
-            $table->enum('status', ['Available', 'Unavailable'])->default('Available'); // Fixed ENUM values
+            $table->enum('status', ['Available', 'Unavailable'])->default('Available');
             $table->enum('condition_status', ['Good', 'Damaged'])->default('Good');
         });
     }

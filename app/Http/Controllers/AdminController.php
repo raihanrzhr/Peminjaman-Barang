@@ -25,6 +25,7 @@ class AdminController extends Controller
         $request->validate([
             'admin_name' => 'required|string|max:255',
             'role' => 'required|integer|in:0,1', // Validasi role
+            'NIP' => 'nullable|integer', // Validasi NIP
         ]);
 
         Admin::create($request->all());
@@ -44,6 +45,7 @@ class AdminController extends Controller
         $request->validate([
             'admin_name' => 'required|string|max:255',
             'role' => 'required|integer|in:0,1', // Validasi role
+            'NIP' => 'nullable|integer', // Validasi NIP
         ]);
 
         $admin = Admin::findOrFail($id);

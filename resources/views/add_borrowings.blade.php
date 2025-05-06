@@ -33,28 +33,58 @@
                 </div>
                 
                 <div>
+                    <label for="description" class="block text-sm/6 font-medium text-gray-900">Deskripsi Kegiatan</label>
+                    <div class="mt-2">
+                        <textarea name="description" id="description" rows="3" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan Deskripsi Kegiatan"></textarea>
+                    </div>
+                </div>
+                
+                <div>
                     <label for="activity_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Kegiatan</label>
                     <div class="mt-2">
                         <input type="date" name="activity_date" id="activity_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
-
+                
+                {{-- <div>
+                    <label for="borrower_status" class="block text-sm/6 font-medium text-gray-900">Status Peminjam</label>
+                    <div class="mt-2">
+                        <select name="borrower_status" id="borrower_status" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <option value="">-- Pilih Status Peminjam --</option>
+                            <option value="Mahasiswa">Mahasiswa</option>
+                            <option value="Pegawai Ditmawa">Pegawai Ditmawa</option>
+                        </select>
+                    </div>
+                </div> --}}
+                
                 <div>
                     <label for="borrower_name" class="block text-sm/6 font-medium text-gray-900">Nama Peminjam</label>
                     <div class="mt-2">
                         <input type="text" name="borrower_name" id="borrower_name" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan Nama Peminjam">
                     </div>
                 </div>
-
+                
                 <div>
                     <label for="borrower_identifier" class="block text-sm/6 font-medium text-gray-900">NIP/NOPEG/NIM</label>
                     <div class="mt-2">
                         <input type="text" name="borrower_identifier" id="borrower_identifier" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan NIP/NOPEG/NIM">
                     </div>
                 </div>
-        
+                
                 <div>
-                    <label for="admin_id" class="block text-sm/6 font-medium text-gray-900">Penanggung Jawab</label>
+                    <label for="admin_id" class="block text-sm/6 font-medium text-gray-900">Penanggung Jawab DITMAWA</label>
+                    <div class="mt-2">
+                        <select name="admin_id" id="admin_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <option value="">-- Pilih Penanggung jawab --</option>
+                            @foreach($admins as $admin)
+                                <option value="{{ $admin->admin_id }}">{{ $admin->admin_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="admin_id" class="block text-sm/6 font-medium text-gray-900">Penanggung Jawab Tim Sisfo DITMAWA</label>
                     <div class="mt-2">
                         <select name="admin_id" id="admin_id" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                             <option value="">-- Pilih Penanggung jawab --</option>

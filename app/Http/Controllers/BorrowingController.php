@@ -55,7 +55,7 @@ class BorrowingController extends Controller
                 'activity_date' => $request->activity_date,
             ],
             [
-                'description' => $request->description ?? null, // Tambahkan deskripsi jika diperlukan
+                'description' => $request->description ?? null, // Tambahkan deskripsi jika ada
             ]
         );
 
@@ -165,7 +165,7 @@ class BorrowingController extends Controller
                 'activity_date' => $request->activity_date,
             ],
             [
-                'description' => $request->description ?? null, // Tambahkan deskripsi jika diperlukan
+                'description' => $request->description ?? null, // Tambahkan deskripsi jika ada
             ]
         );
 

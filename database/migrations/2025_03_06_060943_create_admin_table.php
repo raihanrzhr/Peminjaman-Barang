@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('admin', function (Blueprint $table) {
             $table->id('admin_id'); // Primary key
             $table->string('admin_name', 255); // Nama admin
+            $table->integer('NIP')->nullable(); // NIP admin
             $table->integer('role')->default(0); // Role: 0 = pegawai, 1 = tim sisfo
             $table->timestamps();
         });

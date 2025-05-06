@@ -31,14 +31,15 @@
                     </div>
                 </div>
 
-                {{-- <div>
-                    <div class="flex items-center justify-between">
-                        <label for="keterangan" class="block text-sm/6 font-medium text-gray-900">Keterangan</label>
-                    </div>
+                <div>
+                    <label for="role" class="block text-sm/6 font-medium text-gray-900">Role</label>
                     <div class="mt-2">
-                        <textarea name="keterangan" id="keterangan" autocomplete="keterangan" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" rows="4"></textarea>
+                        <select name="role" id="role" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <option value="0">Pegawai</option>
+                            <option value="1">Tim Sisfo</option>
+                        </select>
                     </div>
-                </div> --}}
+                </div>
 
                 <div class="flex justify-end">
                     <a href="{{ route('admins.index') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>

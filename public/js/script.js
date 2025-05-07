@@ -71,3 +71,34 @@ function confirmDelete(deleteUrl) {
         }
     });
 }
+
+function toggleBorrowerFields() {
+    const borrowerStatus = document.getElementById('borrower_status').value;
+    const borrowerFields = document.getElementById('borrower_fields');
+    const borrowerName = document.getElementById('borrower_name');
+    const borrowerIdentifier = document.getElementById('borrower_identifier');
+
+    if (borrowerStatus === 'Pegawai Ditmawa') {
+        borrowerFields.style.display = 'none'; // Sembunyikan input
+        borrowerName.disabled = true; // Nonaktifkan validasi
+        borrowerIdentifier.disabled = true; // Nonaktifkan validasi
+    } else {
+        borrowerFields.style.display = 'block'; // Tampilkan input
+        borrowerName.disabled = false; // Aktifkan validasi
+        borrowerIdentifier.disabled = false; // Aktifkan validasi
+    }
+}
+
+function filterItems() {
+    const searchInput = document.getElementById('search_item').value.toLowerCase();
+    const items = document.querySelectorAll('#item_list .item-row');
+
+    items.forEach(item => {
+        const label = item.querySelector('label').textContent.toLowerCase();
+        if (label.includes(searchInput)) {
+            item.style.display = 'flex'; // Tampilkan item
+        } else {
+            item.style.display = 'none'; // Sembunyikan item
+        }
+    });
+}

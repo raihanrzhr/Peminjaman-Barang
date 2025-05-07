@@ -99,18 +99,27 @@
 
                 <div>
                     <label for="item_instances" class="block text-sm/6 font-medium text-gray-900">Pilih Item</label>
-                    <div class="mt-2 max-h-64 overflow-y-scroll border border-gray-300 rounded-md p-2">
-                        @foreach($itemInstances as $instance)
-                            <div class="flex items-center">
-                                <input type="checkbox" name="item_instances[]" id="item_instance_{{ $instance->instance_id }}" value="{{ $instance->instance_id }}" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                <label for="item_instance_{{ $instance->instance_id }}" class="ml-2 text-sm text-gray-900">
-                                    {{ $instance->item->item_name }} {{ $instance->specifications }}
-                                </label>
+                    <div class="mt-2">
+                        <div class="border border-gray-300 rounded-md p-3">
+                            <!-- Input Pencarian -->
+                            <input type="text" id="search_item" placeholder="Cari item..." class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 mb-3" onkeyup="filterItems()">
+
+                            <!-- Daftar Item -->
+                            <div id="item_list" class="max-h-64 overflow-y-scroll">
+                                @foreach($itemInstances as $instance)
+                                    <div class="flex items-center item-row">
+                                        <input type="checkbox" name="item_instances[]" id="item_instance_{{ $instance->instance_id }}" value="{{ $instance->instance_id }}" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                                        <label for="item_instance_{{ $instance->instance_id }}" class="ml-2 text-sm text-gray-900">
+                                            {{ $instance->item->item_name }} {{ $instance->specifications }}
+                                        </label>
+                                    </div>
+                                @endforeach
                             </div>
-                        @endforeach
+                        </div>
                     </div>
                 </div>
-        
+ 
+       
                 <div>
                     <label for="borrowing_date" class="block text-sm/6 font-medium text-gray-900">Tanggal Pinjam</label>
                     <div class="mt-2">
@@ -133,23 +142,6 @@
         </div>
     </div>
 
-    <script>
-        function toggleBorrowerFields() {
-            const borrowerStatus = document.getElementById('borrower_status').value;
-            const borrowerFields = document.getElementById('borrower_fields');
-            const borrowerName = document.getElementById('borrower_name');
-            const borrowerIdentifier = document.getElementById('borrower_identifier');
-
-            if (borrowerStatus === 'Pegawai Ditmawa') {
-                borrowerFields.style.display = 'none'; // Sembunyikan input
-                borrowerName.disabled = true; // Nonaktifkan validasi
-                borrowerIdentifier.disabled = true; // Nonaktifkan validasi
-            } else {
-                borrowerFields.style.display = 'block'; // Tampilkan input
-                borrowerName.disabled = false; // Aktifkan validasi
-                borrowerIdentifier.disabled = false; // Aktifkan validasi
-            }
-        }
-    </script>
+    <script src="{{ asset('js/script.js') }}?v={{ time() }}"></script>
 </body>
 </html>

@@ -123,7 +123,7 @@ class ItemController extends Controller
 
     public function show($id)
     {
-        $itemDetails = DB::table('item_details')->where('item_id', $id)->get();
+        $itemDetails = ItemInstance::where('item_id', $id)->get();
         $title = 'Detail Barang';
         return view('item_detail', compact('itemDetails', 'title'));
     }

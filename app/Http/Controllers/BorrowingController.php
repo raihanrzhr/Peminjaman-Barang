@@ -142,6 +142,9 @@ class BorrowingController extends Controller
             // Update status barang menjadi Available
             $itemInstance = ItemInstance::findOrFail($borrowingDetails->instance_id);
             $itemInstance->update(['status' => 'Available']);
+
+            // Set notifikasi sukses
+            session()->flash('success', 'Status berhasil diperbarui menjadi Dikembalikan.');
         } else {
             $borrowingDetails->update([
                 'return_status' => 'Not Returned',
@@ -151,9 +154,12 @@ class BorrowingController extends Controller
             // Update status barang menjadi Unavailable
             $itemInstance = ItemInstance::findOrFail($borrowingDetails->instance_id);
             $itemInstance->update(['status' => 'Unavailable']);
+
+            // Set notifikasi sukses
+            session()->flash('success', 'Status berhasil diperbarui menjadi Dipinjam.');
         }
 
-        return response()->json(['success' => true, 'message' => 'Status berhasil diperbarui.']);
+        return redirect()->back();
     }
 
     public function update(Request $request, $id)

@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/borrowers/store', [BorrowerController::class, 'store'])->name('borrowers.store');
 
     Route::post('/borrowings/update/{id}', [BorrowingController::class, 'updateStatus']);
+    Route::post('/borrowings/update-status/{id}', [BorrowingController::class, 'updateStatus'])->name('borrowings.updateStatus');
     Route::post('/borrowings/store', [BorrowingController::class, 'store'])->name('borrowings.store');
     Route::get('/borrowings/create', [BorrowingController::class, 'create'])->name('borrowings.create');
     Route::get('/borrowings/{id}/edit', [BorrowingController::class, 'edit'])->name('borrowings.edit');

@@ -44,7 +44,7 @@ class BorrowingController extends Controller
             'activity_name' => 'required|string|max:255',
             'activity_date' => 'required|date',
             'borrower_status' => 'required|string|in:Mahasiswa,Pegawai Ditmawa',
-            'admin_id' => 'required_if:borrower_status,Pegawai Ditmawa|exists:admin,admin_id',
+            'admin_id_all' => 'required_if:borrower_status,Pegawai Ditmawa|exists:admin,admin_id',
             'borrower_name' => 'required_if:borrower_status,Mahasiswa|string|max:255',
             'borrower_identifier' => 'required_if:borrower_status,Mahasiswa|string|max:50',
             'item_instances' => 'required|array',
@@ -54,7 +54,7 @@ class BorrowingController extends Controller
 
         // Tentukan data peminjam berdasarkan status
         if ($request->borrower_status === 'Pegawai Ditmawa') {
-            $admin = Admin::findOrFail($request->admin_id);
+            $admin = Admin::findOrFail($request->admin_id_all); // Gunakan admin_id_all
             $borrowerName = $admin->admin_name; // Ambil nama dari tabel admins
             $borrowerIdentifier = $admin->NIP; // Ambil NIP dari tabel admins
         } else {
@@ -85,7 +85,7 @@ class BorrowingController extends Controller
         $borrowing = Borrowing::create([
             'activity_id' => $activity->activity_id,
             'borrower_id' => $borrower->borrower_id,
-            'admin_id' => $request->admin_id,
+            'admin_id' => $request->admin_id, // Tetap gunakan admin_id untuk penanggung jawab tim sisfo
         ]);
 
         // Simpan detail peminjaman

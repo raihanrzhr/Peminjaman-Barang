@@ -21,7 +21,6 @@ class BorrowingDetails extends Model
         'planned_return_date',
         'return_date',
         'return_status',
-        'borrowing_proof',
         'return_proof',
     ];
 

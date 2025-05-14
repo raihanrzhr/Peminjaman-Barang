@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/borrowings/{id}', [BorrowingController::class, 'update'])->name('borrowings.update');
     Route::delete('/borrowings/{id}', [BorrowingController::class, 'destroy'])->name('borrowings.destroy');
     Route::get('/borrowings/{id}/detail', [BorrowingController::class, 'detail'])->name('borrowings.detail');
+    Route::post('/borrowings/upload-proof/{id}/{type}', [BorrowingController::class, 'uploadProof'])->name('borrowings.uploadProof');
 
     Route::get('/items/add_items', function () {
         return view('add_items', ['title' => 'Tambah Barang']);

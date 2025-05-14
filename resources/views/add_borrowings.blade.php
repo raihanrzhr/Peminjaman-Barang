@@ -22,7 +22,7 @@
         @endif --}}
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" action="{{ route('borrowings.store') }}" method="POST">
+            <form class="space-y-6" action="{{ route('borrowings.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div>
@@ -66,7 +66,7 @@
                     </div>
 
                     <div>
-                        <label for="borrower_identifier" class="block text-sm/6 font-medium text-gray-900">NIP/NOPEG/NIM</label>
+                        <label for="borrower_identifier" class="mt-6 block text-sm/6 font-medium text-gray-900">NIP/NOPEG/NIM</label>
                         <div class="mt-2">
                             <input type="text" name="borrower_identifier" id="borrower_identifier" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" placeholder="Masukkan NIP/NOPEG/NIM">
                         </div>
@@ -131,6 +131,13 @@
                     <label for="planned_return_date" class="block text-sm/6 font-medium text-gray-900">Rencana Tanggal Kembali</label>
                     <div class="mt-2">
                         <input type="date" name="planned_return_date" id="planned_return_date" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="borrowing_proof" class="block text-sm/6 font-medium text-gray-900">Bukti Peminjaman</label>
+                    <div class="mt-2">
+                        <input type="file" name="borrowing_proof" id="borrowing_proof" accept="image/*" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                     </div>
                 </div>
         

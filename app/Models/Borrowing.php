@@ -17,6 +17,7 @@ class Borrowing extends Model
         'activity_id',
         'borrower_id',
         'admin_id',
+        'borrowing_proof',
     ];
 
     public function itemInstances()

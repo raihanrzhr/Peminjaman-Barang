@@ -9,6 +9,7 @@ use App\Models\Borrowing;
 use App\Models\ItemInstance;
 use Illuminate\Http\Request;
 use App\Models\BorrowingDetails;
+use Illuminate\Support\Facades\Storage;
 
 class BorrowingController extends Controller
 {
@@ -50,6 +51,7 @@ class BorrowingController extends Controller
             'item_instances' => 'required|array',
             'borrowing_date' => 'required|date',
             'planned_return_date' => 'required|date|after:borrowing_date',
+            'borrowing_proof' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         // Tentukan data peminjam berdasarkan status
@@ -81,11 +83,18 @@ class BorrowingController extends Controller
             ]
         );
 
+        if ($request->hasFile('borrowing_proof')) {
+            $borrowingProofPath = $request->file('borrowing_proof')->store('borrowing_proofs', 'public');
+        } else {
+            $borrowingProofPath = null;
+        }
+
         // Simpan data peminjaman
         $borrowing = Borrowing::create([
             'activity_id' => $activity->activity_id,
             'borrower_id' => $borrower->borrower_id,
             'admin_id' => $request->admin_id, // Tetap gunakan admin_id untuk penanggung jawab tim sisfo
+            'borrowing_proof' => $borrowingProofPath, // Simpan path gambar
         ]);
 
         // Simpan detail peminjaman
@@ -243,5 +252,30 @@ class BorrowingController extends Controller
         $borrowingDetails = BorrowingDetails::with(['instance.item'])->where('borrowing_id', $id)->get();
         $title = 'Detail Peminjaman';
         return view('borrowing_detail', compact('borrowing', 'borrowingDetails', 'title'));
+    }
+
+    public function uploadProof(Request $request, $id, $type)
+    {
+        $request->validate([
+            'proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        if ($type === 'borrowing') {
+            // Handle borrowing proof
+            $borrowing = Borrowing::findOrFail($id);
+            $path = $request->file('proof')->store('borrowing_proofs', 'public');
+            $borrowing->borrowing_proof = $path;
+            $borrowing->save();
+        } elseif ($type === 'return') {
+            // Handle return proof
+            $borrowingDetail = BorrowingDetails::findOrFail($id);
+            $path = $request->file('proof')->store('return_proofs', 'public');
+            $borrowingDetail->return_proof = $path;
+            $borrowingDetail->save();
+        } else {
+            return redirect()->back()->withErrors('Tipe bukti tidak valid.');
+        }
+
+        return redirect()->back()->with('success', 'Bukti berhasil diunggah.');
     }
 }

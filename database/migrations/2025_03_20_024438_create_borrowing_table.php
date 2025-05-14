@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('activity_id');
             $table->unsignedBigInteger('borrower_id');
             $table->unsignedBigInteger('admin_id');
+            $table->string('borrowing_proof')->nullable();
 
             // Explicitly define foreign keys
             $table->foreign('activity_id')->references('activity_id')->on('activities')->onDelete('cascade');

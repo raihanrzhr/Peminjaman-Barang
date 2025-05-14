@@ -22,7 +22,6 @@ return new class extends Migration
             $table->date('planned_return_date');
             $table->date('return_date')->nullable();
             $table->enum('return_status', ['Returned', 'Not Returned'])->default('Not Returned');
-            $table->string('borrowing_proof')->nullable();
             $table->string('return_proof')->nullable();
             $table->timestamps();
         });

@@ -74,20 +74,28 @@
                                             {{ $detail->return_date ? \Carbon\Carbon::parse($detail->return_date)->format('d-m-Y') : 'Belum Dikembalikan' }}
                                         </td>
                                         <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center" rowspan="{{ $rowspanCount }}">
-                                            @if($detail->proof_file)
-                                                <a href="{{ asset('storage/' . $detail->proof_file) }}" target="_blank" class="text-blue-600 hover:text-blue-900">Lihat Bukti</a>
+                                            @if($detail->borrowing->borrowing_proof)
+                                                <img src="{{ asset('storage/' . $detail->borrowing->borrowing_proof) }}" alt="Bukti Peminjaman" class="w-32 h-32 object-cover rounded-md mx-auto">
                                             @else
-                                                Tidak Ada Bukti
-                                            @endif
-                                        </td>
-                                        <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center" rowspan="{{ $rowspanCount }}">
-                                            @if($detail->proof_file)
-                                                <a href="{{ asset('storage/' . $detail->proof_file) }}" target="_blank" class="text-blue-600 hover:text-blue-900">Lihat Bukti</a>
-                                            @else
-                                                Tidak Ada Bukti
+                                                <form action="{{ route('borrowings.uploadProof', ['id' => $detail->borrowing_id, 'type' => 'borrowing']) }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="file" name="proof" accept="image/*" required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md">
+                                                    <button type="submit" class="mt-2 px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-500">Upload Bukti</button>
+                                                </form>
                                             @endif
                                         </td>
                                     @endif
+                                        <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">
+                                            @if($detail->return_proof)
+                                                <img src="{{ asset('storage/' . $detail->return_proof) }}" alt="Bukti Pengembalian" class="w-32 h-32 object-cover rounded-md mx-auto">
+                                            @else
+                                                <form action="{{ route('borrowings.uploadProof', ['id' => $detail->detail_id, 'type' => 'return']) }}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
+                                                    <input type="file" name="proof" accept="image/*" required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-md">
+                                                    <button type="submit" class="mt-2 px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-500">Upload Bukti</button>
+                                                </form>
+                                            @endif
+                                        </td>
                                 </tr>
 
                                 @php

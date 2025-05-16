@@ -119,7 +119,8 @@ class BorrowingController extends Controller
         $borrowing = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances.item', 'borrowingDetails'])->findOrFail($id);
         $activities = Activity::all();
         $borrowers = Borrower::all();
-        $admins = Admin::all();
+        $admins = Admin::where('role', 1)->get(); // Admin dengan role = 1
+        $allAdmins = Admin::all(); // Semua admin (role = 0 dan role = 1)
 
         $itemInstances = ItemInstance::with('item')
             ->where(function ($query) use ($id) {
@@ -131,7 +132,7 @@ class BorrowingController extends Controller
             })
             ->get();
 
-        return view('edit_borrowing', compact('borrowing', 'activities', 'borrowers', 'admins', 'itemInstances'));
+        return view('edit_borrowing', compact('borrowing', 'activities', 'borrowers', 'admins','allAdmins', 'itemInstances'));
     }
 
     public function updateStatus(Request $request, $id)

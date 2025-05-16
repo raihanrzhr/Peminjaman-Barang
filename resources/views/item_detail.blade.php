@@ -16,7 +16,12 @@
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Barang</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Spesifikasi</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Ditambahkan</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Status</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">
+                                    Status <br>
+                                    <span class="text-xs text-green-700 font-semibold">
+                                        Tersedia: {{ $availableCount }}
+                                    </span>
+                                </th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kondisi</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
                             </tr>
@@ -40,9 +45,29 @@
                                             </select>
                                         </form>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-center">
-                                        <a href="{{ route('items.edit', $detail->instance_id) }}" class="text-blue-600 hover:text-blue-900">Edit</a>
-                                        <button type="button" class="text-red-600 hover:text-red-900" onclick="confirmDelete('{{ route('items.destroy', $detail->instance_id) }}')">Delete</button>
+                                    <td class="px-1 py-4 text-sm text-center relative">
+                                        <div x-data="{ open: false }" class="inline-block">
+                                            <button @click="open = !open" class="p-1 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none">
+                                                <!-- Meatballs icon (horizontal dots) -->
+                                                <svg class="w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
+                                                    <circle cx="6" cy="12" r="1.5"/>
+                                                    <circle cx="12" cy="12" r="1.5"/>
+                                                    <circle cx="18" cy="12" r="1.5"/>
+                                                </svg>
+                                            </button>
+                                            <div x-show="open" @click.away="open = false"
+                                                 class="absolute right-0 z-20 mt-2 w-36 bg-white border border-gray-300 rounded-lg shadow-lg py-1 transition">
+                                                 <a href="{{ route('items.edit', $detail->instance_id) }}"
+                                                   class="block px-4 py-2 text-sm text-blue-700 border border-transparent rounded-md m-1 hover:bg-blue-50 hover:text-blue-900 hover:border-blue-400 transition">
+                                                    Edit
+                                                </a>
+                                                <button type="button"
+                                                    class="block px-11.5 py-2 text-sm text-red-700 border border-transparent rounded-md m-1 hover:bg-red-50 hover:text-red-900 hover:border-red-400 transition"
+                                                    onclick="confirmDelete('{{ route('items.destroy', $detail->instance_id) }}')">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

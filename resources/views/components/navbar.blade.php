@@ -18,11 +18,9 @@
             {{-- button logout dekstop --}}
             <form action="{{ route('logout') }}" method="POST" class="hidden md:block">
                 @csrf
-                <button type="submit" onclick="return confirm('Apakah Anda yakin akan log out?')" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                    <span class="sr-only">Logout</span>
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6a2.25 2.25 0 0 0-2.25 2.25v13.5a2.25 2.25 0 0 0 2.25 2.25h6a2.25 2.25 0 0 0 2.25-2.25V15M9 12h12m0 0-3-3m3 3-3 3" />
-                    </svg>
+                <button type="submit" onclick="return confirm('Apakah Anda yakin akan log out?')"
+                    class="px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-800 transition font-semibold">
+                    Logout
                 </button>
             </form>
             {{-- mobile menu button --}}
@@ -33,7 +31,7 @@
                     <button type="submit" onclick="return confirm('Apakah Anda yakin akan log out?')" class="flex items-center">
                         <span class="sr-only">Logout</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6a2.25 2.25 0 0 0-2.25 2.25v13.5a2.25 2.25 0 0 0 2.25 2.25h6a2.25 2.25 0 0 0 2.25-2.25V15M9 12h12m0 0-3-3m3 3-3 3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6a2.25 2.25 0 0 0-2.25 2.25v13.5a2.25 2.25 0 0 0-2.25-2.25h6a2.25 2.25 0 0 0-2.25-2.25V15M9 12h12m0 0-3-3m3 3-3 3" />
                         </svg>
                     </button>
                 </form>

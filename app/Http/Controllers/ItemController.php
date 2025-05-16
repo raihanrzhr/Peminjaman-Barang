@@ -124,7 +124,8 @@ class ItemController extends Controller
     public function show($id)
     {
         $itemDetails = ItemInstance::where('item_id', $id)->get();
+        $availableCount = $itemDetails->where('status', 'Available')->count();
         $title = 'Detail Barang';
-        return view('item_detail', compact('itemDetails', 'title'));
+        return view('item_detail', compact('itemDetails', 'title', 'availableCount'));
     }
 }

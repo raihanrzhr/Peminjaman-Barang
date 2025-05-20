@@ -8,7 +8,7 @@
                 <div class="hidden md:block">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="/" class="{{ request()->is('/') ?                  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Tabel Peminjaman</a>
+                        <a href="/" class="{{ request()->is('/borrowings') ?                  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Tabel Peminjaman</a>
                         <a href="/items" class="{{ request()->is('items') ?         'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Tabel Barang</a>
                         <a href="/borrowers" class="{{ request()->is('borrowers') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Tabel Peminjam</a>
                         <a href="/admins" class="{{ request()->is('admins') ?       'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Penanggung Jawab</a>
@@ -31,7 +31,7 @@
                     <button type="submit" onclick="return confirm('Apakah Anda yakin akan log out?')" class="flex items-center">
                         <span class="sr-only">Logout</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6a2.25 2.25 0 0 0-2.25 2.25v13.5a2.25 2.25 0 0 0-2.25-2.25h6a2.25 2.25 0 0 0-2.25-2.25V15M9 12h12m0 0-3-3m3 3-3 3" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25a2.25 2.25 0 0 0-2.25-2.25h-6a2.25 2.25 0 0 0-2.25 2.25v13.5a2.25 2.25 0 0 0 2.25 2.25h6a2.25 2.25 0 0 0 2.25-2.25V15M9 12h12m0 0-3-3m3 3-3 3" />
                         </svg>
                     </button>
                 </form>
@@ -68,7 +68,7 @@
         class="absolute right-0 mt-2 w-56 origin-top-right rounded-md shadow-lg">
         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="/"             class="{{ request()->is('/') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Tabel Peminjaman</a>
+            <a href="/"             class="{{ request()->is('/borrowings') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Tabel Peminjaman</a>
             <a href="/items"        class="{{ request()->is('items') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Tabel Barang</a>
             <a href="/borrowers"    class="{{ request()->is('borrowers') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Tabel Peminjam</a>
             <a href="/admins"       class="{{ request()->is('admins') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Penanggung Jawab</a>

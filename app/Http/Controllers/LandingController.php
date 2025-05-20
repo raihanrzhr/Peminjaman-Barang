@@ -1,0 +1,16 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Item;
+
+class LandingController extends Controller
+{
+    public function index()
+    {
+        $items = \App\Models\Item::whereHas('itemInstances', function($q) {
+            $q->where('status', 'Available');
+        })->get();
+        return view('landingPage', compact('items'));
+    }
+}

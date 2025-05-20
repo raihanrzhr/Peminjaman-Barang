@@ -135,10 +135,10 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="grid w-full max-w-xs items-center">
                         <label for="borrowing_proof" class="block text-sm/6 font-medium text-gray-900">Bukti Peminjaman</label>
                         <div class="mt-2">
-                            <input type="file" name="borrowing_proof" id="borrowing_proof" accept="image/*" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <input type="file" name="borrowing_proof" id="borrowing_proof" accept="image/*" class="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium">
                             <p class="mt-1 text-sm text-gray-500">Unggah file gambar (format: JPG, PNG, dll).</p>
                         </div>
                     </div>

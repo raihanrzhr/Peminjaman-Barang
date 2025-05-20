@@ -102,3 +102,33 @@ function filterItems() {
         }
     });
 }
+
+// Auto-upload file & show file name for .auto-upload-form
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.auto-upload-form').forEach(form => {
+        const input = form.querySelector('input[type="file"]');
+        const fileNameSpan = form.querySelector('.file-name');
+        input.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                fileNameSpan.textContent = this.files[0].name;
+                form.submit();
+            } else {
+                fileNameSpan.textContent = '';
+            }
+        });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            const filter = this.value.toLowerCase();
+            document.querySelectorAll('#itemsTable tbody tr').forEach(function(row) {
+                const name = row.querySelector('.item-name').textContent.toLowerCase();
+                const spec = row.querySelector('.item-spec').textContent.toLowerCase();
+                row.style.display = (name.includes(filter) || spec.includes(filter)) ? '' : 'none';
+            });
+        });
+    }
+});

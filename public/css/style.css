@@ -124,3 +124,24 @@
     width: 1.3em;
     fill: #b4b4b4;
   }
+
+  /* input gambar */
+  .input {
+  display: none;
+  }
+
+  .labelFile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 250px;
+  height: 190px;
+  border: 2px dashed #ccc;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  color: #404040;
+  cursor: pointer;
+  background: #f5f5f5;
+  margin-bottom: 10px;
+  }

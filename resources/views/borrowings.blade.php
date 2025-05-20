@@ -7,7 +7,7 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Tambahkan wrapper dengan scroll horizontal dan vertikal -->
-                <div class="overflow-x-auto overflow-y-auto max-h-96 border border-gray-300">
+                <div class="overflow-x-auto overflow-y-auto max-h-110 border border-gray-300">
                     <table class="min-w-full border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
@@ -70,7 +70,7 @@
             <button class="btn-tambah" onclick="window.location='{{ route('borrowings.create') }}'">Tambah Peminjaman</button>
         </div>
         <div class="div3">
-            <div class="search">
+            {{-- <div class="search">
                 <input type="text" class="search__input" placeholder="Type your text">
                 <button class="search__button">
                     <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
@@ -79,7 +79,7 @@
                         </g>
                     </svg>
                 </button>
-            </div>
+            </div> --}}
         </div>
     </div>
     

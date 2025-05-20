@@ -6,19 +6,24 @@ use App\Models\Borrowing;
 use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\BorrowingController;
 use App\Http\Controllers\BorrowerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ItemInstanceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LandingController;
+
+// Landing page untuk semua user
+Route::get('/', [LandingController::class, 'index'])->name('landing');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [BorrowingController::class, 'index'])->name('borrowings.index');
+    Route::get('/borrowings', [BorrowingController::class, 'index'])->name('borrowings.index');
 
     Route::get('/items', [ItemController::class, 'index'])->name('items.index');
     Route::post('/items', [ItemController::class, 'store'])->name('items.store');

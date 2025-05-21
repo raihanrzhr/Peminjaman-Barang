@@ -101,7 +101,10 @@
                                                 {{ in_array($instance->instance_id, $borrowing->itemInstances->pluck('instance_id')->toArray()) ? 'checked' : '' }}
                                                 class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
                                             <label for="item_instance_{{ $instance->instance_id }}" class="ml-2 text-sm text-gray-900">
-                                                {{ $instance->item->item_name }} {{ $instance->specifications }}
+                                                {{ $instance->item->item_name }}
+                                                @if($instance->specifications)
+                                                    - {{ \Illuminate\Support\Str::limit($instance->specifications, 26, '...') }}
+                                                @endif
                                             </label>
                                         </div>
                                     @endforeach
@@ -129,7 +132,7 @@
                     </div>
             
                     <div class="flex justify-end">
-                        <a href="{{ url('') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
+                        <a href="{{ url('/borrowings') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
                         <button type="submit" class="flex w-auto justify-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
                     </div>
                 </form>

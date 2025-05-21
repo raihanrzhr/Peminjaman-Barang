@@ -32,14 +32,27 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $loop->iteration }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $detail->id_barang }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $detail->item->item_name }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300">{{ $detail->specifications }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 max-w-xs">
+                                        <div x-data="{ expanded: false }">
+                                            <span x-show="!expanded">
+                                                {{ \Illuminate\Support\Str::limit($detail->specifications, 60) }}
+                                                @if(strlen($detail->specifications) > 60)
+                                                    <button @click="expanded = true" class="text-blue-600 hover:underline text-xs ml-1">See more</button>
+                                                @endif
+                                            </span>
+                                            <span x-show="expanded">
+                                                {{ $detail->specifications }}
+                                                <button @click="expanded = false" class="text-blue-600 hover:underline text-xs ml-1">See less</button>
+                                            </span>
+                                        </div>
+                                    </td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $detail->date_added }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $detail->status }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">
                                         <form action="{{ route('items.update', $detail->instance_id) }}" method="POST">
                                             @csrf
                                             @method('PUT')
-                                            <select name="condition_status" onchange="this.form.submit()">
+                                            <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" name="condition_status" onchange="this.form.submit()">
                                                 <option value="Good" {{ $detail->condition_status == 'Good' ? 'selected' : '' }}>Good</option>
                                                 <option value="Damaged" {{ $detail->condition_status == 'Damaged' ? 'selected' : '' }}>Damaged</option>
                                             </select>

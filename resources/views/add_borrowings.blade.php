@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <title>Tambah Peminjaman</title>
 </head>
@@ -14,12 +15,6 @@
         <div class="sm:mx-auto sm:w-full sm:max-w-sm">
             <h1 class="mt-10 text-center text-3xl/9 font-bold tracking-tight text-gray-900">Tambahkan Peminjaman</h1>
         </div>
-        
-        {{-- @if (session('success'))
-            <script>
-                alert('{{ session('success') }}');
-            </script>
-        @endif --}}
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm px-8 py-8">
@@ -111,7 +106,10 @@
                                         <div class="flex items-center item-row">
                                             <input type="checkbox" name="item_instances[]" id="item_instance_{{ $instance->instance_id }}" value="{{ $instance->instance_id }}" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
                                             <label for="item_instance_{{ $instance->instance_id }}" class="ml-2 text-sm text-gray-900">
-                                                {{ $instance->item->item_name }} {{ $instance->specifications }}
+                                                {{ $instance->item->item_name }}
+                                                @if($instance->specifications)
+                                                    - {{ \Illuminate\Support\Str::limit($instance->specifications, 26, '...') }}
+                                                @endif
                                             </label>
                                         </div>
                                     @endforeach
@@ -135,16 +133,14 @@
                         </div>
                     </div>
 
-                    <div class="grid w-full max-w-xs items-center">
-                        <label for="borrowing_proof" class="block text-sm/6 font-medium text-gray-900">Bukti Peminjaman</label>
-                        <div class="mt-2">
-                            <input type="file" name="borrowing_proof" id="borrowing_proof" accept="image/*" class="flex h-10 w-full rounded-md border border-input bg-white px-3 py-2 text-sm text-gray-400 file:border-0 file:bg-transparent file:text-gray-600 file:text-sm file:font-medium">
-                            <p class="mt-1 text-sm text-gray-500">Unggah file gambar (format: JPG, PNG, dll).</p>
-                        </div>
+                    <div class="max-w-lg mx-auto">
+                        <label class="block mb-2 text-sm/6 font-medium text-gray-900" for="borrowing_proof">Upload file</label>
+                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 " aria-describedby="borrowing_proof_help" id="borrowing_proof" name="borrowing_proof" type="file" accept="image/*">
+                        <div class="mt-1 text-sm text-gray-500" id="borrowing_proof_help">Unggah file gambar (format: JPG, PNG, dll).</div>
                     </div>
             
                     <div class="flex justify-end">
-                        <a href="{{ url('') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
+                        <a href="{{ url('/borrowings') }}" class="flex w-auto justify-center rounded-md bg-gray-300 px-2 py-1 text-sm font-semibold text-gray-900 shadow-xs hover:bg-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-600 mr-2">Cancel</a>
                         <button type="submit" class="flex w-auto justify-center rounded-md bg-indigo-600 px-2 py-1 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Submit</button>
                     </div>
                 </form>

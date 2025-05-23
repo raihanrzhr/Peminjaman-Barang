@@ -14,7 +14,7 @@
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">NIP</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Role</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Actions</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="div2">
-            <button class="btn-tambah" onclick="window.location='{{ route('admins.create') }}'">Add Admin</button>
+            <button class="btn-tambah" onclick="window.location='{{ route('admins.create') }}'">Tambah Admin</button>
         </div>
         <div class="div3">
             

@@ -8,9 +8,9 @@
                 <div class="hidden md:block">
                     <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                     <div class="ml-10 flex items-baseline space-x-4">
-                        <a href="/borrowings" class="{{ request()->is('borrowings') ?'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Tabel Peminjaman</a>
-                        <a href="/items" class="{{ request()->is('items') ?         'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Tabel Barang</a>
-                        <a href="/borrowers" class="{{ request()->is('borrowers') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Tabel Peminjam</a>
+                        <a href="/borrowings" class="{{ request()->is('borrowings') ?'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium" aria-current="page">Peminjaman</a>
+                        <a href="/items" class="{{ request()->is('items') ?         'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Barang</a>
+                        <a href="/borrowers" class="{{ request()->is('borrowers') ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Peminjam</a>
                         <a href="/admins" class="{{ request()->is('admins') ?       'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' }} rounded-md px-3 py-2 text-sm font-medium ">Penanggung Jawab</a>
                     </div>
                 </div>
@@ -68,9 +68,9 @@
         class="absolute right-0 mt-2 w-56 origin-top-right rounded-md shadow-lg">
         <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <a href="/borrowings"   class="{{ request()->is('borrowings') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Tabel Peminjaman</a>
-            <a href="/items"        class="{{ request()->is('items') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Tabel Barang</a>
-            <a href="/borrowers"    class="{{ request()->is('borrowers') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Tabel Peminjam</a>
+            <a href="/borrowings"   class="{{ request()->is('borrowings') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Peminjaman</a>
+            <a href="/items"        class="{{ request()->is('items') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Barang</a>
+            <a href="/borrowers"    class="{{ request()->is('borrowers') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Peminjam</a>
             <a href="/admins"       class="{{ request()->is('admins') ?  'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'}} block rounded-md px-3 py-2 text-base font-medium">Penanggung Jawab</a>
         </div>
     </div>

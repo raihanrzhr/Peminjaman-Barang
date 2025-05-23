@@ -15,7 +15,26 @@
             <span class="text-xl">&#8594;</span>
         </a>
     </div>
-    <div class="max-w-7xl mx-auto mt-10 bg-white rounded-xl shadow p-8">
+
+    <!-- Hero Section -->
+    <section class="max-w-7xl mx-auto mt-10 mb-16 bg-white rounded-xl shadow p-10 flex flex-col md:flex-row items-center gap-8">
+        <div class="flex-1">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-4 leading-tight">
+                Lorem ipsum dolor sit amet consectetur
+            </h1>
+            <p class="text-lg text-slate-600 mb-6">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus dolore aliquid odit rem voluptatum qui natus eaque autem, recusandae aperiam repudiandae animi, quod, minima molestiae similique esse debitis quidem saepe.
+            </p>
+            <a href="#daftar-barang" class="inline-block px-6 py-3 bg-blue-700 text-white rounded-lg font-semibold shadow hover:bg-blue-800 transition">
+                Lihat Daftar Barang
+            </a>
+        </div>
+        <div class="flex-1 flex justify-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/2920/2920244.png" alt="Peminjaman Barang" class="w-64 h-64 object-contain">
+        </div>
+    </section>
+
+    <div id="daftar-barang" class="max-w-7xl mx-auto mt-10 bg-white rounded-xl shadow p-8 mb-10">
         <h1 class="text-2xl font-bold text-blue-700 mb-6">Daftar Barang Tersedia</h1>
         
         <!-- Search box -->
@@ -35,7 +54,7 @@
                         <tr class="bg-slate-100">
                             <th class="px-6 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Nama Barang</th>
                             <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Spesifikasi</th>
-                            <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Quantity</th>
+                            <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Jumlah Terserdia</th>
                         </tr>
                     </thead>
                     <tbody>

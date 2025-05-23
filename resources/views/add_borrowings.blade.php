@@ -134,7 +134,7 @@
                     </div>
 
                     <div class="max-w-lg mx-auto">
-                        <label class="block mb-2 text-sm/6 font-medium text-gray-900" for="borrowing_proof">Upload file</label>
+                        <label class="block mb-2 text-sm/6 font-medium text-gray-900" for="borrowing_proof">Bukti Peminjaman</label>
                         <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 " aria-describedby="borrowing_proof_help" id="borrowing_proof" name="borrowing_proof" type="file" accept="image/*">
                         <div class="mt-1 text-sm text-gray-500" id="borrowing_proof_help">Unggah file gambar (format: JPG, PNG, dll).</div>
                     </div>

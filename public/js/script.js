@@ -22,6 +22,9 @@
 //     });
 // }
 
+console.log('Script loaded successfully!');
+
+
 function confirmDelete(deleteUrl) {
     Swal.fire({
         title: "Apakah Anda yakin?",
@@ -144,4 +147,45 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+});
+
+const borrowingProofInput = document.getElementById('borrowing_proof');
+if (borrowingProofInput) {
+    borrowingProofInput.addEventListener('change', function(e) {
+        const alertBox = document.getElementById('file-size-alert');
+        if (this.files.length > 0 && this.files[0].size > 2 * 1024 * 1024) {
+            alertBox.style.display = 'flex';
+            this.value = '';
+        } else {
+            alertBox.style.display = 'none';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Untuk semua input file bukti peminjaman di modal
+    document.querySelectorAll('input[id^="borrowing-proof-"]').forEach(function(input) {
+        input.addEventListener('change', function() {
+            const alertBox = document.getElementById('file-size-alert-borrowing-' + this.id.replace('borrowing-proof-', ''));
+            if (this.files.length > 0 && this.files[0].size > 2 * 1024 * 1024) {
+                alertBox.style.display = 'flex';
+                this.value = '';
+            } else {
+                alertBox.style.display = 'none';
+            }
+        });
+    });
+
+    // Untuk semua input file bukti pengembalian di modal
+    document.querySelectorAll('input[id^="return-proof-"]').forEach(function(input) {
+        input.addEventListener('change', function() {
+            const alertBox = document.getElementById('file-size-alert-return-' + this.id.replace('return-proof-', ''));
+            if (this.files.length > 0 && this.files[0].size > 2 * 1024 * 1024) {
+                alertBox.style.display = 'flex';
+                this.value = '';
+            } else {
+                alertBox.style.display = 'none';
+            }
+        });
+    });
 });

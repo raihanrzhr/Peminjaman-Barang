@@ -9,7 +9,7 @@ use App\Models\Borrowing;
 use App\Models\ItemInstance;
 use Illuminate\Http\Request;
 use App\Models\BorrowingDetails;
-use Illuminate\Support\Facades\Storage;
+use Storage;
 
 class BorrowingController extends Controller
 {

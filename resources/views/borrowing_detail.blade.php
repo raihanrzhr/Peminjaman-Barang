@@ -178,6 +178,15 @@
                                                                         <span class="file-name text-xs text-gray-500 mt-2"></span>
                                                                     </label>
                                                                     <input class="hidden" name="proof" id="borrowing-proof-{{ $detail->borrowing_id }}" type="file" accept="image/*" required>
+                                                                    <div id="file-size-alert-borrowing-{{ $detail->borrowing_id }}" class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 mt-3" role="alert" style="display:none;">
+                                                                        <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                                                        </svg>
+                                                                        <span class="sr-only">Info</span>
+                                                                        <div>
+                                                                            <span class="font-medium">Ukuran file terlalu besar!</span> Maksimal ukuran file adalah 2MB.
+                                                                        </div>
+                                                                    </div>
                                                                     <button type="submit" class="mt-4 px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-500 w-full">Upload</button>
                                                                 </form>
                                                             </div>
@@ -272,6 +281,15 @@
                                                                     <span class="file-name text-xs text-gray-500 mt-2"></span>
                                                                 </label>
                                                                 <input class="hidden" name="proof" id="return-proof-{{ $detail->detail_id }}" type="file" accept="image/*" required>
+                                                                <div id="file-size-alert-return-{{ $detail->detail_id }}" class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 mt-3" role="alert" style="display:none;">
+                                                                    <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                                                                    </svg>
+                                                                    <span class="sr-only">Info</span>
+                                                                    <div>
+                                                                        <span class="font-medium">Ukuran file terlalu besar!</span> Maksimal ukuran file adalah 2MB.
+                                                                    </div>
+                                                                </div>
                                                                 <button type="submit" class="mt-4 px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-500 w-full">Upload</button>
                                                             </form>
                                                         </div>

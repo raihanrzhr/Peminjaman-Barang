@@ -279,4 +279,25 @@ class BorrowingController extends Controller
 
         return redirect()->back()->with('success', 'Bukti berhasil diunggah.');
     }
+
+    public function deleteProof($id, $type)
+    {
+        if ($type === 'borrowing') {
+            $borrowing = Borrowing::findOrFail($id);
+            if ($borrowing->borrowing_proof) {
+                \Storage::disk('public')->delete($borrowing->borrowing_proof);
+                $borrowing->borrowing_proof = null;
+                $borrowing->save();
+            }
+        } elseif ($type === 'return') {
+            $borrowingDetail = BorrowingDetails::findOrFail($id);
+            if ($borrowingDetail->return_proof) {
+                \Storage::disk('public')->delete($borrowingDetail->return_proof);
+                $borrowingDetail->return_proof = null;
+                $borrowingDetail->save();
+            }
+        }
+        return true; 
+        // redirect()->back()->with('success', 'Bukti berhasil dihapus.');
+    }
 }

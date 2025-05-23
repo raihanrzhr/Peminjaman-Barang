@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/borrowings/update/{id}', [BorrowingController::class, 'updateStatus']);
     Route::post('/borrowings/update-status/{id}', [BorrowingController::class, 'updateStatus'])->name('borrowings.updateStatus');
     Route::post('/borrowings/upload-proof/{id}/{type}', [BorrowingController::class, 'uploadProof'])->name('borrowings.uploadProof');
+    Route::delete('/borrowings/delete-proof/{id}/{type}', [BorrowingController::class, 'deleteProof'])->name('borrowings.deleteProof');
     Route::get('/borrowings/add_borrowings', [BorrowingController::class, 'create'])->name('add_borrowings');
 
     // Admins

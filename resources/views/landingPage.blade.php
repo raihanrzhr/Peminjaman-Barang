@@ -5,6 +5,7 @@
     <title>Daftar Barang Tersedia</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="icon" href="{{ asset('images/ITB_white.png') }}" type="image/png">
     <script src="{{ asset('js/script.js') }}"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-400 via-white to-blue-200 min-h-screen">

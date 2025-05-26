@@ -30,7 +30,7 @@
             </a>
         </div>
         <div class="flex-1 flex justify-center">
-            <img src="https://cdn-icons-png.flaticon.com/512/2920/2920244.png" alt="Peminjaman Barang" class="w-64 h-64 object-contain">
+            <img src="{{ asset('images/Logo_Institut_Teknologi_Bandung.png') }}" alt="Peminjaman Barang" class="w-64 h-64 object-contain mr-[-90px]">
         </div>
     </section>
 

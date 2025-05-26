@@ -107,33 +107,35 @@ function filterItems() {
 }
 
 // Auto-upload file & show file name for .auto-upload-form
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.auto-upload-form').forEach(form => {
-        const input = form.querySelector('input[type="file"]');
-        const fileNameSpan = form.querySelector('.file-name');
-        input.addEventListener('change', function() {
-            if (this.files.length > 0) {
-                fileNameSpan.textContent = this.files[0].name;
-                form.submit();
-            } else {
-                fileNameSpan.textContent = '';
-            }
-        });
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     document.querySelectorAll('.auto-upload-form').forEach(form => {
+//         const input = form.querySelector('input[type="file"]');
+//         const fileNameSpan = form.querySelector('.file-name');
+//         input.addEventListener('change', function() {
+//             if (this.files.length > 0) {
+//                 fileNameSpan.textContent = this.files[0].name;
+//                 form.submit();
+//             } else {
+//                 fileNameSpan.textContent = '';
+//             }
+//         });
+//     });
+// });
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('input[type="file"]').forEach(input => {
+function setupFileNameDisplay(inputSelector = 'input[type="file"]') {
+    document.querySelectorAll(inputSelector).forEach(input => {
         input.addEventListener('change', function() {
             const fileNameSpan = this.closest('form').querySelector('.file-name');
-            if (this.files.length > 0) {
-                fileNameSpan.textContent = this.files[0].name;
-            } else {
-                fileNameSpan.textContent = '';
+            if (fileNameSpan) {
+                if (this.files.length > 0) {
+                    fileNameSpan.textContent = this.files[0].name;
+                } else {
+                    fileNameSpan.textContent = '';
+                }
             }
         });
     });
-});
+};
 
 document.addEventListener('DOMContentLoaded', function() {
     const searchInput = document.getElementById('searchInput');
@@ -189,3 +191,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function confirmLogout(formId) {
+    Swal.fire({
+        title: 'Apakah Anda yakin akan log out?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Ya, log out',
+        cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById(formId).submit();
+        }
+    });
+}

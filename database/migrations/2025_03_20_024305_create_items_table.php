@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id('item_id');
             $table->string('item_name')->unique();
-            $table->string('category');
-            $table->integer('quantity')->default(0);
+            $table->string('category'); // kategori berubah menjadi item_name sekarang dan item name di tambah di tabel detail dan saat menambahkan data barang menjadi drop down, kategori menjadi pilihan seperti laptop kabel dll.
             $table->timestamps();
         });
     }

@@ -28,7 +28,7 @@
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $index + 1 }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->item_name }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->category }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->quantity }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->item_instances_count }}</td>
                                     <td class="px-1 py-4 text-sm text-center relative">
                                         <div x-data="{ open: false }" class="inline-block">
                                             <button @click="open = !open" class="p-1 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none">

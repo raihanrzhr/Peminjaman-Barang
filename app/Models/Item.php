@@ -9,7 +9,7 @@ class Item extends Model
     protected $table = 'items';
     protected $primaryKey = 'item_id';
     public $timestamps = false; // Nonaktifkan timestamps
-    protected $fillable = ['item_name', 'category', 'quantity'];
+    protected $fillable = ['item_name', 'category'];
 
     public function itemInstances()
     {

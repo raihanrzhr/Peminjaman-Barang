@@ -11,7 +11,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::with('itemInstances')->get();
+        $items = Item::withCount('itemInstances')->get();
         $title = 'Tabel Barang';
         return view('items', compact('items', 'title'));
     }
@@ -23,21 +23,19 @@ class ItemController extends Controller
             'category' => 'required|string',
             'quantity' => 'required|integer|min:1',
             'specifications' => 'required|array',
-            'id_barang' => 'nullable|integer', // Validasi untuk id_barang
+            'id_barang' => 'nullable|integer',
         ]);
 
         $item = Item::firstOrCreate(
             ['item_name' => $request->item_name],
-            ['category' => $request->category, 'quantity' => 0]
+            ['category' => $request->category]
         );
-
-        $item->increment('quantity', $request->quantity);
 
         foreach ($request->specifications as $specification) {
             for ($i = 0; $i < $request->quantity; $i++) {
                 ItemInstance::create([
                     'item_id' => $item->item_id,
-                    'id_barang' => $request->id_barang, // Simpan id_barang jika ada
+                    'id_barang' => $request->id_barang,
                     'specifications' => $specification,
                     'date_added' => now(),
                     'status' => 'Available',
@@ -93,15 +91,9 @@ class ItemController extends Controller
     {
         $itemInstance = ItemInstance::findOrFail($id);
 
-        if ($itemInstance->item) {
-            $itemInstance->item->decrement('quantity');
-        }
-
         $itemInstance->delete();
 
-        return true
-        // ->with('success', 'Item berhasil dihapus.')
-        ;
+        return true;
     }
 
     public function destroyAll($id)

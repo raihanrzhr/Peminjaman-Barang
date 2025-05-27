@@ -26,6 +26,19 @@
             <div class="bg-white border border-gray-200 rounded-xl shadow-sm px-8 py-8">
                 <form class="space-y-6" action="{{ route('items.store') }}" method="POST">
                     @csrf
+
+                    <div>
+                        <label for="category" class="block text-sm/6 font-medium text-gray-900">Kategori</label>
+                        <div class="mt-2">
+                            <select name="category" id="category" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                                <option value="" disabled selected>Pilih kategori</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->category }}">{{ $category->category }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
                     <div>
                         <label for="item_name" class="block text-sm/6 font-medium text-gray-900">Nama Barang</label>
                         <div class="mt-2">
@@ -36,21 +49,14 @@
                     <div>
                         <label for="specifications" class="block text-sm/6 font-medium text-gray-900">Spesifikasi</label>
                         <div class="mt-2">
-                            <textarea name="specifications[]" id="specifications" autocomplete="specifications" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" rows="4"></textarea>
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="category" class="block text-sm/6 font-medium text-gray-900">Kategori</label>
-                        <div class="mt-2">
-                            <input type="text" name="category" id="category" autocomplete="category" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <textarea name="specifications" id="specifications" autocomplete="specifications" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" rows="4"></textarea>
                         </div>
                     </div>
 
                     <div>
                         <label for="quantity" class="block text-sm/6 font-medium text-gray-900">Jumlah</label>
                         <div class="mt-2">
-                            <input type="number" name="quantity" id="quantity" autocomplete="quantity" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+                            <input type="number" name="quantity" id="quantity" autocomplete="quantity" required min="1" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
                         </div>
                     </div>
 

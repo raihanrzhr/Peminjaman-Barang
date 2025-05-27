@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('item_instances', function (Blueprint $table) {
             $table->id('instance_id');
             $table->unsignedBigInteger('item_id');
+            $table->string('item_name'); // Tambahkan ini
             $table->unsignedInteger('id_barang')->nullable(); // Tambahkan kolom id_barang
             $table->text('specifications');
             $table->date('date_added')->default(DB::raw('CURRENT_DATE'));

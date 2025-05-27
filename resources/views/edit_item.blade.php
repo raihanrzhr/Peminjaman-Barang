@@ -27,17 +27,25 @@
                 <form class="space-y-6" action="{{ route('items.update', $itemInstance->instance_id) }}" method="POST">
                     @csrf
                     @method('PUT')
+
+                    <div>
+                        <label for="item_name" class="block text-sm/6 font-medium text-gray-900">Nama Barang</label>
+                        <div class="mt-2">
+                            <input type="text" name="item_name" id="item_name" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $itemInstance->item_name }}">
+                        </div>
+                    </div>
+
                     <div>
                         <label for="specifications" class="block text-sm/6 font-medium text-gray-900">Spesifikasi</label>
                         <div class="mt-2">
-                            <textarea name="specifications" id="specifications" autocomplete="specifications" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" rows="4">{{ $itemInstance->specifications }}</textarea>
+                            <textarea name="specifications" id="specifications" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" rows="4">{{ $itemInstance->specifications }}</textarea>
                         </div>
                     </div>
 
                     <div>
                         <label for="id_barang" class="block text-sm/6 font-medium text-gray-900">ID Barang</label>
                         <div class="mt-2">
-                            <input type="text" name="id_barang" id="id_barang" autocomplete="id_barang" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $itemInstance->id_barang }}">
+                            <input type="text" name="id_barang" id="id_barang" required class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" value="{{ $itemInstance->id_barang }}">
                         </div>
                     </div>                
 

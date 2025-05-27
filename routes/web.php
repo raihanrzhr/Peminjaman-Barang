@@ -27,9 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('items', ItemController::class)->except(['show']);
     Route::get('/items/{id}/detail', [ItemController::class, 'show'])->name('items.detail');
     Route::delete('/items/{id}/destroyAll', [ItemController::class, 'destroyAll'])->name('items.destroyAll');
-    Route::get('/items/add_items', function () {
-        return view('add_items', ['title' => 'Tambah Barang']);
-    })->name('add_items');
+    Route::get('/items/add_items', [ItemController::class, 'create'])->name('add_items');
 
     // Borrowers
     Route::resource('borrowers', BorrowerController::class)->except(['show', 'create']);

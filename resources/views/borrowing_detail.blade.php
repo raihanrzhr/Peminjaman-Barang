@@ -47,7 +47,7 @@
                                     <td class="px-2 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center max-w-xs">
                                         <div x-data="{ expanded: false }">
                                             <span x-show="!expanded">
-                                                {{ \Illuminate\Support\Str::limit($detail->instance->specifications, 30) ? $detail->instance->item->item_name . ' ' . \Illuminate\Support\Str::limit($detail->instance->specifications, 30) : $detail->instance->item->item_name }}
+                                                {{ \Illuminate\Support\Str::limit($detail->instance->specifications, 30) ? $detail->instance->item_name . ' ' . \Illuminate\Support\Str::limit($detail->instance->specifications, 30) : $detail->instance->item->item_name }}
                                                 @if(strlen($detail->instance->specifications) > 30)
                                                     <button @click="expanded = true" class="text-blue-600 hover:underline text-xs ml-1">See more</button>
                                                 @endif

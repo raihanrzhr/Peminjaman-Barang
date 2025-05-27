@@ -169,11 +169,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input[id^="borrowing-proof-"]').forEach(function(input) {
         input.addEventListener('change', function() {
             const alertBox = document.getElementById('file-size-alert-borrowing-' + this.id.replace('borrowing-proof-', ''));
+            const fileNameSpan = this.closest('form').querySelector('.file-name');
             if (this.files.length > 0 && this.files[0].size > 2 * 1024 * 1024) {
                 alertBox.style.display = 'flex';
                 this.value = '';
+                if (fileNameSpan) fileNameSpan.textContent = '';
             } else {
                 alertBox.style.display = 'none';
+                // Tampilkan nama file
+                if (fileNameSpan) {
+                    fileNameSpan.textContent = this.files.length > 0 ? this.files[0].name : '';
+                }
             }
         });
     });
@@ -182,11 +188,17 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input[id^="return-proof-"]').forEach(function(input) {
         input.addEventListener('change', function() {
             const alertBox = document.getElementById('file-size-alert-return-' + this.id.replace('return-proof-', ''));
+            const fileNameSpan = this.closest('form').querySelector('.file-name');
             if (this.files.length > 0 && this.files[0].size > 2 * 1024 * 1024) {
                 alertBox.style.display = 'flex';
                 this.value = '';
+                if (fileNameSpan) fileNameSpan.textContent = '';
             } else {
                 alertBox.style.display = 'none';
+                // Tampilkan nama file
+                if (fileNameSpan) {
+                    fileNameSpan.textContent = this.files.length > 0 ? this.files[0].name : '';
+                }
             }
         });
     });

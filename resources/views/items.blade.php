@@ -16,7 +16,6 @@
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr> 
                                 <th class="px-1 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Nama Barang</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kategori</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Jumlah</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
@@ -26,7 +25,6 @@
                             @foreach ($items as $index => $item)
                                 <tr>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $index + 1 }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->item_name }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->category }}</td>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $item->item_instances_count }}</td>
                                     <td class="px-1 py-4 text-sm text-center relative">

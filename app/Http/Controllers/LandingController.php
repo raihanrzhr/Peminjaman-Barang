@@ -8,9 +8,7 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $items = \App\Models\Item::whereHas('itemInstances', function($q) {
-            $q->where('status', 'Available');
-        })->get();
+        $items = \App\Models\Item::with('itemInstances')->get();
         return view('landingPage', compact('items'));
     }
 }

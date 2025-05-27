@@ -53,43 +53,33 @@
                 <table class="min-w-full border border-slate-200 rounded-lg" id="itemsTable">
                     <thead>
                         <tr class="bg-slate-100">
+                            <th class="px-6 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Kategori</th>
                             <th class="px-6 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Nama Barang</th>
                             <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Spesifikasi</th>
-                            <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Jumlah Terserdia</th>
+                            <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Jumlah Tersedia</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($items as $item)
                             @php
-                                // Kelompokkan spesifikasi dan hitung quantity
-                                $specGroups = collect($item->itemInstances)
+                                // Kelompokkan instance yang tersedia berdasarkan nama dan spesifikasi
+                                $groups = collect($item->itemInstances)
                                     ->where('status', 'Available')
-                                    ->groupBy('specifications')
-                                    ->map(function($group) {
-                                        return $group->count();
+                                    ->groupBy(function($instance) {
+                                        return $instance->item_name . '||' . $instance->specifications;
                                     });
                             @endphp
-                            @if($specGroups->count())
-                                @foreach($specGroups as $spec => $qty)
-                                    <tr class="hover:bg-slate-50">
-                                        <td class="px-4 py-3 border-b border-slate-200 align-top item-name">
-                                            {{ $item->item_name }}
-                                        </td>
-                                        <td class="px-4 py-3 border-b border-slate-200 item-spec">
-                                            {{ $spec ?: '-' }}
-                                        </td>
-                                        <td class="px-4 py-3 border-b border-slate-200 text-center">
-                                            {{ $qty }}
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td class="px-4 py-3 border-b border-slate-200 align-top item-name">{{ $item->item_name }}</td>
-                                    <td class="px-4 py-3 border-b border-slate-200 item-spec text-slate-400">-</td>
-                                    <td class="px-4 py-3 border-b border-slate-200 text-center">0</td>
+                            @foreach($groups as $key => $group)
+                                @php
+                                    [$itemName, $spec] = explode('||', $key);
+                                @endphp
+                                <tr class="hover:bg-slate-50">
+                                    <td class="px-4 py-3 border-b border-slate-200 align-top">{{ $item->category }}</td>
+                                    <td class="px-4 py-3 border-b border-slate-200 align-top item-name">{{ $itemName }}</td>
+                                    <td class="px-4 py-3 border-b border-slate-200 item-spec">{{ $spec ?: '-' }}</td>
+                                    <td class="px-4 py-3 border-b border-slate-200 text-center">{{ $group->count() }}</td>
                                 </tr>
-                            @endif
+                            @endforeach
                         @endforeach
                     </tbody>
                 </table>

@@ -13,6 +13,7 @@ class ItemInstance extends Model
 
     protected $fillable = [
         'item_id',
+        'item_name', // Tambahkan ini
         'id_barang', // Kolom baru
         'specifications',
         'date_added',

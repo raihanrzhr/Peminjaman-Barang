@@ -107,9 +107,9 @@
                                         <div class="flex items-center item-row">
                                             <input type="checkbox" name="item_instances[]" id="item_instance_{{ $instance->instance_id }}" value="{{ $instance->instance_id }}" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
                                             <label for="item_instance_{{ $instance->instance_id }}" class="ml-2 text-sm text-gray-900">
-                                                {{ $instance->item->item_name }}
+                                                {{ $instance->item_name }}
                                                 @if($instance->specifications)
-                                                    - {{ \Illuminate\Support\Str::limit($instance->specifications, 26, '...') }}
+                                                    - {{ \Illuminate\Support\Str::limit($instance->specifications, 19, '...') }}
                                                 @endif
                                             </label>
                                         </div>

@@ -19,29 +19,25 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'item_name' => 'required|string|max:255',
             'category' => 'required|string',
+            'item_name' => 'required|string',
+            'specifications' => 'required|string',
             'quantity' => 'required|integer|min:1',
-            'specifications' => 'required|array',
-            'id_barang' => 'nullable|integer',
         ]);
 
-        $item = Item::firstOrCreate(
-            ['item_name' => $request->item_name],
-            ['category' => $request->category]
-        );
+        // Cari atau buat kategori
+        $item = Item::firstOrCreate(['category' => $request->category]);
 
-        foreach ($request->specifications as $specification) {
-            for ($i = 0; $i < $request->quantity; $i++) {
-                ItemInstance::create([
-                    'item_id' => $item->item_id,
-                    'id_barang' => $request->id_barang,
-                    'specifications' => $specification,
-                    'date_added' => now(),
-                    'status' => 'Available',
-                    'condition_status' => 'Good',
-                ]);
-            }
+        // Tambahkan instance sebanyak quantity
+        for ($i = 0; $i < $request->quantity; $i++) {
+            ItemInstance::create([
+                'item_id' => $item->item_id,
+                'item_name' => $request->item_name,
+                'specifications' => $request->specifications,
+                'date_added' => now(),
+                'status' => 'Available',
+                'condition_status' => 'Good',
+            ]);
         }
 
         return redirect()->route('items.index')->with('success', 'Barang berhasil ditambahkan!');
@@ -119,5 +115,11 @@ class ItemController extends Controller
         $availableCount = $itemDetails->where('status', 'Available')->count();
         $title = 'Detail Barang';
         return view('item_detail', compact('itemDetails', 'title', 'availableCount'));
+    }
+
+    public function create()
+    {
+        $categories = Item::all(); // Ambil semua kategori dari tabel items
+        return view('add_items', compact('categories'));
     }
 }

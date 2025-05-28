@@ -62,7 +62,51 @@
             <button class="btn-tambah" onclick="window.location='{{ route('add_items') }}'">Tambah Barang</button>
         </div>
         <div class="div3">
+            <!-- Tombol untuk membuka modal tambah kategori -->
+            <button type="button"
+                data-modal-target="add-category-modal"
+                data-modal-toggle="add-category-modal"
+                class="px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center"
+            >
+                Tambah Kategori
+            </button>
 
+            <!-- Modal Flowbite untuk tambah kategori -->
+            <div id="add-category-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <div class="relative bg-white rounded-lg shadow-sm">
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between p-4 border-b rounded-t border-gray-200">
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                Tambah Kategori
+                            </h3>
+                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="add-category-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-4">
+                            <form method="POST" action="{{ route('categories.store') }}">
+                                @csrf
+                                <div class="mb-4">
+                                    <input type="text" name="category" required placeholder="Nama kategori"
+                                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-indigo-600">
+                                </div>
+                                <div class="flex justify-end gap-2">
+                                    <button type="button"
+                                        class="px-3 py-1 rounded bg-gray-300 text-gray-800 hover:bg-gray-400"
+                                        data-modal-hide="add-category-modal">Cancel</button>
+                                    <button type="submit"
+                                        class="px-3 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </x-layout>

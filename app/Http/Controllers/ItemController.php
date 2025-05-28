@@ -122,4 +122,13 @@ class ItemController extends Controller
         $categories = Item::all(); // Ambil semua kategori dari tabel items
         return view('add_items', compact('categories'));
     }
+
+    public function storeCategory(Request $request)
+    {
+        $request->validate([
+            'category' => 'required|string|unique:items,category',
+        ]);
+        Item::firstOrCreate(['category' => $request->category]);
+        return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
+    }
 }

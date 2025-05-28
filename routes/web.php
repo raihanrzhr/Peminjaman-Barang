@@ -46,4 +46,7 @@ Route::middleware('auth')->group(function () {
 
     // Admins
     Route::resource('admins', AdminController::class)->except(['show']);
+    
+    // Route untuk menyimpan kategori item
+    Route::post('/categories/store', [ItemController::class, 'storeCategory'])->name('categories.store');
 });

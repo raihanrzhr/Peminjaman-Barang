@@ -24,7 +24,7 @@
                 Selamat Datang di Sistem Peminjaman Barang ITB
             </h1>
             <p class="text-lg text-slate-600 mb-6">
-                Pinjam berbagai barang kebutuhan Anda dengan mudah, cepat, dan transparan. Temukan daftar barang yang tersedia dan ajukan peminjaman secara online tanpa ribet.
+                Pinjam berbagai barang kebutuhan Anda dengan mudah, cepat, dan transparan. Temukan daftar barang yang tersedia tanpa ribet.
             </p>
             <a href="#daftar-barang" class="inline-block px-6 py-3 bg-blue-700 text-white rounded-lg font-semibold shadow hover:bg-blue-800 transition">
                 Lihat Daftar Barang
@@ -50,13 +50,13 @@
 
         @if($items->count())
             <div class="overflow-x-auto overflow-y-auto max-h-[500px]">
-                <table class="min-w-full border border-slate-200 rounded-lg" id="itemsTable">
+                <table class="min-w-full border border-slate-300 rounded-lg overflow-hidden" id="itemsTable">
                     <thead>
                         <tr class="bg-slate-100">
-                            <th class="px-6 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Kategori</th>
-                            <th class="px-6 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Nama Barang</th>
-                            <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Spesifikasi</th>
-                            <th class="px-4 py-3 border-b border-slate-200 text-left font-semibold text-slate-700">Jumlah Tersedia</th>
+                            <th class="px-6 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Kategori</th>
+                            <th class="px-6 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Nama Barang</th>
+                            <th class="px-4 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Spesifikasi</th>
+                            <th class="px-4 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Jumlah Tersedia</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,10 +74,10 @@
                                     [$itemName, $spec] = explode('||', $key);
                                 @endphp
                                 <tr class="hover:bg-slate-50">
-                                    <td class="px-4 py-3 border-b border-slate-200 align-top">{{ $item->category }}</td>
-                                    <td class="px-4 py-3 border-b border-slate-200 align-top item-name">{{ $itemName }}</td>
-                                    <td class="px-4 py-3 border-b border-slate-200 item-spec">{{ $spec ?: '-' }}</td>
-                                    <td class="px-4 py-3 border-b border-slate-200 text-center">{{ $group->count() }}</td>
+                                    <td class="px-4 py-3 border-b border-r border-slate-300 align-top">{{ $item->category }}</td>
+                                    <td class="px-4 py-3 border-b border-r border-slate-300 align-top item-name">{{ $itemName }}</td>
+                                    <td class="px-4 py-3 border-b border-r border-slate-300 item-spec">{{ $spec ?: '-' }}</td>
+                                    <td class="px-4 py-3 border-b border-r border-slate-300 text-center">{{ $group->count() }}</td>
                                 </tr>
                             @endforeach
                         @endforeach

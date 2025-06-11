@@ -7,7 +7,7 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Tambahkan wrapper dengan scroll horizontal dan vertikal -->
-                <div class="overflow-x-auto overflow-y-auto max-h-110 border border-gray-300">
+                <div class="overflow-x-auto overflow-y-auto max-h-140 border border-gray-300">
                     <table class="min-w-full border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
@@ -26,8 +26,21 @@
                                     <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
                                     <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->admin->admin_name }}</td>
                                     <td class="px-1 py-4 text-sm text-center relative">
-                                        <div x-data="{ open: false }" class="inline-block">
-                                            <button @click="open = !open" class="p-1 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none">
+                                        <div 
+                                            x-data="{ open: false, top: 0, left: 0, height: 0 }" 
+                                            class="inline-block"
+                                            @keydown.escape.window="open = false"
+                                        >
+                                            <button 
+                                                @click="open = true; $nextTick(() => {
+                                                    const rect = $event.target.getBoundingClientRect();
+                                                    top = rect.top + window.scrollY - 8; // sedikit naik dari button
+                                                    left = rect.left + window.scrollX;
+                                                    height = rect.height;
+                                                })"
+                                                class="p-1 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none"
+                                                type="button"
+                                            >
                                                 <!-- Meatballs icon -->
                                                 <svg class="w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 24 24">
                                                     <circle cx="6" cy="12" r="1.5"/>
@@ -35,24 +48,24 @@
                                                     <circle cx="18" cy="12" r="1.5"/>
                                                 </svg>
                                             </button>
-                                            <div
+                                            <div 
                                                 x-show="open"
-                                                x-ref="dropdown"
                                                 @click.away="open = false"
-                                                class="absolute right-0 top-10 z-50 w-36 bg-white border border-gray-300 rounded-lg shadow-lg py-1 transition"
                                                 x-transition
+                                                :style="'position:fixed;top:' + (top - 120) + 'px;left:' + left + 'px;width:140px;z-index:9999'"
+                                                class="bg-white border border-gray-300 rounded-lg shadow-lg py-1"
                                             >
                                                 <a href="{{ route('borrowings.edit', $borrowing->borrowing_id) }}"
-                                                   class="block px-4 py-2 text-sm text-blue-700 border border-transparent rounded-md m-1 hover:bg-blue-50 hover:text-blue-900 hover:border-blue-400 transition text-center">
+                                                    class="block px-4 py-2 text-sm text-blue-700 border border-transparent rounded-md m-1 hover:bg-blue-50 hover:text-blue-900 hover:border-blue-400 transition text-center">
                                                     Edit
                                                 </a>
                                                 <button type="button"
-                                                    class="block px-11.5 py-2 text-sm text-red-700 border border-transparent rounded-md m-1 hover:bg-red-50 hover:text-red-900 hover:border-red-400 transition"
+                                                    class="block px-11 py-2 text-sm text-red-700 border border-transparent rounded-md m-1 hover:bg-red-50 hover:text-red-900 hover:border-red-400 transition"
                                                     onclick="confirmDelete('{{ route('borrowings.destroy', $borrowing->borrowing_id) }}')">
                                                     Delete
                                                 </button>
                                                 <a href="{{ route('borrowings.detail', $borrowing->borrowing_id) }}"
-                                                   class="block px-4 py-2 text-sm text-green-700 border border-transparent rounded-md m-1 hover:bg-green-50 hover:text-green-900 hover:border-green-400 transition text-center">
+                                                    class="block px-4 py-2 text-sm text-green-700 border border-transparent rounded-md m-1 hover:bg-green-50 hover:text-green-900 hover:border-green-400 transition text-center">
                                                     Detail
                                                 </a>
                                             </div>

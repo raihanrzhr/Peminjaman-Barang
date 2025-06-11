@@ -21,10 +21,10 @@
     <section class="max-w-7xl mx-auto mt-10 mb-16 bg-white rounded-xl shadow p-10 flex flex-col md:flex-row items-center gap-8">
         <div class="flex-1">
             <h1 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-4 leading-tight">
-                Lorem ipsum dolor sit amet consectetur
+                Selamat Datang di Sistem Peminjaman Barang ITB
             </h1>
             <p class="text-lg text-slate-600 mb-6">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus dolore aliquid odit rem voluptatum qui natus eaque autem, recusandae aperiam repudiandae animi, quod, minima molestiae similique esse debitis quidem saepe.
+                Pinjam berbagai barang kebutuhan Anda dengan mudah, cepat, dan transparan. Temukan daftar barang yang tersedia dan ajukan peminjaman secara online tanpa ribet.
             </p>
             <a href="#daftar-barang" class="inline-block px-6 py-3 bg-blue-700 text-white rounded-lg font-semibold shadow hover:bg-blue-800 transition">
                 Lihat Daftar Barang

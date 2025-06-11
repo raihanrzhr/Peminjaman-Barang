@@ -5,7 +5,7 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Wrapper with scroll -->
-                <div class="w-full overflow-x-auto overflow-y-auto max-h-96 border rounded-md border-gray-300">
+                <div class="w-full overflow-x-auto overflow-y-auto max-h-140 border rounded-md border-gray-300">
                     <table class="min-w-full table-auto border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>

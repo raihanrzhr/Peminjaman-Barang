@@ -219,3 +219,26 @@ function confirmLogout(formId) {
         }
     });
 }
+
+/**
+ * Mengisi otomatis kolom nama barang sesuai kategori yang dipilih.
+ */
+function setupAutoFillItemName() {
+    const categorySelect = document.getElementById('category');
+    const itemNameInput = document.getElementById('item_name');
+    if (!categorySelect || !itemNameInput) return;
+
+    categorySelect.addEventListener('change', function () {
+        if (this.value) {
+            itemNameInput.value = this.value + ' ';
+            itemNameInput.focus();
+        }
+    });
+}
+
+// Panggil fungsi ini saat DOM siap
+document.addEventListener('DOMContentLoaded', function () {
+    setupAutoFillItemName();
+    // ...existing code...
+});
+

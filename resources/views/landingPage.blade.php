@@ -49,14 +49,14 @@
         </div>
 
         @if($items->count())
-            <div class="overflow-x-auto overflow-y-auto max-h-[500px]">
-                <table class="min-w-full border border-slate-300 rounded-lg overflow-hidden" id="itemsTable">
+            <div class="overflow-x-auto overflow-y-auto max-h-[500px] rounded-lg">
+                <table class="min-w-full border border-slate-300 rounded-lg" id="itemsTable">
                     <thead>
                         <tr class="bg-slate-100">
-                            <th class="px-6 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Kategori</th>
-                            <th class="px-6 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Nama Barang</th>
-                            <th class="px-4 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Spesifikasi</th>
-                            <th class="px-4 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Jumlah Tersedia</th>
+                            <th class="sticky top-0 z-10 bg-slate-100 px-6 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Kategori</th>
+                            <th class="sticky top-0 z-10 bg-slate-100 px-6 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Nama Barang</th>
+                            <th class="sticky top-0 z-10 bg-slate-100 px-4 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Spesifikasi</th>
+                            <th class="sticky top-0 z-10 bg-slate-100 px-4 py-3 border-b border-r border-slate-300 text-center font-semibold text-slate-700">Jumlah Tersedia</th>
                         </tr>
                     </thead>
                     <tbody>

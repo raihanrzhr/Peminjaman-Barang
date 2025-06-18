@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('status', ['Available', 'Unavailable'])->default('Available');
             $table->enum('condition_status', ['Good', 'Damaged'])->default('Good');
             $table->foreign('item_id')->references('item_id')->on('items')->onDelete('cascade');
+            $table->timestamps(); // Tambahkan baris ini
         });
     }
 

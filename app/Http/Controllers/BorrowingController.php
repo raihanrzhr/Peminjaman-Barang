@@ -15,7 +15,16 @@ class BorrowingController extends Controller
 {
     public function index()
     {
-        $borrowings = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances'])->orderBy('created_at', 'desc')->get();
+        $borrowings = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances', 'borrowingDetails'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Urutkan di collection: Not Returned di atas, Returned di bawah
+        $borrowings = $borrowings->sortBy(function($borrowing) {
+            // Jika ada satu saja detail Not Returned, beri prioritas 0 (paling atas)
+            return $borrowing->borrowingDetails->contains('return_status', 'Not Returned') ? 0 : 1;
+        })->values();
+
         $activities = Activity::all();
         $borrowers = Borrower::all();
         $itemInstances = ItemInstance::all();

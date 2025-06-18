@@ -24,11 +24,14 @@ class AdminController extends Controller
     {
         $request->validate([
             'admin_name' => 'required|string|max:255',
-            'role' => 'required|integer|in:0,1', // Validasi role
-            'NIP' => 'nullable|integer', // Validasi NIP
+            'role' => 'required|integer|in:0,1',
+            'NIP' => 'nullable|integer',
         ]);
 
-        Admin::create($request->all());
+        $data = $request->all();
+        $data['admin_name'] = ucwords($data['admin_name']);
+
+        Admin::create($data);
 
         return redirect()->route('admins.index')->with('success', 'Admin berhasil ditambahkan!');
     }
@@ -44,12 +47,15 @@ class AdminController extends Controller
     {
         $request->validate([
             'admin_name' => 'required|string|max:255',
-            'role' => 'required|integer|in:0,1', // Validasi role
-            'NIP' => 'nullable|integer', // Validasi NIP
+            'role' => 'required|integer|in:0,1',
+            'NIP' => 'nullable|integer',
         ]);
 
+        $data = $request->all();
+        $data['admin_name'] = ucwords($data['admin_name']);
+
         $admin = Admin::findOrFail($id);
-        $admin->update($request->all());
+        $admin->update($data);
 
         return redirect()->route('admins.index')->with('success', 'Admin berhasil diperbarui!');
     }

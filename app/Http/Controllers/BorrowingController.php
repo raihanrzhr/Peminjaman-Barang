@@ -57,17 +57,17 @@ class BorrowingController extends Controller
         // Tentukan data peminjam berdasarkan status
         if ($request->borrower_status === 'Pegawai Ditmawa') {
             $admin = Admin::findOrFail($request->admin_id_all); // Gunakan admin_id_all
-            $borrowerName = ucwords($admin->admin_name); // Ambil nama dari tabel admins
+            $borrowerName = ucwords(trim($admin->admin_name)); // Ambil nama dari tabel admins
             $borrowerIdentifier = $admin->NIP; // Ambil NIP dari tabel admins
         } else {
-            $borrowerName = ucwords($request->borrower_name); // Ambil dari input form
+            $borrowerName = ucwords(trim($request->borrower_name)); // Ambil dari input form
             $borrowerIdentifier = $request->borrower_identifier; // Ambil dari input form
         }
 
         // Simpan aktivitas
         $activity = Activity::firstOrCreate(
             [
-                'activity_name' => ucwords($request->activity_name),
+                'activity_name' => ucwords(trim($request->activity_name)),
                 'activity_date' => $request->activity_date,
             ],
             [
@@ -188,7 +188,7 @@ class BorrowingController extends Controller
         // Cari atau buat aktivitas di tabel activities
         $activity = Activity::firstOrCreate(
             [
-                'activity_name' => ucwords($request->activity_name),
+                'activity_name' => ucwords(trim($request->activity_name)),
                 'activity_date' => $request->activity_date,
             ],
             [
@@ -199,7 +199,7 @@ class BorrowingController extends Controller
         // Cari atau buat peminjam di tabel borrowers
         $borrower = Borrower::firstOrCreate(
             [
-                'name' => ucwords($request->borrower_name),
+                'name' => ucwords(trim($request->borrower_name)),
                 'nip_nopeg_nim' => $request->borrower_identifier,
             ]
         );

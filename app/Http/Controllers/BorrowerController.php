@@ -22,7 +22,7 @@ class BorrowerController extends Controller
         ]);
 
         $borrower = new Borrower();
-        $borrower->name = ucwords($request->name);
+        $borrower->name = ucwords(trim($request->name));
         $borrower->nip_nopeg_nim = $request->nip_nopeg_nim;
         $borrower->description = $request->description;
         $borrower->save();
@@ -45,7 +45,7 @@ class BorrowerController extends Controller
         ]);
 
         $borrower = Borrower::findOrFail($id);
-        $borrower->name = ucwords($request->name);
+        $borrower->name = ucwords(trim($request->name));
         $borrower->nip_nopeg_nim = $request->nip_nopeg_nim;
         $borrower->description = $request->description;
         $borrower->save();

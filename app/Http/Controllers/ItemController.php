@@ -32,7 +32,7 @@ class ItemController extends Controller
         for ($i = 0; $i < $request->quantity; $i++) {
             ItemInstance::create([
                 'item_id' => $item->item_id,
-                'item_name' => ucwords($request->item_name),
+                'item_name' => ucwords(trim($request->item_name)),
                 'specifications' => $request->specifications,
                 'date_added' => now(),
                 'status' => 'Available',
@@ -74,7 +74,7 @@ class ItemController extends Controller
 
         $itemInstance->update([
             'condition_status' => $request->condition_status,
-            'item_name' => ucwords($request->item_name),
+            'item_name' => ucwords(trim($request->item_name)),
             'specifications' => $request->specifications,
             'id_barang' => $request->id_barang, // Perbarui id_barang jika ada
             'status' => $request->condition_status === 'Damaged' ? 'Unavailable' : 'Available',
@@ -129,7 +129,7 @@ class ItemController extends Controller
         $request->validate([
             'category' => 'required|string|unique:items,category',
         ]);
-        Item::firstOrCreate(['category' => ucwords($request->category)]);
+        Item::firstOrCreate(['category' => ucwords(trim($request->category))]);
         return redirect()->back()->with('success', 'Kategori berhasil ditambahkan!');
     }
 }

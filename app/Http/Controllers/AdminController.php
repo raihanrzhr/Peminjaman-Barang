@@ -29,7 +29,7 @@ class AdminController extends Controller
         ]);
 
         $data = $request->all();
-        $data['admin_name'] = ucwords($data['admin_name']);
+        $data['admin_name'] = ucwords(trim($data['admin_name']));
 
         Admin::create($data);
 
@@ -52,7 +52,7 @@ class AdminController extends Controller
         ]);
 
         $data = $request->all();
-        $data['admin_name'] = ucwords($data['admin_name']);
+        $data['admin_name'] = ucwords(trim($data['admin_name']));
 
         $admin = Admin::findOrFail($id);
         $admin->update($data);

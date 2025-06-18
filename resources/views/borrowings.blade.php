@@ -19,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
-                            @foreach ($borrowings as $index => $borrowing)
+                            @foreach($borrowings as $index => $borrowing)
                                 <tr id="row-{{ $borrowing->borrowing_id }}">
                                     <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
                                     <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->borrower->name }}</td>

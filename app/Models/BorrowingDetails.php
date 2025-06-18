@@ -12,7 +12,7 @@ class BorrowingDetails extends Model
     protected $table = 'borrowing_details';
     protected $primaryKey = 'detail_id';
     protected $keyType = 'int';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'borrowing_id',

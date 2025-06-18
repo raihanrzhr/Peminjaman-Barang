@@ -15,7 +15,7 @@ class BorrowingController extends Controller
 {
     public function index()
     {
-        $borrowings = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances'])->get();
+        $borrowings = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances'])->orderBy('created_at', 'desc')->get();
         $activities = Activity::all();
         $borrowers = Borrower::all();
         $itemInstances = ItemInstance::all();

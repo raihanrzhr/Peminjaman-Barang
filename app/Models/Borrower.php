@@ -12,7 +12,7 @@ class Borrower extends Model
     protected $table = 'borrowers';
     protected $primaryKey = 'borrower_id';
     protected $keyType = 'int';
-    public $timestamps = false;
+    public $timestamps = true;
     protected $fillable = [
         'name',
         'nip_nopeg_nim',

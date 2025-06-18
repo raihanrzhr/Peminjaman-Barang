@@ -11,7 +11,7 @@ class Borrowing extends Model
     protected $table = 'borrowing';
     protected $primaryKey = 'borrowing_id';
     protected $keyType = 'int';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'activity_id',

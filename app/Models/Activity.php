@@ -12,7 +12,7 @@ class Activity extends Model
     protected $table = 'activities';
     protected $primaryKey = 'activity_id';
     protected $keyType = 'int';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'activity_name',

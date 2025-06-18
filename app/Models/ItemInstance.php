@@ -9,7 +9,7 @@ class ItemInstance extends Model
     protected $table = 'item_instances';
     protected $primaryKey = 'instance_id';
     protected $keyType = 'int';
-    public $timestamps = false;
+    public $timestamps = true;
 
     protected $fillable = [
         'item_id',

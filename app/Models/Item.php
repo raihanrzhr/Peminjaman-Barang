@@ -8,7 +8,7 @@ class Item extends Model
 {
     protected $table = 'items';
     protected $primaryKey = 'item_id';
-    public $timestamps = false; // Nonaktifkan timestamps
+    public $timestamps = true; // Nonaktifkan timestamps
     protected $fillable = ['category'];
 
     public function itemInstances()

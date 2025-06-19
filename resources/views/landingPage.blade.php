@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Daftar Barang Tersedia</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="icon" href="{{ asset('images/ITB_white.png') }}" type="image/png">
     <script src="{{ asset('js/script.js') }}"></script>
@@ -38,15 +39,21 @@
     <div id="daftar-barang" class="max-w-7xl mx-auto mt-10 bg-white rounded-xl shadow p-8 mb-10">
         <h1 class="text-2xl font-bold text-blue-700 mb-6">Daftar Barang Tersedia</h1>
         
-        <!-- Search box -->
-        <div class="mb-6">
+        {{-- Search form --}}
+        <form method="GET" action="{{ url()->current() }}" class="mb-6 flex gap-2">
             <input
                 type="text"
-                id="searchInput"
+                name="q"
+                value="{{ request('q') }}"
                 placeholder="Cari nama barang..."
                 class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             >
-        </div>
+            @if(request('q'))
+                <a href="{{ url()->current() }}" class="px-4 py-2 bg-gray-200 rounded-lg text-gray-700 hover:bg-gray-300 transition">
+                    Clear
+                </a>
+            @endif
+        </form>
 
         @if($items->count())
             <div class="overflow-x-auto overflow-y-auto max-h-[500px] rounded-lg">
@@ -61,28 +68,19 @@
                     </thead>
                     <tbody>
                         @foreach($items as $item)
-                            @php
-                                // Kelompokkan instance yang tersedia berdasarkan nama dan spesifikasi
-                                $groups = collect($item->itemInstances)
-                                    ->where('status', 'Available')
-                                    ->groupBy(function($instance) {
-                                        return $instance->item_name . '||' . $instance->specifications;
-                                    });
-                            @endphp
-                            @foreach($groups as $key => $group)
-                                @php
-                                    [$itemName, $spec] = explode('||', $key);
-                                @endphp
-                                <tr class="hover:bg-slate-50">
-                                    <td class="px-4 py-3 border-b border-r border-slate-300 align-top">{{ $item->category }}</td>
-                                    <td class="px-4 py-3 border-b border-r border-slate-300 align-top item-name">{{ $itemName }}</td>
-                                    <td class="px-4 py-3 border-b border-r border-slate-300 item-spec">{{ $spec ?: '-' }}</td>
-                                    <td class="px-4 py-3 border-b border-r border-slate-300 text-center">{{ $group->count() }}</td>
-                                </tr>
-                            @endforeach
+                            <tr class="hover:bg-slate-50">
+                                <td class="px-4 py-3 border-b border-r border-slate-300 align-top">{{ $item->category }}</td>
+                                <td class="px-4 py-3 border-b border-r border-slate-300 align-top item-name">{{ $item->item_name }}</td>
+                                <td class="px-4 py-3 border-b border-r border-slate-300 item-spec">{{ $item->specifications ?: '-' }}</td>
+                                <td class="px-4 py-3 border-b border-r border-slate-300 text-center">{{ $item->jumlah_tersedia }}</td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+            {{-- Tambahkan ini untuk pagination --}}
+            <div class="mt-6">
+                {{ $items->links() }}
             </div>
         @else
             <p class="text-slate-500">Tidak ada barang yang tersedia saat ini.</p>

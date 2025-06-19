@@ -9,7 +9,7 @@ class BorrowerController extends Controller
 {
     public function index()
     {
-        $borrowers = Borrower::all();
+        $borrowers = Borrower::paginate(10);
         return view('borrowers', ['title' => 'Tabel Peminjam', 'names' => $borrowers]);
     }
     

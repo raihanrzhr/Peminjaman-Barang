@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $admins = Admin::all();
+        $admins = Admin::paginate(10);
         $title = 'Daftar Penanggung Jawab';
         return view('admins', compact('admins', 'title'));
     }

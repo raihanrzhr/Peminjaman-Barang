@@ -16,14 +16,14 @@ class BorrowingController extends Controller
     public function index()
     {
         $borrowings = Borrowing::with(['activity', 'borrower', 'admin', 'itemInstances', 'borrowingDetails'])
+            ->withCount([
+                'borrowingDetails as not_returned_count' => function ($query) {
+                    $query->where('return_status', 'Not Returned');
+                }
+            ])
+            ->orderByDesc('not_returned_count')
             ->orderBy('created_at', 'desc')
-            ->get();
-
-        // Urutkan di collection: Not Returned di atas, Returned di bawah
-        $borrowings = $borrowings->sortBy(function($borrowing) {
-            // Jika ada satu saja detail Not Returned, beri prioritas 0 (paling atas)
-            return $borrowing->borrowingDetails->contains('return_status', 'Not Returned') ? 0 : 1;
-        })->values();
+            ->paginate(10);
 
         $activities = Activity::all();
         $borrowers = Borrower::all();

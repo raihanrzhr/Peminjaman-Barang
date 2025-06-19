@@ -6,7 +6,7 @@
         
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
-                <div class="overflow-y-auto max-h-140 border rounded-md border-gray-300">
+                <div class="overflow-y-auto max-h-130 border rounded-md border-gray-300">
                     <table class="min-w-full border border-gray-300">
                         <thead class="bg-gray-50">
                             <tr>
@@ -70,6 +70,9 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-3 mb-2 px-2">
+                    {{ $admins->links() }}
                 </div>
             </div>
         </div>

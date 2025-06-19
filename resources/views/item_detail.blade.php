@@ -7,7 +7,7 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Tambahkan wrapper dengan scroll -->
-                <div class="overflow-y-auto max-h-140 border rounded-md border-gray-300">
+                <div class="overflow-y-auto max-h-130 border rounded-md border-gray-300">
                     <table class="min-w-full border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
@@ -106,6 +106,9 @@
                     </table>
                 </div>
                 <!-- Akhir wrapper dengan scroll -->
+                <div class="mt-3 mb-2 px-2">
+                    {{ $itemDetails->links() }}
+                </div>
                 <div class="mt-4">
                     <a href="{{ route('items.index') }}" class="text-blue-600 hover:text-blue-900">Kembali ke Daftar Barang</a>
                 </div>

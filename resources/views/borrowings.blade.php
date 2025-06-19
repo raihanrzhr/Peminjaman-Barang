@@ -7,7 +7,7 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Tambahkan wrapper dengan scroll horizontal dan vertikal -->
-                <div class="overflow-x-auto overflow-y-auto max-h-140 border border-gray-300">
+                <div class="overflow-x-auto overflow-y-auto max-h-130 border border-gray-300">
                     <table class="min-w-full border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
@@ -77,6 +77,9 @@
                     </table>
                 </div>
                 <!-- Akhir wrapper dengan scroll -->
+                <div class="mt-3 mb-2 px-2">
+                    {{ $borrowings->links() }}
+                </div>
             </div>
         </div>
         <div class="div2">

@@ -43,7 +43,7 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Wrapper with scroll -->
-                <div class="w-full overflow-x-auto overflow-y-auto max-h-117 border rounded-md border-gray-300">
+                <div class="w-full overflow-x-auto overflow-y-auto max-h-103 border rounded-md border-gray-300">
                     <table class="min-w-full table-auto border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
@@ -349,6 +349,9 @@
                 <!-- Akhir wrapper dengan scroll -->
                 <div class="mt-4">
                     <a href="{{ route('borrowings.index') }}" class="text-blue-600 hover:text-blue-900">Kembali ke Daftar Peminjaman</a>
+                </div>
+                <div class="mt-3 mb-2 px-2">
+                    {{ $borrowingDetails->links() }}
                 </div>
             </div>
         </div>

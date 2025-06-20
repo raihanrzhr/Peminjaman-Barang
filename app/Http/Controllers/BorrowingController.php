@@ -256,7 +256,7 @@ class BorrowingController extends Controller
     public function detail($id)
     {
         $borrowing = Borrowing::with(['activity', 'borrower', 'admin'])->findOrFail($id);
-        $borrowingDetails = BorrowingDetails::with(['instance.item'])->where('borrowing_id', $id)->get();
+        $borrowingDetails = BorrowingDetails::with(['instance.item'])->where('borrowing_id', $id)->paginate(10);
         $title = 'Detail Peminjaman';
         return view('borrowing_detail', compact('borrowing', 'borrowingDetails', 'title'));
     }

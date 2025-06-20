@@ -43,7 +43,7 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Wrapper with scroll -->
-                <div class="w-full overflow-x-auto overflow-y-auto max-h-140 border rounded-md border-gray-300">
+                <div class="w-full overflow-x-auto overflow-y-auto max-h-117 border rounded-md border-gray-300">
                     <table class="min-w-full table-auto border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
@@ -82,7 +82,7 @@
 
                                 <tr>
                                     <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center">{{ $loop->iteration }}</td>
-                                    <td class="px-2 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center max-w-xs">
+                                    <td class="px-2 py-4 text-sm text-gray-900 border-b border-r border-gray-300 max-w-xs">
                                         <div x-data="{ expanded: false }">
                                             <span x-show="!expanded">
                                                 {{ \Illuminate\Support\Str::limit($detail->instance->specifications, 30) ? $detail->instance->item_name . ' ' . \Illuminate\Support\Str::limit($detail->instance->specifications, 30) : $detail->instance->item->item_name }}

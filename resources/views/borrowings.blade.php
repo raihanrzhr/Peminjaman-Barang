@@ -7,25 +7,42 @@
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
                 <!-- Tambahkan wrapper dengan scroll horizontal dan vertikal -->
-                <div class="overflow-x-auto overflow-y-auto max-h-130 border border-gray-300">
+                <div class="overflow-x-auto overflow-y-auto max-h-130 border border-gray-400">
                     <table class="min-w-full border-collapse">
                         <thead class="bg-gray-50 sticky top-0 z-10">
                             <tr>
-                                <th class="px-3 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Peminjam</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Kegiatan</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Penanggung jawab</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Aksi</th>
+                                <th class="px-3 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-400">No</th>
+                                <th class="px-1 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-400">Tanggal Pinjam</th>
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-400">Peminjam</th>
+                                <th class="px-9 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-400">Kegiatan</th>
+                                {{-- <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-400">Penanggung jawab</th> --}}
+                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-400">Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @foreach($borrowings as $index => $borrowing)
-                                <tr id="row-{{ $borrowing->borrowing_id }}">
-                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $index + 1 }}</td>
-                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->borrower->name }}</td>
-                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->activity->activity_name }}</td>
-                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-300">{{ $borrowing->admin->admin_name }}</td>
-                                    <td class="px-1 py-4 text-sm text-center relative">
+                                @php
+                                    $totalDetails = $borrowing->borrowingDetails->count();
+                                    $notReturned = $borrowing->not_returned_count ?? 0;
+                                    // Default: merah (belum ada yang dikembalikan)
+                                    $rowBg = 'bg-red-100';
+                                    if ($notReturned == 0 && $totalDetails > 0) {
+                                        $rowBg = 'bg-green-100'; // Semua sudah dikembalikan
+                                    } elseif ($notReturned > 0 && $notReturned < $totalDetails) {
+                                        $rowBg = 'bg-yellow-100'; // Sebagian sudah dikembalikan
+                                    }
+                                @endphp
+                                <tr id="row-{{ $borrowing->borrowing_id }}" class="{{ $rowBg }}">
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-400">{{ $index + 1 }}</td>
+                                    <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-400">
+                                        {{ optional($borrowing->borrowingDetails->first())->borrowing_date 
+                                            ? \Carbon\Carbon::parse($borrowing->borrowingDetails->first()->borrowing_date)->format('d-m-Y') 
+                                            : '-' }}
+                                    </td>
+                                    <td class="px-6 py-3 text-sm text-gray-900 border-b border-r border-gray-400">{{ $borrowing->borrower->name }}</td>
+                                    <td class="px-6 py-3 text-sm text-gray-900 border-b border-r border-gray-400">{{ $borrowing->activity->activity_name }}</td>
+                                    {{-- <td class="px-6 py-3 text-center text-sm text-gray-900 border-b border-r border-gray-400">{{ $borrowing->admin->admin_name }}</td> --}}
+                                    <td class="px-1 py-4 text-sm text-center relative border-b border-gray-400">
                                         <div 
                                             x-data="{ open: false, top: 0, left: 0, height: 0 }" 
                                             class="inline-block"
@@ -38,7 +55,7 @@
                                                     left = rect.left + window.scrollX;
                                                     height = rect.height;
                                                 })"
-                                                class="p-1 border border-gray-300 rounded-md hover:bg-gray-200 focus:outline-none"
+                                                class="p-1 border border-gray-400 rounded-md hover:bg-gray-200 focus:outline-none"
                                                 type="button"
                                             >
                                                 <!-- Meatballs icon -->
@@ -53,7 +70,7 @@
                                                 @click.away="open = false"
                                                 x-transition
                                                 :style="'position:fixed;top:' + (top - 120) + 'px;left:' + left + 'px;width:140px;z-index:9999'"
-                                                class="bg-white border border-gray-300 rounded-lg shadow-lg py-1"
+                                                class="bg-white border border-gray-400 rounded-lg shadow-lg py-1"
                                             >
                                                 <a href="{{ route('borrowings.edit', $borrowing->borrowing_id) }}"
                                                     class="block px-4 py-2 text-sm text-blue-700 border border-transparent rounded-md m-1 hover:bg-blue-50 hover:text-blue-900 hover:border-blue-400 transition text-center">

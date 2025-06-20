@@ -1,6 +1,44 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot:title>
     <x-notification />
+    @php
+        // Ambil data utama
+        $activity = $borrowing->activity;
+        $borrower = $borrowing->borrower;
+        $firstDetail = $borrowingDetails->first();
+        $borrowingDate = $firstDetail?->borrowing_date ?? null;
+        // Ambil admin role 0 dan 1
+        $adminRole0 = \App\Models\Admin::where('role', 0)->first();
+        $adminRole1 = \App\Models\Admin::where('role', 1)->first();
+    @endphp
+
+    <div class="p-4 border-b border-gray-200 bg-gray-50 grid grid-cols-1 md:grid-cols-2 gap-2 text-sm mb-4">
+        <div>
+            <span class="font-semibold">Nama Kegiatan:</span>
+            {{ $activity?->activity_name ?? '-' }}
+        </div>
+        <div>
+            <span class="font-semibold">Tanggal Kegiatan:</span>
+            {{ $activity?->activity_date ? \Carbon\Carbon::parse($activity->activity_date)->format('d-m-Y') : '-' }}
+        </div>
+        <div>
+            <span class="font-semibold">Nama Peminjam:</span>
+            {{ $borrower?->name ?? '-' }}
+        </div>
+        <div>
+            <span class="font-semibold">Tanggal Pinjam:</span>
+            {{ $borrowingDate ? \Carbon\Carbon::parse($borrowingDate)->format('d-m-Y') : '-' }}
+        </div>
+        <div>
+            <span class="font-semibold">Penanggung Jawab DITMAWA:</span>
+            {{ $adminRole0?->admin_name ?? '-' }}
+        </div>
+        <div>
+            <span class="font-semibold">Penanggung Jawab Tim Sisfo DITMAWA</span>
+            {{ $adminRole1?->admin_name ?? '-' }}
+        </div>
+    </div>
+
     <div class="parent">
         <div class="div1">
             <div class="bg-white rounded-lg shadow overflow-hidden">
@@ -12,7 +50,7 @@
                                 <th class="px-1 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">No</th>
                                 <th class="px-4 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">List Barang</th>
                                 <th class="min-w-[200px] px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Status</th>
-                                <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Pinjam</th>
+                                {{-- <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Pinjam</th> --}}
                                 <th class="px-3 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Rencana Pengembalian</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Tanggal Kembali</th>
                                 <th class="px-6 py-3 text-center text-sm font-medium text-gray-900 border-b border-r border-gray-300">Bukti Peminjaman</th>
@@ -30,7 +68,7 @@
                                     // Gabungkan data yang sama
                                     $currentData = [
                                         'borrowing_id' => $detail->borrowing_id,
-                                        'borrowing_date' => $detail->borrowing_date,
+                                        // 'borrowing_date' => $detail->borrowing_date,
                                         'planned_return_date' => $detail->planned_return_date,
                                         'return_date' => $detail->return_date,
                                         'proof_file' => $detail->proof_file,
@@ -74,16 +112,17 @@
                                         @php
                                             // Hitung jumlah baris yang sama untuk data ini
                                             $rowspanCount = $borrowingDetails->filter(function ($d) use ($currentData) {
-                                                return $d->borrowing_date === $currentData['borrowing_date'] &&
+                                                return 
+                                                        // $d->borrowing_date === $currentData['borrowing_date'] &&
                                                        $d->planned_return_date === $currentData['planned_return_date'] &&
                                                        $d->return_date === $currentData['return_date'] &&
                                                        $d->proof_file === $currentData['proof_file'];
                                             })->count();
                                         @endphp
 
-                                        <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center" rowspan="{{ $rowspanCount }}">
+                                        {{-- <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center" rowspan="{{ $rowspanCount }}">
                                             {{ \Carbon\Carbon::parse($detail->borrowing_date)->format('d-m-Y') }}
-                                        </td>
+                                        </td> --}}
                                         <td class="px-6 py-4 text-sm text-gray-900 border-b border-r border-gray-300 text-center" rowspan="{{ $rowspanCount }}">
                                             {{ \Carbon\Carbon::parse($detail->planned_return_date)->format('d-m-Y') }}
                                         </td>

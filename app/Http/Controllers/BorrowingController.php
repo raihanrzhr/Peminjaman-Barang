@@ -23,7 +23,7 @@ class BorrowingController extends Controller
             ])
             ->orderByDesc('not_returned_count')
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(20);
 
         $activities = Activity::all();
         $borrowers = Borrower::all();

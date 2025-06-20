@@ -24,7 +24,7 @@ class LandingController extends Controller
             $query->where('item_instances.item_name', 'like', '%' . request('q') . '%');
         }
 
-        $items = $query->paginate(15)->withQueryString();
+        $items = $query->paginate(20)->withQueryString();
 
         return view('landingPage', compact('items'));
     }

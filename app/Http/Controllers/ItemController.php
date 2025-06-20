@@ -11,7 +11,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::withCount('itemInstances')->paginate(10);
+        $items = Item::withCount('itemInstances')->paginate(20);
         $title = 'Tabel Barang';
         return view('items', compact('items', 'title'));
     }
@@ -112,7 +112,7 @@ class ItemController extends Controller
 
     public function show($id)
     {
-        $itemDetails = ItemInstance::where('item_id', $id)->paginate(20);
+        $itemDetails = ItemInstance::where('item_id', $id)->paginate(30);
         $availableCount = $itemDetails->where('status', 'Available')->count();
         $title = 'Detail Barang';
         return view('item_detail', compact('itemDetails', 'title', 'availableCount'));
